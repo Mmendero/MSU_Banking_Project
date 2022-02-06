@@ -1,0 +1,34 @@
+body {
+  background-image: url("assets/pastel_background.jpg");
+}
+
+/*FrontPage Styles*/
+.company-name-frontpage {
+  background-color: black;
+  background: rgba(0, 0, 0, 0.438);
+  text-align: center;
+  padding: 5px;
+}
+
+.company-name-frontpage h1 {
+  color: white;
+}
+
+/*Login Styles*/
+.signin-card-title {
+  color: black;
+  text-align: center;
+  padding: 40px;
+}
+.card-title {
+  text-align: center;
+}
+
+.login-card {
+  width: 40rem;
+  margin: auto;
+}
+
+.button-container {
+  text-align: center;
+}
