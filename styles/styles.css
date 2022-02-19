@@ -2,6 +2,10 @@ body {
   background-image: url("assets/pastel_background.jpg");
 }
 
+nav div{
+  vertical-align: middle;
+}
+
 /*FrontPage Styles*/
 .company-name-frontpage {
   background-color: black;
@@ -10,7 +14,7 @@ body {
   padding: 5px;
 }
 
-.company-name-frontpage h1 {
+.company-name-frontpage{
   color: white;
 }
 
@@ -26,6 +30,9 @@ body {
 
 .login-card {
   width: 40rem;
+  margin: auto;
+}
+.logout-form {
   margin: auto;
 }
 
