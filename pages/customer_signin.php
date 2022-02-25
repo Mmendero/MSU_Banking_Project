@@ -1,3 +1,31 @@
+<?php
+    require_once "config.php";
+
+    //informs user if input was not put in correctly
+    if ($_SESSION['login_failed'] == 'bad_input') {
+        $notice = 'ERROR: Log in info was not properly input. Please try again.';
+        $_SESSION['login_failed'] = '';
+    }
+    
+    //informs user if username does not exist
+    else if ($_SESSION['login_failed'] == 'userdne') {
+        $notice = 'ERROR: Username does not exist. Please try again.';
+        $_SESSION['login_failed'] = '';
+    }
+    
+    //informs user if password is incorrect
+    else if ($_SESSION['login_failed'] == 'wrong_password') {
+        $notice = 'ERROR: Incorrect password. Please try again.';
+        $_SESSION['login_failed'] = '';
+    }
+    
+    //informs user if they tried to add items to cart prior to logging in
+    else if ($_SESSION['needlog'] == true) {
+        $notice = 'ERROR: You are not logged in. Please log in and try again.';
+        $_SESSION['needlog'] = false;
+    }
+?>
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -26,13 +54,14 @@
   </head>
 
   <body>
+    <div stype='color: red;'><?php echo $notice; ?></div>
     <h1 class="signin-card-title">Banking App Sign In</h1>
 
     <div class="card login-card">
       <div class="card-body">
         <h5 class="card-title">Login</h5>
 
-        <form action="" method="post">
+        <form action="../lib/customer_login_confirm.php" method="post">
           <div class="form-group">
             <label for="user">User</label>
             <input
@@ -54,7 +83,7 @@
             </button>
           </div>
 
-          <a class="nav-link card-title" href="register.php#"
+          <a class="nav-link card-title" href="customer_register.php#"
             >Don't have an account? Register Here!</a
           >
         </form>

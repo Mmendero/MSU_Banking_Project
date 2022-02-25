@@ -1,8 +1,7 @@
 body {
-  background-image: url("assets/pastel_background.jpg");
 }
 
-nav div{
+nav div {
   vertical-align: middle;
 }
 
@@ -14,7 +13,7 @@ nav div{
   padding: 5px;
 }
 
-.company-name-frontpage{
+.company-name-frontpage {
   color: white;
 }
 
