@@ -1,3 +1,12 @@
+<?php
+    // Logout Function
+    if (isset($_POST["logout"])) {
+        session_destroy();
+        $_SESSION['loggedin'] == false;
+        header('Location: ../customer_signin.php');
+    }
+?>
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
