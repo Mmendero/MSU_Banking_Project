@@ -1,29 +1,11 @@
 <?php
-    require_once "config.php";
+  include "../lib/customer_signin_confirm.php";
+  
+  // Register Form is Submitted
+  if (isset($_POST["signin_submit"])) {
+    handleSignIn($db);
+  }
 
-    //informs user if input was not put in correctly
-    if ($_SESSION['login_failed'] == 'bad_input') {
-        $notice = 'ERROR: Log in info was not properly input. Please try again.';
-        $_SESSION['login_failed'] = '';
-    }
-    
-    //informs user if username does not exist
-    else if ($_SESSION['login_failed'] == 'userdne') {
-        $notice = 'ERROR: Username does not exist. Please try again.';
-        $_SESSION['login_failed'] = '';
-    }
-    
-    //informs user if password is incorrect
-    else if ($_SESSION['login_failed'] == 'wrong_password') {
-        $notice = 'ERROR: Incorrect password. Please try again.';
-        $_SESSION['login_failed'] = '';
-    }
-    
-    //informs user if they tried to add items to cart prior to logging in
-    else if ($_SESSION['needlog'] == true) {
-        $notice = 'ERROR: You are not logged in. Please log in and try again.';
-        $_SESSION['needlog'] = false;
-    }
 ?>
 
 <html lang="en">
@@ -42,7 +24,7 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="../styles/styles.css" />
 
     <!-- FontAwesome Icons -->
     <script
@@ -54,14 +36,20 @@
   </head>
 
   <body>
-    <div stype='color: red;'><?php echo $notice; ?></div>
+      
+      <?php 
+        if (isset($_SESSION['message'])){
+          echo "<p class='message'>".$_SESSION['message']."</p>";
+          $_SESSION['message'] = '';
+        }
+       ?>
     <h1 class="signin-card-title">Banking App Sign In</h1>
 
     <div class="card login-card">
       <div class="card-body">
         <h5 class="card-title">Login</h5>
 
-        <form action="../lib/customer_login_confirm.php" method="post">
+        <form action="" method="post">
           <div class="form-group">
             <label for="user">User</label>
             <input
@@ -78,7 +66,7 @@
           </div>
 
           <div class="button-container">
-            <button type="submit" class="btn btn-primary" name="but_submit">
+            <button type="submit" class="btn btn-primary" name="signin_submit">
               Sign In
             </button>
           </div>

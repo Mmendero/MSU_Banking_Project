@@ -1,8 +1,14 @@
 body {
+  
 }
 
 nav div {
   vertical-align: middle;
+}
+
+.message {
+  color: red;
+  text-align: center;
 }
 
 /*FrontPage Styles*/
