@@ -1,5 +1,5 @@
 <?php
-  include "../lib/customer_signin_confirm.php";
+  include "../../lib/customer_signin_confirm.php";
   
   // Register Form is Submitted
   if (isset($_POST["signin_submit"])) {
@@ -24,7 +24,7 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/styles.css" />
 
     <!-- FontAwesome Icons -->
     <script
@@ -36,7 +36,6 @@
   </head>
 
   <body>
-      
       <?php 
         if (isset($_SESSION['message'])){
           echo "<p class='message'>".$_SESSION['message']."</p>";

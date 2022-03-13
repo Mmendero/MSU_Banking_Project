@@ -13,5 +13,5 @@
     }
 
     $_SESSION['login_failed'] = '';
-    $_SESSION['loggedin'] == false;
+    $_SESSION['loggedin'] = false;
 ?>

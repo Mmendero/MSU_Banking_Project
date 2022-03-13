@@ -1,8 +1,9 @@
 <?php 
-	require_once "../config.php";
+	include "../../config.php";
 
 	function handleRegistration($db) {
 		//takes input passed from form and assigns to variables
+		$acc_type = trim($_POST['acc_type']);
 		$user = strtolower(trim($_POST['user']));
 		$pass = trim($_POST['pass']);
 		$conpass = trim($_POST['conpass']);
@@ -18,25 +19,28 @@
 		if (!$user || !$pass || !$conpass || !$fname || !$lname || !$email || !$stadd || !$city || !$state || !$zip) {
 			$_SESSION['registration_failed'] = 'invalid_input';
 			$_SESSION['message'] = 'Registration info was not properly input. Please try again.';
-			header('Location: ../pages/customer_register.php');
+			header('Location: ../cust_pages/cust_pages/customer_register.php');
+			exit();
 		}
 		
 		//checks if password is at least 6 characters
 		else if (strlen($pass) < 6) {
 			$_SESSION['registration_failed'] = 'invalid_password';
 			$_SESSION['message'] = 'Password must be at least 6 characters. Please try again.';
-			header('Location: ../pages/customer_register.php');
+			header('Location: ../cust_pages/customer_register.php');
+			exit();
 		}
 		
 		//checks if password and confirm password inputs match
 		else if ($pass != $conpass) {
 			$_SESSION['registration_failed'] = 'pwdnotmatch';
 			$_SESSION['message'] = 'Passwords do not match. Please try again.';
-			header('Location: ../pages/customer_register.php');
+			header('Location: ../cust_pages/customer_register.php');
+			exit();
 		}
 		
 		//gets id and username from current customers
-		$query = 'SELECT customerID, cUsername, cEmail FROM CUSTOMER';
+		$query = 'SELECT ID, username, email FROM CUSTOMER';
 		$results = $db->query($query);
 		
 		//gets the number of results
@@ -66,7 +70,7 @@
 			$row = $results->fetch_assoc();
 			
 			//compares current ids with new ids
-			if ($custid == $row['customerID'])
+			if ($custid == $row['ID'])
 				//creates a new random id if there is a match
 				$custid = mt_rand(100000, 999999);
 			
@@ -75,14 +79,14 @@
 				//exits program is there is a match
 				$_SESSION['registration_failed'] = 'usertaken';
 				$_SESSION['message'] = 'Username already taken. Please try again.';
-				header('Location: ../pages/customer_register.php');
+				header('Location: ../cust_pages/customer_register.php');
 			}
 			
 			if ($email == $row['email']) {
 				//exits program is there is a match
 				$_SESSION['registration_failed'] = 'emailtaken';
 				$_SESSION['message'] = 'Email already in use. Please try again.';
-				header('Location: ../pages/customer_register.php');
+				header('Location: ../cust_pages/customer_register.php');
 			}
 		}
 		
@@ -91,7 +95,7 @@
 		
 		//creates insert query for db with user info
 		$query = "INSERT INTO CUSTOMER VALUES 
-		('".$custid."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
+		('".$custid."', '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
 		
 		//tries to insert user info into db
 		$results = $db->query($query);
@@ -99,7 +103,7 @@
 		//checks if insert was successful
 		if ($results) {
 			$_SESSION['regdone'] = true;
-			header('Location: ../pages/cust_pages/customer_homepage.php');
+			header('Location: ../cust_pages/customer_homepage.php');
 			exit();
 		}
 		
@@ -107,7 +111,7 @@
 		else {
 			$_SESSION['registration_failed'] = 'randerr';
 			$_SESSION['message'] = 'An error has occurred. Please try again.';
-			header('Location: ../pages/customer_register.php');
+			header('Location: ../cust_pages/customer_register.php');
 			exit();
 		}
 		

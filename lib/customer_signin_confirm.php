@@ -1,6 +1,6 @@
 <?php
     //includes file with db connection
-    require_once '../config.php';
+    include '../../config.php';
 
     function handleSignIn($db) {
         //takes input passed from form and assigns to variables
@@ -15,7 +15,7 @@
         }
         
         //queries db for username entered
-        $query = "SELECT cPassword, cFname FROM CUSTOMER WHERE cUsername = '".$user."'";
+        $query = "SELECT password, fname FROM CUSTOMER WHERE username = '".$user."'";
         $result = $db->query($query);
 
         //checks if results were returned
@@ -29,10 +29,10 @@
         $row = $result->fetch_assoc();
         
         //compares password hashed saved with password entered; logs in and redirects to homepage if passwords match
-        if (password_verify($pass, $row['cPassword'])) {
+        if (password_verify($pass, $row['password'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user'] = $user;
-            $_SESSION['name'] = $row['cFname'];
+            $_SESSION['name'] = $row['fname'];
             
             
             header('Location: ../pages/cust_pages/customer_homepage.php');
