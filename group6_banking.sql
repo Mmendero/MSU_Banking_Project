@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2022 at 08:24 PM
+-- Generation Time: Mar 14, 2022 at 02:16 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -24,44 +24,121 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `account`
+--
+
+CREATE TABLE `account` (
+  `account_number` int(50) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `balance` int(100) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `ID` int(50) NOT NULL,
+  `username` int(50) NOT NULL,
+  `password` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customer`
 --
 
 CREATE TABLE `customer` (
-  `customerID` char(6) NOT NULL,
-  `cUsername` varchar(50) DEFAULT NULL,
-  `cPassword` varchar(255) NOT NULL,
-  `cEmail` varchar(50) DEFAULT NULL,
-  `cFname` varchar(50) NOT NULL,
-  `cLname` varchar(50) NOT NULL,
-  `cAddress` varchar(100) NOT NULL
+  `ID` int(50) NOT NULL,
+  `acc_number` int(255) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `fname` varchar(50) NOT NULL,
+  `lname` varchar(50) NOT NULL,
+  `address` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`customerID`, `cUsername`, `cPassword`, `cEmail`, `cFname`, `cLname`, `cAddress`) VALUES
-('955337', 'sarmientob1', '$2y$10$JKFlxUhFJ2LwxQ8a3QZ96O7dFRUSguCsKEvYP2eXY/ir/1JEiGbIi', 'sarmientob1@montclair.edu', 'Brianna', 'Sarmiento', '1 Normal Ave Montclair, NJ 07345'),
-('957255', 'mmendero', '$2y$10$NWFx40skPQ0RE4dUPvAzRuO7tzRlyX/X.Ttq/QbWHL.pAKow3e1r2', '12@fsad.com', 'edw1d', '223432', '43242 432243, NJ 07329');
+INSERT INTO `customer` (`ID`, `acc_number`, `username`, `password`, `email`, `fname`, `lname`, `address`) VALUES
+(955337, 0, 'sarmientob1', '$2y$10$JKFlxUhFJ2LwxQ8a3QZ96O7dFRUSguCsKEvYP2eXY/ir/1JEiGbIi', 'sarmientob1@montclair.edu', 'Brianna', 'Sarmiento', '1 Normal Ave Montclair, NJ 07345'),
+(957255, 0, 'mmendero', '$2y$10$NWFx40skPQ0RE4dUPvAzRuO7tzRlyX/X.Ttq/QbWHL.pAKow3e1r2', '12@fsad.com', 'edw1d', '223432', '43242 432243, NJ 07329');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `ID` int(50) NOT NULL,
+  `account_number` int(50) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `recipient_name` varchar(100) NOT NULL,
+  `recipient_acc` int(50) NOT NULL,
+  `amount` int(50) NOT NULL,
+  `date` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
-  ADD PRIMARY KEY (`customerID`),
-  ADD UNIQUE KEY `cUsername` (`cUsername`),
-  ADD UNIQUE KEY `cEmail` (`cEmail`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `cUsername` (`username`),
+  ADD UNIQUE KEY `cEmail` (`email`);
+
+--
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957256;
+
+--
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
+-- Permissions
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER, CREATE TEMPORARY TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON *.* TO `G6_admin`@`localhost` IDENTIFIED BY PASSWORD '*C285157A2629417E8D3ABE8323336295368ECB63';
 
 GRANT ALL PRIVILEGES ON `group6_banking`.* TO `G6_admin`@`localhost`;
