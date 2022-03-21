@@ -3,7 +3,7 @@
     if (isset($_POST["logout"])) {
         session_destroy();
         $_SESSION['loggedin'] == false;
-        header('Location: ../customer_signin.php');
+        header('Location: ../cust_pages/customer_signin.php');
     }
 ?>
 
@@ -23,7 +23,7 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/styles.css" />
 
     <!-- FontAwesome Icons -->
     <script
@@ -65,13 +65,13 @@
           </li>
         </ul>
 
+        <form class="form-inline my-2 my-lg-0" action="" method="POST">
+          <button name="logout" class="btn btn-info form-inline my-2 my-lg-0">
+            Logout
+          </button>
+        </form>
         
       </div>
-      <form class="logout-form" action="" method="POST">
-        <button name="logout" class="btn btn-info form-inline my-2 my-lg-0">
-          Logout
-        </button>
-      </form>
     </nav>
 
     <h1>Account Balance</h1>

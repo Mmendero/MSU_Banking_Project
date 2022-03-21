@@ -1,9 +1,9 @@
 <?php
-  include "../../lib/customer_signin_confirm.php";
+  include "../../lib/admin_signin_confirm.php";
   
   // Register Form is Submitted
-  if (isset($_POST["cust_signin"])) {
-    handleSignIn($db);
+  if (isset($_POST["admn_signin"])) {
+    handleAdminSignIn($db);
   }
 
 ?>
@@ -37,16 +37,12 @@
 
   <body>
     <?php 
-      if (isset($_SESSION['message']) && $_SESSION['regdone'] == true){
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
-        $_SESSION['message'] = '';
-      }
-      elseif(isset($_SESSION['message']) && $_SESSION['message'] != ""){
+      if(isset($_SESSION['message']) && $_SESSION['message'] != ""){
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
         $_SESSION['message'] = '';
       }
       ?>
-    <h1 class="signin-card-title">Banking App Sign In</h1>
+    <h1 class="signin-card-title">Banking App Admin Sign In</h1>
 
     <div class="card login-card">
       <div class="card-body">
@@ -69,14 +65,10 @@
           </div>
 
           <div class="button-container">
-            <button type="submit" class="btn btn-primary" name="cust_signin">
+            <button type="submit" class="btn btn-primary" name="admn_signin">
               Sign In
             </button>
           </div>
-
-          <a class="nav-link card-title" href="customer_register.php#"
-            >Don't have an account? Register Here!</a
-          >
         </form>
       </div>
     </div>
