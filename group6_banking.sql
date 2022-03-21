@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2022 at 02:16 PM
+-- Generation Time: Mar 21, 2022 at 10:38 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -33,6 +33,38 @@ CREATE TABLE `account` (
   `balance` int(100) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`account_number`, `type`, `balance`) VALUES
+(0, '', 0),
+(0, '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acc_request`
+--
+
+CREATE TABLE `acc_request` (
+  `ID` int(50) NOT NULL,
+  `acc_type` varchar(255) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `fname` varchar(50) NOT NULL,
+  `lname` varchar(50) NOT NULL,
+  `address` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `acc_request`
+--
+
+INSERT INTO `acc_request` (`ID`, `acc_type`, `username`, `password`, `email`, `fname`, `lname`, `address`) VALUES
+(597854, 'Savings', 'mendu', '$2y$10$m5Tql5NmjUmanKuVRtjDUuuC7BxyHF9O9RbAFXAO4esHVJCE0zqxW', 'dasd@dsadc.ocm', 'w', 'w', 'w w, w 0239012');
+
 -- --------------------------------------------------------
 
 --
@@ -41,9 +73,16 @@ CREATE TABLE `account` (
 
 CREATE TABLE `admin` (
   `ID` int(50) NOT NULL,
-  `username` int(50) NOT NULL,
-  `password` int(50) NOT NULL
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`ID`, `username`, `password`) VALUES
+(1, 'mmendero', 'g6banking');
 
 -- --------------------------------------------------------
 
@@ -68,7 +107,9 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`ID`, `acc_number`, `username`, `password`, `email`, `fname`, `lname`, `address`) VALUES
 (955337, 0, 'sarmientob1', '$2y$10$JKFlxUhFJ2LwxQ8a3QZ96O7dFRUSguCsKEvYP2eXY/ir/1JEiGbIi', 'sarmientob1@montclair.edu', 'Brianna', 'Sarmiento', '1 Normal Ave Montclair, NJ 07345'),
-(957255, 0, 'mmendero', '$2y$10$NWFx40skPQ0RE4dUPvAzRuO7tzRlyX/X.Ttq/QbWHL.pAKow3e1r2', '12@fsad.com', 'edw1d', '223432', '43242 432243, NJ 07329');
+(957255, 0, 'mmendero', '$2y$10$NWFx40skPQ0RE4dUPvAzRuO7tzRlyX/X.Ttq/QbWHL.pAKow3e1r2', '12@fsad.com', 'edw1d', '223432', '43242 432243, NJ 07329'),
+(649352, 0, 'mendeero', '$2y$10$1QmH6QQBn4OfRb9MXsU2T.3b.ddFx6T29.nR4qFKweoY5oJV56PIm', 'das@msad.com', 'k', 'k', 'k k, k k'),
+(957256, 0, '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -90,6 +131,14 @@ CREATE TABLE `transaction` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `acc_request`
+--
+ALTER TABLE `acc_request`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `cUsername` (`username`),
+  ADD UNIQUE KEY `cEmail` (`email`);
 
 --
 -- Indexes for table `admin`
@@ -116,16 +165,22 @@ ALTER TABLE `transaction`
 --
 
 --
+-- AUTO_INCREMENT for table `acc_request`
+--
+ALTER TABLE `acc_request`
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957256;
+
+--
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957256;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957257;
 
 --
 -- AUTO_INCREMENT for table `transaction`
