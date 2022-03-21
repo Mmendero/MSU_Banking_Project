@@ -1,0 +1,26 @@
+h1 {
+    text-align: center;
+}
+
+th, tr, td {
+    height: 50px;
+    text-align: center;
+}
+
+.no-requests{
+    padding: 50px;
+}
+
+.requests-title{
+    padding: 20px;
+}
+
+.card{
+    width: 40%;
+    margin: auto;
+}
+
+.table{
+    width: 70%;
+    margin: auto;
+}

@@ -1,3 +1,12 @@
+<?php
+  // Logout Function
+  if (isset($_POST["logout"])) {
+      session_destroy();
+      $_SESSION['loggedin'] == false;
+      header('Location: ../admin_pages/admin_signin.php');
+  }
+?>
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -14,7 +23,7 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/styles.css" />
 
     <!-- FontAwesome Icons -->
     <script
@@ -40,21 +49,21 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="withdraw.php#">View Transaction Histories</a>
+            <a class="nav-link" href="manage_users.php#">Manage Users</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="manage_users.php#">Manage Users</a>
+            <a class="nav-link" href="account_requests.php#">Account Creation Requests</a>
           </li>
         </ul>
 
-        
+        <form class="form-inline my-2 my-lg-0" action="" method="POST">
+          <button name="logout" class="btn btn-info form-inline my-2 my-lg-0">
+            Logout
+          </button>
+        </form>
       </div>
-      <form class="logout-form" action="" method="POST">
-        <button name="logout" class="btn btn-info form-inline my-2 my-lg-0">
-          Logout
-        </button>
-      </form>
+      
     </nav>
 
     <h1>Admin Frontpage</h1>

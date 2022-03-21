@@ -80,6 +80,7 @@
 				$_SESSION['registration_failed'] = 'usertaken';
 				$_SESSION['message'] = 'Username already taken. Please try again.';
 				header('Location: ../cust_pages/customer_register.php');
+				exit();
 			}
 			
 			if ($email == $row['email']) {
@@ -87,6 +88,7 @@
 				$_SESSION['registration_failed'] = 'emailtaken';
 				$_SESSION['message'] = 'Email already in use. Please try again.';
 				header('Location: ../cust_pages/customer_register.php');
+				exit();
 			}
 		}
 		
@@ -94,7 +96,7 @@
 		$custid = strval($custid);
 		
 		//creates insert query for db with user info
-		$query = "INSERT INTO CUSTOMER VALUES 
+		$query = "INSERT INTO ACC_REQUEST VALUES 
 		('".$custid."', '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
 		
 		//tries to insert user info into db
@@ -103,7 +105,8 @@
 		//checks if insert was successful
 		if ($results) {
 			$_SESSION['regdone'] = true;
-			header('Location: ../cust_pages/customer_homepage.php');
+			$_SESSION['message'] = 'Success: Account Registration Request has been Submitted! Please wait for an admin to approve your account creation.';
+			header('Location: ../cust_pages/customer_signin.php');
 			exit();
 		}
 		

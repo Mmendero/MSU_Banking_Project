@@ -38,10 +38,6 @@ nav div {
   width: 40rem;
 }
 
-.logout-form {
-  margin: auto;
-}
-
 .register-form {
   text-align: center;
   background-color: aqua;
@@ -49,5 +45,9 @@ nav div {
 }
 
 .button-container {
+  text-align: center;
+}
+
+.alert .alert-danger{
   text-align: center;
 }
