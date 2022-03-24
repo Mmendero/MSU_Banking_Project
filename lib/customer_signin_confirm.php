@@ -35,7 +35,7 @@
             $_SESSION['name'] = $row['fname'];
             
             
-            header('Location: ../pages/cust_pages/customer_homepage.php');
+            header('Location: ../cust_pages/customer_homepage.php');
             return;
         }
         //if password is wrong, returns to login page
@@ -46,7 +46,4 @@
             return;
         }
     }
-    
-    
-
 ?>
