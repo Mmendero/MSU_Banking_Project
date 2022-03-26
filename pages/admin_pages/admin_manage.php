@@ -1,10 +1,10 @@
 <?php
-    // Logout Function
-    if (isset($_POST["logout"])) {
-        session_destroy();
-        $_SESSION['loggedin'] == false;
-        header('Location: ../cust_pages/customer_signin.php');
-    }
+  // Logout Function
+  if (isset($_POST["logout"])) {
+      session_destroy();
+      $_SESSION['loggedin'] == false;
+      header('Location: ../admin_pages/admin_signin.php');
+  }
 ?>
 
 <html lang="en">
@@ -31,13 +31,13 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>Banking App</title>
+    <title>Admin Front Page</title>
   </head>
 
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="user_homepage.html#">Banking App</a>
+      <a class="navbar-brand" href="user_homepage.html#">Admin Front Page</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -45,23 +45,15 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="user_homepage.html#">Balance</a>
+            <a class="nav-link" href="user_search.html#">Search User</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="withdraw.php#">Withdraw</a>
+            <a class="nav-link" href="manage_users.php#">Manage Users</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="withdraw.php#">Deposit</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="transfer.php#">Transfer Money</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="customer_manage.php">Manage Account</a>
+            <a class="nav-link" href="account_requests.php#">Account Creation Requests</a>
           </li>
         </ul>
 
@@ -70,16 +62,13 @@
             Logout
           </button>
         </form>
-        
       </div>
+      
     </nav>
 
-    <h1>Account Balance</h1>
+    <h1>Admin Manage Accounts</h1>
 
 
-    <p>
-      maybe here we can put the account summary with like the account balance n
-      whatever
-    </p>
+    <p>List all customers and employee accounts here</p>
   </body>
 </html>

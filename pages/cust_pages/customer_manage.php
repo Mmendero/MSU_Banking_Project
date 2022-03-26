@@ -1,4 +1,5 @@
 <?php
+  
     // Logout Function
     if (isset($_POST["logout"])) {
         session_destroy();
@@ -45,7 +46,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="user_homepage.html#">Balance</a>
+            <a class="nav-link" href="user_homepage.html">Balance</a>
           </li>
 
           <li class="nav-item">
@@ -74,12 +75,32 @@
       </div>
     </nav>
 
-    <h1>Account Balance</h1>
+    <h1>Manage Account</h1>
+    <div>
+            <center><p>Welcome back, <?php echo $Fname; ?>!</p></center>
+        </div>
 
-
-    <p>
-      maybe here we can put the account summary with like the account balance n
-      whatever
-    </p>
+        <!--prompts user's information-->
+        <div>
+            <center>
+                <div>
+                    Username: <?php echo $user; ?>
+                </div>
+                <div>
+                    Email Address: <?php echo $email; ?>
+                </div>
+                <div>
+                    First Name: <?php echo $Fname; ?>
+                </div>
+                <div>
+                    Last Name: <?php echo $Lname; ?>
+                </div>
+                <div>
+                    Primary Address: <?php echo $address; ?>
+                </div>
+                <div>
+                    
+                </div>  
+            </center>
   </body>
 </html>
