@@ -1,10 +1,18 @@
 <?php
+
+ include "../../lib/transaction_handler.php";
+
     // Logout Function
     if (isset($_POST["logout"])) {
         session_destroy();
         $_SESSION['loggedin'] == false;
         header('Location: ../cust_pages/customer_signin.php');
     }
+
+    // Withdraw Function
+    if (isset($_POST["withdraw_submit"])) {
+      handleWithdraw($db);
+  }
 ?>
 
 <html lang="en">
@@ -44,11 +52,11 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="user_homepage.html#">Balance</a>
+          <li class="nav-item">
+            <a class="nav-link" href="customer_homepage.php#">Balance</a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="withdraw.php#">Withdraw</a>
           </li>
 
@@ -74,12 +82,18 @@
       </div>
     </nav>
 
-    <h1>Account Balance</h1>
-
-
-    <p>
-      maybe here we can put the account summary with like the account balance n
-      whatever
-    </p>
+    <h1>Withdraw</h1>
+    <form action="" method="post">
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" class="form-control" placeholder="$" name="amount" required />
+      </div>
+    
+      <div class="button-container">
+        <button type="submit" class="btn btn-primary" name="withdraw_submit">
+        Withdraw
+        </button>
+      </div>
+    </form>
   </body>
 </html>
