@@ -27,14 +27,12 @@
         <title>Online Banking System</title>
     </head>
     
-    <!--register.php takes a new user's username, password, first name, middle name, last name, street address,
-        city, state, and zip code-->
     <body>
-        <!--outputs notice for user-->
+        <!-- Status Message -->
         <?php 
-            if (isset($_SESSION['message'])){
-            echo "<p class='message'>".$_SESSION['message']."</p>";
-            $_SESSION['message'] = '';
+            if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
+                $_SESSION['message'] = '';
             }
         ?>
 
@@ -55,6 +53,7 @@
                             </select>
                         </div>
 
+                        <!-- TODO: USE COOKIES TO STORE INFO WHEN INVALID FORM SUBMITTED TO STORE PREVIOUS INPUT -->
                         <div class="form-group">
                             <label for="user">Username</label>
                             <input type="text" class="form-control" placeholder="Username" name="user" required />

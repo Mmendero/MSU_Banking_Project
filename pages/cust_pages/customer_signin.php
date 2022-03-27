@@ -37,15 +37,18 @@
 
   <body>
     <?php 
-      if (isset($_SESSION['message']) && $_SESSION['regdone'] == true){
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
+      if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+        if(isset($_SESSION['regdone']) && $_SESSION['regdone'] == ""){
+          $message_status = "success";
+          $_SESSION['regdone'] = false;
+        }
+        else{
+          $message_status = "danger";
+        }
+        echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
         $_SESSION['message'] = '';
       }
-      elseif(isset($_SESSION['message']) && $_SESSION['message'] != ""){
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
-        $_SESSION['message'] = '';
-      }
-      ?>
+    ?>
     <h1 class="signin-card-title">Banking App Sign In</h1>
 
     <div class="card login-card">

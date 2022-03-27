@@ -15,7 +15,7 @@
 
   // Handle Request Rejection.
   if (isset($_POST["reject"])) {
-    removeRequest($db);
+    removeRequest($db, "Account Request Rejected");
   }
 ?>
 
@@ -56,7 +56,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="user_search.html#">Search User</a>
           </li>
 
@@ -64,7 +64,7 @@
             <a class="nav-link" href="manage_users.php#">Manage Users</a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="account_requests.php#">Account Creation Requests</a>
           </li>
         </ul>
@@ -79,7 +79,18 @@
     </nav>
 
     <?php
-
+      if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+        if(isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE){
+          $message_status = "info";
+        }
+        else{
+          $message_status = "danger";
+          $_SESSION['request_error'] = FALSE;
+        }
+        echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
+        $_SESSION['message'] = '';
+      }
+      
       // Query Database For all Account Creation Requests.
       $query = "SELECT * FROM acc_request";
       $result = $db->query($query);
@@ -124,9 +135,8 @@
           echo 'Reject';
           echo '</button>';
           echo '</td>';
-          echo '</form>';
-          echo '</tr>';
 
+          // Hidden Input Forms.
           echo '<input type="hidden" name="acc_id" value="'.$row['ID'].'">';
           echo '<input type="hidden" name="acc_type" value='.$row['acc_type'].'>';
           echo '<input type="hidden" name="user" value='.$row['username'].'>';
@@ -135,11 +145,13 @@
           echo '<input type="hidden" name="lname" value='.$row['lname'].'>';
           echo '<input type="hidden" name="email" value='.$row['email'].'>';
           echo '<input type="hidden" name="address" value='.$row['address'].'>';
-
+          echo '</form>';
+          echo '</tr>';
+        
+          // Increment number of requests.
           $count++;
         }
         
-
         echo '</tbody>';
         echo '</table>';
       }

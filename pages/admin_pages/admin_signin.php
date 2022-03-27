@@ -37,8 +37,14 @@
 
   <body>
     <?php 
-      if(isset($_SESSION['message']) && $_SESSION['message'] != ""){
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
+      if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+        if(isset($_SESSION['regdone']) && $_SESSION['regdone'] == true){
+          $message_status = "success";
+        }
+        else{
+          $message_status = "danger";
+        }
+        echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
         $_SESSION['message'] = '';
       }
       ?>

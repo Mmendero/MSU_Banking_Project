@@ -13,38 +13,42 @@
 		$lname = $_POST['lname'];
 		$address = $_POST['address'];
 
-        //generates a 6 digit random number for customer id
+        // Generates a 6 digit random number for customer ID.
 		$custid = mt_rand(100000, 999999);
+
+        // Status Message.
+        $message = "";
 		
 		// Insert into Customer Database.
         $query = "INSERT INTO customer VALUES ('".$acc_id."', '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
-		if ($db->query($query) === TRUE) {
-            echo "Record inserted successfully";
-        } else {
-            echo "Error deleting record: " . $db->error;
+		if ($db->query($query) === FALSE) {
+            $message = "Something Went Wrong :(" . $db->error;
+            $_SESSION['request_error'] = TRUE;
         }
 
         // Insert into Account Database.
         $query = "INSERT INTO account VALUES ('".$acc_id."', '".$acc_type."', '')";
 		if ($db->query($query) === TRUE) {
-            echo "Record inserted successfully";
+            $message = "Account Request Approved";
         } else {
-            echo "Error deleting record: " . $db->error;
+            $message = "Something Went Wrong :(" . $db->error;
+            $_SESSION['request_error'] = TRUE;
         }
 
         // Remove existing request.
-        removeRequest($db);
+        removeRequest($db, $message);
     }
 
-    function removeRequest($db) {
+    function removeRequest($db, $message) {
         //takes input passed from form and assigns to variables
         $acc_id = $_POST['acc_id'];
 
         $query = "DELETE FROM acc_request WHERE ID='". $acc_id."'";
         if ($db->query($query) === TRUE) {
-            echo "Record deleted successfully";
+            $_SESSION['message'] = $message;
         } else {
-            echo "Error deleting record: " . $db->error;
+            $_SESSION['message'] = "Something Went Wrong :(" . $db->error;
+            $_SESSION['request_error'] = TRUE;
         }
     }
     
