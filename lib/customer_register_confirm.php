@@ -50,14 +50,14 @@
 		$custid = mt_rand(100000, 999999);
 		
 		//adds slashes for any quotes in inputs
-		if (!get_magic_quotes_gpc()) {
-			$user = addslashes($user);
-			$pass = addslashes($pass);
-			$fname = addslashes($fname);
-			$lname = addslashes($lname);
-			$email = addslashes($email);
-			$city = addslashes($city);
-		}
+		// if (!get_magic_quotes_gpc()) {
+		// 	$user = addslashes($user);
+		// 	$pass = addslashes($pass);
+		// 	$fname = addslashes($fname);
+		// 	$lname = addslashes($lname);
+		// 	$email = addslashes($email);
+		// 	$city = addslashes($city);
+		// }
 		
 		//concatenates address
 		$address = $stadd.' '.$city.', '.$state.' '.$zip;
@@ -105,7 +105,7 @@
 		//checks if insert was successful
 		if ($results) {
 			$_SESSION['regdone'] = true;
-			$_SESSION['message'] = 'Success: Account Registration Request has been Submitted! Please wait for an admin to approve your account creation.';
+			$_SESSION['message'] = 'Account Registration Request has been Submitted! Please wait for an admin to approve your account creation.';
 			header('Location: ../cust_pages/customer_signin.php');
 			exit();
 		}

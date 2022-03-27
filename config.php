@@ -14,5 +14,4 @@
 
     $_SESSION['login_failed'] = '';
     $_SESSION['loggedin'] = false;
-    $_SESSION['regdone'] = false;
 ?>

@@ -10,7 +10,7 @@
         //informs user if not all inputs are entered and exits
         if (!$user || !$pass) {
             $_SESSION['login_failed'] = 'bad_input';
-            $_SESSION['message'] = 'Log in info was not properly input. Please try again.';
+            $_SESSION['message'] = 'Login info was not properly input. Please try again.';
             return;
         }
         
