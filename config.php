@@ -12,6 +12,4 @@
         exit();
     }
 
-    $_SESSION['login_failed'] = '';
-    $_SESSION['loggedin'] = false;
 ?>
