@@ -1,10 +1,9 @@
 <?php
-  include '../../config.php';
   include "../../lib/admin_request_handler.php";
 
   // Logout Function
   if (isset($_POST["logout"])) {
-    $_SESSION['loggedin'] == false;
+    $_SESSION['loggedin'] = false;
     header('Location: ../admin_pages/admin_signin.php');
   }
 
@@ -23,6 +22,7 @@
   if (isset($_POST["reject"])) {
     removeRequest($db, "Account Request Rejected");
   }
+
 ?>
 
 <html lang="en">
