@@ -1,5 +1,4 @@
 <?php
-  include '../../config.php';
   include "../../lib/transaction_handler.php";
 
   // Logout Function
