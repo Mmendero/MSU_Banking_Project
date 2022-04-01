@@ -31,8 +31,8 @@
         //compares password hashed saved with password entered; logs in and redirects to homepage if passwords match
         if ($pass == $row['password']) {
             $_SESSION['loggedin'] = true;
+            $_SESSION['admin'] = true;
             $_SESSION['user'] = $user;
-            $_SESSION['name'] = "ADMIN";
             
             header('Location: ../admin_pages/admin_homepage.php');
             return;

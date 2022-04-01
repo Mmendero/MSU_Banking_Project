@@ -32,8 +32,6 @@
         if (password_verify($pass, $row['password'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user'] = $user;
-            $_SESSION['name'] = $row['fname'];
-            
             
             header('Location: ../cust_pages/customer_homepage.php');
             return;

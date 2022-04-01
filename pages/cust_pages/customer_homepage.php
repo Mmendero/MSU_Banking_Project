@@ -1,10 +1,18 @@
 <?php
-    // Logout Function
-    if (isset($_POST["logout"])) {
-        session_destroy();
-        $_SESSION['loggedin'] == false;
-        header('Location: ../cust_pages/customer_signin.php');
-    }
+  include '../../config.php';
+
+  // Logout Function
+  if (isset($_POST["logout"])) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../cust_pages/customer_signin.php');
+  }
+
+  // Validate Login.
+  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../cust_pages/customer_signin.php');
+  }
+
 ?>
 
 <html lang="en">

@@ -1,11 +1,17 @@
 <?php
+  include '../../config.php';
   include "../../lib/admin_request_handler.php";
 
   // Logout Function
   if (isset($_POST["logout"])) {
-      session_destroy();
-      $_SESSION['loggedin'] == false;
-      header('Location: ../admin_pages/admin_signin.php');
+    $_SESSION['loggedin'] == false;
+    header('Location: ../admin_pages/admin_signin.php');
+  }
+
+  // Validate Admin Login.
+  if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../admin_pages/admin_signin.php');
   }
 
   // Handle Request Approval.

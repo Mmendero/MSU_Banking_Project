@@ -1,17 +1,22 @@
 <?php
+  include '../../config.php';
+  include "../../lib/transaction_handler.php";
 
- include "../../lib/transaction_handler.php";
+  // Logout Function
+  if (isset($_POST["logout"])) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../cust_pages/customer_signin.php');
+  }
 
-    // Logout Function
-    if (isset($_POST["logout"])) {
-        session_destroy();
-        $_SESSION['loggedin'] == false;
-        header('Location: ../cust_pages/customer_signin.php');
-    }
+  // Validate Login.
+  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../cust_pages/customer_signin.php');
+  }
 
-    // Withdraw Function
-    if (isset($_POST["deposit_submit"])) {
-      handleDeposit($db);
+  // Deposit Function
+  if (isset($_POST["deposit_submit"])) {
+    handleDeposit($db);
   }
 ?>
 
