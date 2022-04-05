@@ -15,7 +15,7 @@
         }
         
         //queries db for username entered
-        $query = "SELECT password, fname FROM CUSTOMER WHERE username = '".$user."'";
+        $query = "SELECT * FROM CUSTOMER WHERE username = '".$user."'";
         $result = $db->query($query);
 
         //checks if results were returned
@@ -31,7 +31,8 @@
         //compares password hashed saved with password entered; logs in and redirects to homepage if passwords match
         if (password_verify($pass, $row['password'])) {
             $_SESSION['loggedin'] = true;
-            $_SESSION['user'] = $user;
+            $_SESSION['user'] = $row['username'];
+            $_SESSION['user_id'] = $row['ID'];
             
             header('Location: ../cust_pages/customer_homepage.php');
             return;
