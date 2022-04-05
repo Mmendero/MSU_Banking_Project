@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2022 at 10:17 PM
+-- Generation Time: Apr 06, 2022 at 01:18 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -31,15 +31,16 @@ CREATE TABLE `account` (
   `acc_number` int(255) NOT NULL,
   `cust_id` int(255) NOT NULL,
   `type` varchar(255) NOT NULL,
-  `balance` int(100) NOT NULL DEFAULT 0
+  `balance` int(100) NOT NULL DEFAULT 0,
+  `pending` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`acc_number`, `cust_id`, `type`, `balance`) VALUES
-(76934858, 369971630, 'Savings', 0);
+INSERT INTO `account` (`acc_number`, `cust_id`, `type`, `balance`, `pending`) VALUES
+(76934858, 369971630, 'Savings', 0, 0);
 
 -- --------------------------------------------------------
 

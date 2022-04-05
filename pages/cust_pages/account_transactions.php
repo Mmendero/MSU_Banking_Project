@@ -12,10 +12,7 @@
     $_SESSION['loggedin'] = false;
     header('Location: ../cust_pages/customer_signin.php');
   }
-  
-  if (isset($_POST["view_transactions"])) {
-    header('Location: ../cust_pages/account_transactions.php');
-  }
+
 ?>
 
 <html lang="en">
@@ -122,22 +119,14 @@
           $account_total = 0;
           while ($row = $result->fetch_assoc()){
             echo '<tbody>';
-            echo '<form action="" method="post">';
             echo '<tr>';
-            echo '<td class="col-md-6"><button type="submit" name="view_transactions" class="btn btn-link">'.$row['type'].'</button></td>';
-            echo '<td class="align-middle">$'.number_format($row['balance'], 2).'</td>';
-            echo '<td class="align-middle">$'.number_format($row['pending'], 2).'</td>';
+            echo '<td class="col-md-6">'.$row['type'].'</td>';
+            echo '<td>$'.number_format($row['balance'], 2).'</td>';
+            echo '<td>$'.number_format($row['pending'], 2).'</td>';
             echo '</tr>';
-
-            // Hidden Form Data.
-            echo '<input type="hidden" name="acc_id" value='.$row['acc_number'].'>';
-            echo '</form>';
             
             $account_total += $row['balance'];
           }
-          
-
-
           echo '</tbody>';
           echo '<tfoot>';
           echo '<tr class="table-info">';

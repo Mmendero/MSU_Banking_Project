@@ -8,15 +8,15 @@ nav div {
 }
 
 /*FrontPage Styles*/
-.company-name-frontpage {
-  background-color: black;
-  background: rgba(0, 0, 0, 0.438);
-  text-align: center;
-  padding: 5px;
+.homepage-greeting{
+  padding-top: 3%;
+  padding-left: 15%;
 }
 
-.company-name-frontpage {
-  color: white;
+.account_table{
+  padding: 30px;
+  margin: auto;
+  width: 65%;
 }
 
 /*Login Styles*/
