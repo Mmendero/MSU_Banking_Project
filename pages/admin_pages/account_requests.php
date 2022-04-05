@@ -143,7 +143,7 @@
           echo '</td>';
 
           // Hidden Input Forms.
-          echo '<input type="hidden" name="acc_id" value="'.$row['ID'].'">';
+          echo '<input type="hidden" name="acc_id" value='.$row['ID'].'>';
           echo '<input type="hidden" name="acc_type" value='.$row['acc_type'].'>';
           echo '<input type="hidden" name="user" value='.$row['username'].'>';
           echo '<input type="hidden" name="pass" value='.$row['password'].'>';

@@ -46,19 +46,6 @@
 		//gets the number of results
 		$num_results = $results->num_rows;
 		
-		//generates a 6 digit random number for customer id
-		$custid = mt_rand(100000, 999999);
-		
-		//adds slashes for any quotes in inputs
-		// if (!get_magic_quotes_gpc()) {
-		// 	$user = addslashes($user);
-		// 	$pass = addslashes($pass);
-		// 	$fname = addslashes($fname);
-		// 	$lname = addslashes($lname);
-		// 	$email = addslashes($email);
-		// 	$city = addslashes($city);
-		// }
-		
 		//concatenates address
 		$address = $stadd.' '.$city.', '.$state.' '.$zip;
 		
@@ -68,11 +55,6 @@
 		//loops through all current customers
 		for ($i = 0; $i < $num_results; $i++) {
 			$row = $results->fetch_assoc();
-			
-			//compares current ids with new ids
-			if ($custid == $row['ID'])
-				//creates a new random id if there is a match
-				$custid = mt_rand(100000, 999999);
 			
 			//compares current usernames with new username    
 			if ($user == $row['username']) {
@@ -92,12 +74,9 @@
 			}
 		}
 		
-		//converts customer id into string
-		$custid = strval($custid);
-		
 		//creates insert query for db with user info
 		$query = "INSERT INTO ACC_REQUEST VALUES 
-		('".$custid."', '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
+		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
 		
 		//tries to insert user info into db
 		$results = $db->query($query);
