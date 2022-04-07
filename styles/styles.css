@@ -7,6 +7,28 @@ nav div {
   text-align: center;
 }
 
+/*Transaction Styles*/
+.accounts{
+  width: 35%;
+  padding-top: 2%;
+  padding-left: 20%;
+}
+
+.balance{
+  padding-top: 2%;
+  padding-left: 20%;
+}
+
+.balance-amount{
+  color: #1cc8e2;
+}
+
+.no-transactions{
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+}
+
 /*FrontPage Styles*/
 .homepage-greeting{
   padding-top: 3%;
@@ -27,6 +49,7 @@ nav div {
 }
 .card-title {
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .login-card {
@@ -46,6 +69,7 @@ nav div {
 
 .button-container {
   text-align: center;
+  padding-top: 5px;
 }
 
 .alert .alert-danger{
