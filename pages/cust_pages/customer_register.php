@@ -17,99 +17,169 @@
     
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link rel="stylesheet" href="../../styles/styles.css" />
+
+
+        <!-- Font Awesome -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        rel="stylesheet"
+        />
+        <!-- Google Fonts -->
+        <link
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        rel="stylesheet"
+        />
+        <!-- MDB -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+        rel="stylesheet"
+        />
 
         <title>Online Banking System</title>
     </head>
     
     <body>
-        <!-- Status Message -->
-        <?php 
-            if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
-                echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
-                $_SESSION['message'] = '';
-            }
-        ?>
+        
+        <section class="vh-200">
+            <!-- Status Message -->
+            <?php 
+                if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+                    echo "<div class='alert alert-danger alert-dismissible show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+                    $_SESSION['message'] = '';
+                }
+            ?>
+            <div class="container py-5 h-100">
+                <div class="row justify-content-center align-items-center h-100">
+                    <div class="col-12 col-lg-9 col-xl-7">
+                        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                            <div class="card-body p-4 p-md-5">
+                                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                                <form action="" method="post">
 
-        <!-- Register Form -->
-        <div class="p-4">
-            <div class="card login-card">
-                <div class="card-body">
-                    <h5 class="card-title">Register</h5>
-                    <!--passes inputs to register_confirm.php to scripts-->
-                    <form action="" method="post">
+                                    <!-- Row #1 -->
+                                    <div class="row">
+                                        <div class="col-md-7 mb-2">
+                                            <div class="col-10">
+                                                <select class="form-select form-select-lg " id="acc_type" name="acc_type">
+                                                    <option value="Savings">Savings</option>
+                                                    <option value="Checkings">Checkings</option>
+                                                </select>
+                                                <label for="acc_type">Account Type</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        <!-- All Input Fields -->
-                        <div class="form-group">
-                            <label for="user">Account Type</label>
-                            <select class="form-control" aria-label="Default select example" name="acc_type">
-                                <option value="Savings">Savings</option>
-                                <option value="Checkings">Checkings</option>
-                            </select>
+                                    <!-- Row #2 -->
+                                    <div class="row">
+                                        <div class="col-md-6 mb-1">
+                                            <div class="form-group">
+                                                <input type="text" name="user" id="user" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="user">Username</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-1">
+                                            <div class="form-group">
+                                                <input type="text" name="ssn" id="ssn" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="ssn">Social Security Number</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row #3 -->
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <input type="password" name="pass" id="pass" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="pass">Password</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <input type="password" name="con_pass" id="con_pass" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="con_pass">Confirm Password</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row #4 -->
+                                    <div class="row">
+                                        <div class="col-md-6 mb-2">
+                                            <div class="form-group">
+                                                <input type="text" name="fname" id="fname" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="fname">First Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <div class="form-group">
+                                                <input type="text" name="lname" id="lname" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="lname">Last Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row #5 -->
+                                    <div class="row">
+                                        <div class="col-md-6 mb-1 pb-2">
+                                            <div class="form-group">
+                                                <input type="email" name="email" id="email" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="email">Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-1 pb-2">
+                                            <div class="form-group">
+                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" required/>
+                                                <label class="form-label" for="phone">Phone Number</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row #6 -->
+                                    <div class="row">
+                                        <div class="col-md-12 mb-2 pb-2">
+                                            <div class="col-12">
+                                                <label for="stadd" class="form-label">Address</label>
+                                                <input type="text" name="stadd" id="stadd" class="form-control form-control-lg" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row #7 -->
+                                    <div class="row">
+                                        <div class="col-md-12 mb-2 pb-2">
+                                            <div class="col-md-7">
+                                                <label for="city" class="form-label">City</label>
+                                                <input type="text" name="city" class="form-control form-control-lg" id="city" required />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="state" class="form-label">State</label>
+                                                <input type="text" name="state" class="form-control form-control-lg" id="state" required/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="zip" class="form-label">Zip</label>
+                                                <input type="text" name="zip" class="form-control form-control-lg" id="zip" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <center>
+                                    <button type="submit" class="btn btn-primary btn-lg" name="register_submit">
+                                    Register
+                                    </button>
+                                    </center>
+                                    
+                                    
+
+                                </form>
+                            </div>
                         </div>
-
-                        <!-- TODO: USE COOKIES TO STORE INFO WHEN INVALID FORM SUBMITTED TO STORE PREVIOUS INPUT -->
-                        <div class="form-group">
-                            <label for="user">Username</label>
-                            <input type="text" class="form-control" placeholder="Username" name="user" required />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="pass">Password</label>
-                            <input type="password" class="form-control" placeholder="Password" name="pass" required />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="cpass">Confirm Password</label>
-                            <input type="password" class="form-control" placeholder="Confirm Password" name="conpass" required />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" placeholder="Email" name="email" required />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="fname">First Name</label>
-                            <input type="text" class="form-control" placeholder="First Name" name="fname" required />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="lname">Last Name</label>
-                            <input type="text" class="form-control" placeholder="Last Name" name="lname" required/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="street_address">Street Address</label>
-                            <input type="text" class="form-control" placeholder="Street Address" name="stadd" required/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" class="form-control" placeholder="City" name="city" required/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <input type="text" class="form-control" placeholder="State" name="state" required/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="zip_code">Zip Code</label>
-                            <input type="text" class="form-control" placeholder="Zip Code" name="zip" required/>
-                        </div>
-
-                        <div class="button-container">
-                            <button type="submit" class="btn btn-primary" name="register_submit">
-                            Register
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        
+        </section>
 
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>

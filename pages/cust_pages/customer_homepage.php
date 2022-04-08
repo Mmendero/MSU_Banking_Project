@@ -1,5 +1,5 @@
 <?php
-  include '../../config.php';
+  include "../../lib/admin_request_handler.php";
 
   // Logout Function
   if (isset($_POST["logout"])) {
@@ -16,6 +16,10 @@
   if (isset($_POST["view_transactions"])) {
     $_SESSION['POST'] = $_POST;
     header('Location: ../cust_pages/account_transactions.php');
+  }
+
+  if (isset($_POST["open_account"])) {
+    addAccount($db);
   }
 ?>
 
@@ -78,70 +82,126 @@
       </div>
     </nav>
     
-    <!-- Homepage Greeting -->
-    <?php
-      // Get time info.
-      date_default_timezone_set('America/New_York');
-      $date = date('F, d Y',strtotime(date("Y-m-d")));
-      if(date("a") == 'pm'){
-        $time = 'evening';
-      }
-      else{
-        $time = 'morning';
-      }
-      
-      // Get user info.
-      $query = "SELECT * FROM CUSTOMER WHERE ID = '".$_SESSION['user_id']."'";
-      $user = $db->query($query)->fetch_assoc();
+    <div class="accounts-section-top">
+      <!-- Homepage Greeting -->
+      <?php
+        // Get time info.
+        date_default_timezone_set('America/New_York');
+        $date = date('F, d Y',strtotime(date("Y-m-d")));
+        if(date("a") == 'pm'){
+          $time = 'evening';
+        }
+        else{
+          $time = 'morning';
+        }
+        
+        // Get user info.
+        $query = "SELECT * FROM CUSTOMER WHERE ID = '".$_SESSION['user_id']."'";
+        $user = $db->query($query)->fetch_assoc();
 
-      echo '<div class="homepage-greeting">';
-      echo '<h1>Good '.$time.' '.$user['fname'].'!</h1>';
-      echo '<h6>Today\'s date is '.$date.'</h7>';
-      echo '</div>';
-    ?>
-
-    <!-- Account Listing -->
-    <div class="account_table">
-
-      <table class="table table-hover table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Account</th>
-            <th scope="col">Available Balance</th>
-            <th scope="col">Pending Transactions</th>
-          </tr>
-        </thead>
-        <?php
-          $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
-          $result = $db->query($query);
-
-          $account_total = 0;
-          while ($row = $result->fetch_assoc()){
-            echo '<tbody>';
-            echo '<form action="" method="post">';
-            echo '<tr>';
-            echo '<td class="col-md-6"><button type="submit" name="view_transactions" class="btn btn-link">'.$row['type'].'</button></td>';
-            echo '<td class="align-middle">$'.number_format($row['balance'], 2).'</td>';
-            echo '<td class="align-middle">$'.number_format($row['pending'], 2).'</td>';
-            echo '</tr>';
-
-            // Hidden Form Data.
-            echo '<input type="hidden" name="acc_num" value='.$row['acc_number'].'>';
-            echo '</form>';
-            
-            $account_total += $row['balance'];
-          }
-          
-          echo '</tbody>';
-          echo '<tfoot>';
-          echo '<tr class="table-info">';
-          echo '<td class="col-md-6">Total</td>';
-          echo '<td colspan="2">$'.number_format($account_total, 2).'</td>';
-          echo '</tr>';
-          echo '</tfoot>';
-        ?>
-      </table>
-
+        echo '<div class="homepage-greeting">';
+        echo '<h1>Good '.$time.', '.$user['fname'].'!</h1>';
+        echo '<h6>Today\'s date is '.$date.'</h7>';
+        echo '</div>';
+      ?>
     </div>
+
+    <div class="accounts-section-mid">
+      <!-- Account Listings -->
+      <div class="account_table">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-4 text-center">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Accounts</th>
+                  <th scope="col">Available Balance</th>
+                  <th scope="col">Pending Transactions</th>
+                </tr>
+              </thead>
+              <?php
+                $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
+                $result = $db->query($query);
+
+                $account_total = 0;
+                while ($row = $result->fetch_assoc()){
+                  echo '<tbody>';
+                  echo '<form action="" method="post">';
+                  echo '<tr>';
+                  echo '<td class="col-md-6"><button type="submit" name="view_transactions" class="btn btn-link">'.$row['type'].' (x'.substr(strval($row['acc_number']), -4).')</button></td>';
+                  echo '<td class="align-middle">$'.number_format($row['balance'], 2).'</td>';
+                  echo '<td class="align-middle">$'.number_format($row['pending'], 2).'</td>';
+                  echo '</tr>';
+
+                  // Hidden Form Data.
+                  echo '<input type="hidden" name="acc_num" value='.$row['acc_number'].'>';
+                  echo '</form>';
+                  
+                  $account_total += $row['balance'];
+                }
+                
+                echo '</tbody>';
+                echo '<tfoot>';
+                echo '<tr class="table-info">';
+                echo '<td class="col-md-6">Total</td>';
+                echo '<td colspan="2">$'.number_format($account_total, 2).'</td>';
+                echo '</tr>';
+                echo '</tfoot>';
+              ?>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="open-account">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-4 text-center">
+
+
+            <h4 style="padding: 10px;">Open New Account</h4>
+
+            <form class="my-2 my-lg-0" action="" method="POST">
+
+              <div class="form-group p-2">
+                <label for="cpass">Account Type</label>
+                <select class="form-select" style="padding: 10px;" name="acc_type">
+                  <option selected value="Savings">Savings</option>
+                  <option value="Checkings">Checkings</option>
+                </select>
+              </div>
+
+              <div class="form-group p-2">
+                <label for="cpass">Enter SSN</label>
+                <input type="number" class="form-control" placeholder="SSN" name="ssn" required />
+              </div>
+
+              <div class="form-group p-2">
+                <label for="cpass">Enter Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="pass" required />
+              </div>
+
+              <!-- Hidden Fields -->
+              <?php
+                echo '<input type="hidden" name="username" value='.$user['username'].'>';
+                echo '<input type="hidden" name="email" value='.$user['email'].'>';
+                echo '<input type="hidden" name="fname" value='.$user['fname'].'>';
+                echo '<input type="hidden" name="lname" value='.$user['lname'].'>';
+              ?>
+
+
+              <div class="submit-request">
+                <button class="btn btn-info" type="open_account">Submit Request</button>
+              </div>
+            </form>
+          </div>
+        </div>         
+      </div>
+    </div>
+
+    <div class="accounts-section-bot">
+      <h1>bottom</h1>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>

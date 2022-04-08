@@ -74,63 +74,119 @@
       </div>
     </nav>
 
-    <div class="accounts">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
+    
 
     <!-- Total Account Balance -->
-    <div class="balance">
-        <h7>Available Balance</h7>
-        <h1 class="balance-amount">$100.00</h1>
+    <div class="transaction-section-top">
+      <div class="balance">
+          <h7>Available Balance</h7>
+          <h1 class="balance-amount">$100.00</h1>
+      </div>
+
+      <div class="accounts-dropdown">
+        <form name="transFilter" method="post">
+          <select class="form-select" aria-label="Default select example">
+            <?php
+              $query = "SELECT * FROM ACCOUNT WHERE acc_number = '".$_SESSION['POST']['acc_num']."'";
+              $result = $db->query($query)->fetch_assoc();
+
+              
+              echo "<option selected>".$result['type']." (x".substr(strval($result['acc_number']), -4).")</option>";
+
+              $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
+              $result = $db->query($query);
+
+              while ($row = $result->fetch_assoc()){
+                if($row['acc_number'] != $_SESSION['POST']['acc_num']){
+                  echo "<option>".$row['type']." (x".substr(strval($row['acc_number']), -4).")</option>";
+                }
+              }
+            ?>
+            
+          </select>
+          <noscript><input type="submit" value="Submit"/></noscript>
+        </form>
+      </div>
     </div>
+    
 
     <!-- Account Listing -->
-    <div class="account_table">
+    <div class="transaction-section-mid">
+      
+      <div class="transaction_table">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-4 text-center">
+            <div class="util-bar">
 
-      <table class="table table-hover table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Type</th>
-            <th scope="col">Description</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Balance</th>
-          </tr>
-        </thead>
-        <?php
-          $query = "SELECT * FROM TRANSACTION WHERE acc_number = '".$_SESSION['POST']['acc_num']."'";
-          $result = $db->query($query);
+              <div class="filter-dropdown">
+                <form name="transFilter" method="post">
+                  <select class="form-select" onchange="document.transFilter.submit()">
+                    <option selected value="30days">Last 30 Days</option>
+                    <option value="60days">Last 60 Days</option>
+                    <option value="pending">Pending Only</option>
+                    <option value="all">All</option>
+                  </select>
+                  <noscript><input type="submit" value="Submit"/></noscript>
+                </form>
+              </div>
+              
+              <div class="print-trans">
+                <div class="d-grid gap-2 d-md-block">
+                  <button type="button" class="btn btn-secondary btn-block" onClick="window.print()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                      <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"></path>
+                      <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
 
-          $account_total = 0;
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Balance</th>
+                </tr>
+              </thead>
 
-          // Build Table of Transactions.
-          echo '<tbody>';
-          if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()){
-              echo '<tr>';
-              echo '<td class="col-md-2">'.$row['type'].'</td>';
-              echo '<td class="col-md-2">$'.$row['date'].'</td>';
-              echo '<td class="col-md-4">$'.$row['type'].'</td>';
-              echo '<td class="col-md-2">$'.$row['name'].'</td>';
-              echo '<td class="col-md-2">$'.number_format($row['amount'], 2).'</td>';
-              echo '<td class="col-md-2">$'.number_format($row['balance'], 2).'</td>';
-              echo '</tr>';
-            }
-          }else{
-            echo '<tr>';
-            echo '<td class="no-transactions" colspan="7">No Transactions Available for this Account</td>';
-            echo '</tr>';
-          }
-          echo '</tbody>';
+              <?php
+                $query = "SELECT * FROM TRANSACTION WHERE acc_number = '".$_SESSION['POST']['acc_num']."'";
+                $result = $db->query($query);
+                $account_total = 0;
 
-        ?>
-      </table>
+                // Build Table of Transactions.
+                echo '<tbody>';
+                if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()){
+                    echo '<tr>';
+                    echo '<td class="col-md-2">'.$row['type'].'</td>';
+                    echo '<td class="col-md-2">$'.$row['date'].'</td>';
+                    echo '<td class="col-md-4">$'.$row['type'].'</td>';
+                    echo '<td class="col-md-2">$'.$row['name'].'</td>';
+                    echo '<td class="col-md-2">$'.number_format($row['amount'], 2).'</td>';
+                    echo '<td class="col-md-2">$'.number_format($row['balance'], 2).'</td>';
+                    echo '</tr>';
+                  }
+                }else{
+                  echo '<tr>';
+                  echo '<td class="no-transactions" colspan="7">No Transactions Available for this Account</td>';
+                  echo '</tr>';
+                }
+                echo '</tbody>';
 
+              ?>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="transaction-section-bottom">
     </div>
+            
   </body>
 </html>

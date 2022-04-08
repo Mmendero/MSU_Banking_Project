@@ -5,8 +5,9 @@
 		//takes input passed from form and assigns to variables
 		$acc_type = trim($_POST['acc_type']);
 		$user = strtolower(trim($_POST['user']));
+		$ssn = trim($_POST['ssn']);
 		$pass = trim($_POST['pass']);
-		$conpass = trim($_POST['conpass']);
+		$conpass = trim($_POST['con_pass']);
 		$email = trim($_POST['email']);
 		$fname = trim($_POST['fname']);
 		$lname = trim($_POST['lname']);
@@ -14,12 +15,23 @@
 		$city = trim($_POST['city']);
 		$state = trim($_POST['state']);
 		$zip = trim($_POST['zip']);
+
+		echo $_POST['hi'];
+		echo $acc_type;
+		echo $user;
+		echo $ssn;
+		echo $pass;
+		echo $conpass;
+		echo $email;
+		echo $fname;
+		echo $lname;
+
 		
 		//checks if all inputs have been passed
 		if (!$user || !$pass || !$conpass || !$fname || !$lname || !$email || !$stadd || !$city || !$state || !$zip) {
 			$_SESSION['registration_failed'] = 'invalid_input';
 			$_SESSION['message'] = 'Registration info was not properly input. Please try again.';
-			header('Location: ../cust_pages/cust_pages/customer_register.php');
+			header('Location: customer_register.php');
 			exit();
 		}
 		
@@ -78,11 +90,8 @@
 		$query = "INSERT INTO ACC_REQUEST VALUES 
 		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
 		
-		//tries to insert user info into db
-		$results = $db->query($query);
-		
 		//checks if insert was successful
-		if ($results) {
+		if ($db->query($query)) {
 			$_SESSION['regdone'] = true;
 			$_SESSION['message'] = 'Account Registration Request has been Submitted! Please wait for an admin to approve your account creation.';
 			header('Location: ../cust_pages/customer_signin.php');

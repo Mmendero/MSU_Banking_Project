@@ -77,6 +77,42 @@
             $_SESSION['request_error'] = TRUE;
         }
     }
+
+    function addAccount($db){
+        $acc_type = $_POST['acc_type'];
+        $user = $_POST['username'];
+        $ssn = $_POST['ssn'];
+		$pass = $_POST['pass'];
+		$email = $_POST['email'];
+		$fname = $_POST['fname'];
+		$lname = $_POST['lname'];
+		$address = $_POST['address'];
+
+        // Validate SSN/Password.
+        $ssn = preg_replace('~\D~', '', $ssn); // replace all non-digits
+
+        // Regular Expression Logic.
+        if(!preg_match('~^(?!000|666|9\d\d)\d{3}(?!00)\d{2}(?!0000)\d{4}$~', $ssn) || !password_verify($pass, $user['password'])) {
+            $_SESSION['message'] = 'Invalid Credentials. Please try again.';
+            return;
+        }
+
+        // creates insert query for db with user info
+		$query = "INSERT INTO ACC_REQUEST VALUES 
+		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
+		
+		// checks if insert was successful
+		if ($db->query($query)) {
+			$_SESSION['message'] = 'Account Request Submitted!';
+			return;
+		}
+		// checks if some other error has occurred
+		else {
+			$_SESSION['message'] = 'An error has occurred. Please try again later.';
+			return;
+		}
+
+    }
     
     
 
