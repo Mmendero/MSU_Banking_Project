@@ -1,17 +1,31 @@
 <?php
-  include '../../config.php';
+include '../../config.php';
+session_start();
+//gets session info
+session_start();
 
-  // Logout Function
-  if (isset($_POST["logout"])) {
-    $_SESSION['loggedin'] = false;
-    header('Location: ../cust_pages/customer_signin.php');
-  }
+// Logout Function
+if (isset($_POST["logout"])) {
+  $_SESSION['loggedin'] = false;
+  header('Location: ../cust_pages/customer_signin.php');
+}
+//creates query to get user info from CUSTOMER view
+$query = "SELECT * FROM CUSTOMER WHERE username = '" . $_SESSION['user'] . "'";
 
-  // Validate Login.
-  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
-    $_SESSION['loggedin'] = false;
-    header('Location: ../cust_pages/customer_signin.php');
-  }
+//gets info from db
+$results = $db->query($query);
+$row = $results->fetch_assoc();
+
+//creates variables from queried values
+$user = $row['username'];
+$email = $row['email'];
+$Fname = $row['fname'];
+$Lname = $row['lname'];
+$address = $row['address'];
+
+//closes connection and clears results
+$results->free();
+$db->close();
 ?>
 
 <html lang="en">
@@ -25,7 +39,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../styles/styles.css" />
+    <link rel="stylesheet" href="../../styles/styles.css"/>
 
     <!-- FontAwesome Icons -->
     <script
@@ -73,32 +87,35 @@
       </div>
     </nav>
 
-    <h1>Manage Account</h1>
-    <div>
-            <center><p>Welcome back, <?php echo $Fname; ?>!</p></center>
-        </div>
+  <h1>Profile and Settings</h1>
+  <div>
+    <center>
+      <p>Welcome back, <?php echo $Fname; ?>!</p>
+    </center>
+  </div>
 
-        <!--prompts user's information-->
-        <div>
-            <center>
-                <div>
-                    Username: <?php echo $user; ?>
-                </div>
-                <div>
-                    Email Address: <?php echo $email; ?>
-                </div>
-                <div>
-                    First Name: <?php echo $Fname; ?>
-                </div>
-                <div>
-                    Last Name: <?php echo $Lname; ?>
-                </div>
-                <div>
-                    Primary Address: <?php echo $address; ?>
-                </div>
-                <div>
-                    
-                </div>  
-            </center>
-  </body>
+  <!--prompts user's information-->
+  <div>
+    <center>
+      <div>
+        Username: <?php echo $user; ?>
+      </div>
+      <div>
+        Email Address: <?php echo $email; ?>
+      </div>
+      <div>
+        First Name: <?php echo $Fname; ?>
+      </div>
+      <div>
+        Last Name: <?php echo $Lname; ?>
+      </div>
+      <div>
+        Primary Address: <?php echo $address; ?>
+      </div>
+      <div>
+
+      </div>
+    </center>
+</body>
+
 </html>
