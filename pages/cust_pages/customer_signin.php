@@ -33,14 +33,14 @@
   <body>
     <?php 
       if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
-        if(isset($_SESSION['regdone']) && $_SESSION['regdone'] == ""){
+        if(isset($_SESSION['regdone']) && $_SESSION['regdone'] == true){
           $message_status = "success";
           $_SESSION['regdone'] = false;
         }
         else{
           $message_status = "danger";
         }
-        echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."</div>";
+        echo "<div class='alert alert-".$message_status." alert-dismissible show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
         $_SESSION['message'] = '';
       }
     ?>
@@ -75,5 +75,6 @@
         </form>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>
