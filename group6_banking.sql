@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2022 at 01:18 AM
+-- Generation Time: Apr 08, 2022 at 09:54 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -59,6 +59,14 @@ CREATE TABLE `acc_request` (
   `address` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `acc_request`
+--
+
+INSERT INTO `acc_request` (`ID`, `acc_type`, `username`, `password`, `email`, `fname`, `lname`, `address`) VALUES
+(957259, 'Savings', 'mmendero32131', '$2y$10$D981ss52HZbzAl3n8Vm39.Mj8cIlKhWi1a4u60dlw3CFKbkk0WwsC', 'dasdasd@mdaso.com', 'Matt', 'Mendero', 'd d, d 32131'),
+(957260, 'Savings', 'testacc', '$2y$10$agZlMINsEiIMELVN2Y4k8.jIP5Z4mvLJ3Ac2ZO5RquCXc/EZAblrC', '12231@dsada.com', '45', 'e5', '31312 fcygc, e13213 13132');
+
 -- --------------------------------------------------------
 
 --
@@ -109,12 +117,13 @@ INSERT INTO `customer` (`ID`, `username`, `password`, `email`, `fname`, `lname`,
 
 CREATE TABLE `transaction` (
   `ID` int(50) NOT NULL,
-  `account_number` int(50) NOT NULL,
+  `acc_number` int(50) NOT NULL,
   `type` varchar(255) NOT NULL,
   `name` varchar(100) NOT NULL,
   `recipient_name` varchar(100) NOT NULL,
   `recipient_acc` int(50) NOT NULL,
-  `amount` int(50) NOT NULL,
+  `amount` float NOT NULL,
+  `balance` float NOT NULL,
   `date` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -170,7 +179,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `acc_request`
 --
 ALTER TABLE `acc_request`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957259;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957261;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -194,6 +203,7 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
 
 -- User Priveledges --
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER, CREATE TEMPORARY TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON *.* TO `G6_admin`@`localhost` IDENTIFIED BY PASSWORD '*C285157A2629417E8D3ABE8323336295368ECB63';
