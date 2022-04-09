@@ -21,7 +21,7 @@
         //checks if results were returned
         if ($result->num_rows == 0) {
             $_SESSION['login_failed'] = 'user_DNE';
-            $_SESSION['message'] = 'Username does not exist. Please try again.';
+            $_SESSION['message'] = 'User does not exist. Please try again.';
             return;
         }
         
