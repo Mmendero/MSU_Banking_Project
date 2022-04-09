@@ -155,7 +155,7 @@ if (isset($_POST["register_submit"])) {
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="state" class="form-label">State</label>
-                                                    <select name="state" type="text" class="form-control form-control-lg" id="state" required>
+                                                    <select name="state" type="text" class="form-select form-select-lg" id="state" required>
                                                         <option value="AL">AL</option>
                                                         <option value="AK">AK</option>
                                                         <option value="AZ">AZ</option>
