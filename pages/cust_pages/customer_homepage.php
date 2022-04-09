@@ -172,7 +172,7 @@
 
               <div class="form-group p-2">
                 <label for="cpass">Enter SSN</label>
-                <input type="number" class="form-control" placeholder="SSN" name="ssn" required />
+                <input type="password" class="form-control" placeholder="SSN" name="ssn" required />
               </div>
 
               <div class="form-group p-2">
