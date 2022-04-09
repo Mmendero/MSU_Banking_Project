@@ -23,43 +23,41 @@ nav div {
 .transaction-section-bot {
   height: 20%;
   background-color: whitesmoke;
-
 }
 
-.transaction_table{
+.transaction_table {
   width: 65%;
   margin: auto;
   padding: 30px;
 }
 
-
-.util-bar{
+.util-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.print-trans{
+.print-trans {
 }
 
-.filter-dropdown{
+.filter-dropdown {
   text-align: center;
   width: 15%;
   padding-bottom: 20px;
 }
 
-.accounts-dropdown{
+.accounts-dropdown {
   width: 25%;
 }
 
-.balance{
+.balance {
 }
 
-.balance-amount{
+.balance-amount {
   color: #1cc8e2;
 }
 
-.no-transactions{
+.no-transactions {
   text-align: center;
   font-size: large;
   font-weight: bold;
@@ -67,7 +65,17 @@ nav div {
 
 @media print {
   /* print.css */
-  header, nav, footer, aside, nav, form, iframe, i, .menu, .hero, .adslot {
+  header,
+  nav,
+  footer,
+  aside,
+  nav,
+  form,
+  iframe,
+  i,
+  .menu,
+  .hero,
+  .adslot {
     display: none;
   }
 
@@ -77,38 +85,36 @@ nav div {
     padding-left: 2%;
     background-color: whitesmoke;
   }
-  
+
   .transaction-section-mid {
     height: 80%;
     background-color: whitesmoke;
   }
-  
+
   .transaction-section-bot {
     height: 20%;
     background-color: whitesmoke;
-  
   }
 
-  .print-trans{
+  .print-trans {
     display: none;
   }
-  
-  .transaction_table{
+
+  .transaction_table {
     width: 100%;
     margin: auto;
     background-color: whitesmoke;
   }
 
-  .balance-amount{
+  .balance-amount {
     color: black;
   }
-  
-  .no-transactions{
+
+  .no-transactions {
     text-align: center;
     font-size: large;
     font-weight: bold;
   }
-
 }
 
 /*-----------------Accounts Page Styles-----------------*/
@@ -131,29 +137,35 @@ nav div {
   background-color: whitesmoke;
 }
 
-.open-account{
+.open-account {
   padding: 30px;
   width: 25%;
 }
 
-.submit-request{
+.submit-request {
   padding-top: 20px;
 }
 
-.account_table{
+.account_table {
   background-color: whitesmoke;
   padding: 30px;
   width: 60%;
 }
 
-.homepage-greeting{
+.homepage-greeting {
   padding-top: 2.5%;
   padding-left: 10%;
 }
 
-
-
 /*-----------------Login/Register Styles-----------------*/
+.signin-page {
+  background-color: #cccccc;
+}
+
+.register-page {
+  background-color: #cccccc;
+}
+
 .signin-card-title {
   color: black;
   text-align: center;
@@ -174,7 +186,7 @@ nav div {
   padding-top: 5px;
 }
 
-.alert .alert-danger{
+.alert .alert-danger {
   text-align: center;
 }
 
