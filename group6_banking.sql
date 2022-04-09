@@ -108,6 +108,7 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`ID`, `username`, `password`, `email`, `fname`, `lname`, `address`) VALUES
 (369971630, 'mmendero', '$2y$10$e.bwBkIN8gDqZfKshqS.ceRlNc5uzJV8O/fOdbjCxyXA8QzOGxPwa', 'matthewmendero@gmail.com', 'Matthew', 'Mendero', '115');
+(955337, 'sarmientob1', '$2y$10$JKFlxUhFJ2LwxQ8a3QZ96O7dFRUSguCsKEvYP2eXY/ir/1JEiGbIi', 'sarmientob1@montclair.edu', 'Brianna', 'Sarmiento', '1 Normal Ave Montclair, NJ 07345'),
 
 -- --------------------------------------------------------
 
