@@ -1,9 +1,6 @@
 <?php
 include '../../config.php';
 
-//gets session info
-session_start();
-
 // Logout Function
 if (isset($_POST["logout"])) {
   $_SESSION['loggedin'] = false;
@@ -45,13 +42,27 @@ $db->close();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="../../styles/styles.css" />
 
-  <!-- FontAwesome Icons -->
-  <script src="https://kit.fontawesome.com/2727c3ff62.js" crossorigin="anonymous"></script>
+
+  <!-- Font Awesome -->
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+  />
+  <!-- Google Fonts -->
+  <link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+  />
+  <!-- MDB -->
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+  rel="stylesheet"
+  />
 
   <title>Banking App</title>
 </head>
 
-<body>
+<body style="background-color: #cccccc;">
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -88,36 +99,79 @@ $db->close();
     </div>
   </nav>
 
-  <h1>Profile and Settings</h1>
-  <div>
-    <center>
-      <p>Welcome back, <?php echo $Fname; ?>!</p>
-    </center>
-  </div>
+    <section class="vh-200">
+      <!-- Status Message -->
+      <?php 
+          if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+              echo "<div class='alert alert-danger alert-dismissible show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+              $_SESSION['message'] = '';
+          }
+      ?>
+      <div class="container py-5 h-50">
+          <div class="row justify-content-center align-items-center h-100">
+              <div class="col-12 col-lg-9 col-xl-7">
+                  <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                      <div class="card-body p-4 p-md-5">
+                          <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">Profile and Settings</h2>
 
-  <!--prompts user's information-->
-  <div>
-    <center>
-      <div>
-        Username: <?php echo $user; ?>
-      </div>
-      <div>
-        Email Address: <?php echo $email; ?>
-      </div>
-      <div>
-        First Name: <?php echo $Fname; ?>
-      </div>
-      <div>
-        Last Name: <?php echo $Lname; ?>
-      </div>
-      <div>
-        Primary Address: <?php echo $address; ?>
-      </div>
-      <div>
+                          <!-- Row #2 -->
+                          <div class="row">
+                              <div class="col-md-6 mb-1">
+                                  <div class="form-group">
+                                      <h5>Username</h5>
+                                      <?php echo $user; ?>
+                                  </div>
+                              </div>
+                          </div>
 
-      </div>
-    </center>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+                          <!-- Row #2 -->
+                          <div class="row">
+                              <div class="col-md-12 mb-2">
+                                  <div class="form-group">
+                                      <h5>Email</h5>
+                                      <?php echo $email; ?>
+                                  </div>
+                              </div>
+                          </div>
+
+
+                          <!-- Row #2 -->
+                          <div class="row">
+                              <div class="col-md-12 mb-2">
+                                  <div class="form-group">
+                                      <h5>First Name</h5>
+                                      <?php echo $Fname; ?>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <!-- Row #2 -->
+                          <div class="row">
+                              <div class="col-md-12 mb-2">
+                                  <div class="form-group">
+                                      <h5>Last Name</h5>
+                                      <?php echo $Lname; ?>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <!-- Row #2 -->
+                          <div class="row">
+                              <div class="col-md-12 mb-2">
+                                  <div class="form-group">
+                                      <h5>Address</h5>
+                                      <?php echo $address; ?>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
 </body>
 
 </html>
