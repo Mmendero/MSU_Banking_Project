@@ -83,6 +83,19 @@
           <div id="layoutSidenav_content">
               <main>
                   <div class="container-fluid px-4">
+                      <?php
+                        if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+                          if(isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE){
+                            $message_status = "info";
+                          }
+                          else{
+                            $message_status = "danger";
+                            $_SESSION['request_error'] = FALSE;
+                          }
+                          echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+                          $_SESSION['message'] = '';
+                        }
+                      ?>
                       <h1 class="mt-4">Overview</h1>
                       <ol class="breadcrumb mb-4">
                           <li class="breadcrumb-item active">All Users</li>
@@ -117,8 +130,8 @@
                                       $count = 1;
                                       if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()){
-                                          echo '<form action="" method="post">';
                                           echo '<tr>';
+                                          echo '<form action="" method="post">';
                                           echo '<th class="align-middle" scope="row">'.$count.'</th>';
                                           echo '<td class="align-middle">'.$row['acc_type'].'</td>';
                                           echo '<td class="align-middle">'.$row['fname'].'</td>';
@@ -145,8 +158,9 @@
                                           echo 'Reject';
                                           echo '</button>';
                                           echo '</td>';
-                                          echo '</tr>';
                                           echo '</form>';
+                                          echo '</tr>';
+                                          
                                           $count += 1;
                                         }
                                       }
