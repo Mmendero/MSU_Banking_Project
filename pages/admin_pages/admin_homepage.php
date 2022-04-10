@@ -27,7 +27,7 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="../../styles/admin_styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <title>Admin Front Page</title>
+    <title>Admin User Dashboard</title>
   </head>
     <body class="sb-nav-fixed">
       <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -36,7 +36,7 @@
           <!-- Sidebar Toggle-->
           <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
           <!-- Navbar Search-->
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" action="" method="post">
             <button name="logout" class="btn btn-primary form-inline my-2 my-lg-0">
               Logout
             </button>
@@ -48,7 +48,7 @@
                   <div class="sb-sidenav-menu">
                       <div class="nav">
                           <div class="sb-sidenav-menu-heading">Core</div>
-                          <a class="nav-link" href="index.html">
+                          <a class="nav-link" href="admin_homepage.php">
                               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                               Dashboard
                           </a>
@@ -57,7 +57,7 @@
                               <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                               Account Requests
                           </a>
-                          <a class="nav-link" href="tables.html">
+                          <a class="nav-link" href="admin_manage.php">
                               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                               Manage Users
                           </a>

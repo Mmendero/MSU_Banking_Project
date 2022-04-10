@@ -39,7 +39,7 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="../../styles/admin_styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <title>Admin Front Page</title>
+    <title>Admin Account Requests</title>
   </head>
     <body class="sb-nav-fixed">
       <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -60,16 +60,16 @@
                   <div class="sb-sidenav-menu">
                       <div class="nav">
                           <div class="sb-sidenav-menu-heading">Core</div>
-                          <a class="nav-link" href="index.html">
+                          <a class="nav-link" href="admin_homepage.php">
                               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                               Dashboard
                           </a>
                           <div class="sb-sidenav-menu-heading">Admin Functions</div>
-                          <a class="nav-link" href="charts.html">
+                          <a class="nav-link" href="account_requests.php">
                               <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                               Account Requests
                           </a>
-                          <a class="nav-link" href="tables.html">
+                          <a class="nav-link" href="admin_manage.php">
                               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                               Manage Users
                           </a>
@@ -109,64 +109,84 @@
                           <div class="card-body">
                               <!-- USERS TABLE -->
 
-                              <table id="datatablesSimple">
-                                  <thead>
-                                      <tr>
-                                        <th>#</th>
-                                        <th>Account Type</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>Address</th>
-                                        <th>Decision</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                    <?php
-                                      // Query Database For all Account Creation Requests.
-                                      $query = "SELECT * FROM acc_request";
-                                      $result = $db->query($query);
+                              <?php
+                                if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+                                  if(isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE){
+                                    $message_status = "info";
+                                  }
+                                  else{
+                                    $message_status = "danger";
+                                    $_SESSION['request_error'] = FALSE;
+                                  }
+                                  echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+                                  $_SESSION['message'] = '';
+                                }
+                                
+                                // Query Database For all Account Creation Requests.
+                                $query = "SELECT * FROM acc_request";
+                                $result = $db->query($query);
 
-                                      // Build Table of Transactions.
-                                      $count = 1;
-                                      if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()){
-                                          echo '<tr>';
-                                          echo '<form action="" method="post">';
-                                          echo '<th class="align-middle" scope="row">'.$count.'</th>';
-                                          echo '<td class="align-middle">'.$row['acc_type'].'</td>';
-                                          echo '<td class="align-middle">'.$row['fname'].'</td>';
-                                          echo '<td class="align-middle">'.$row['lname'].'</td>';
-                                          echo '<td class="align-middle">'.$row['email'].'</td>';
-                                          echo '<td class="align-middle">'.$row['address'].'</td>';
-                                          echo '<td class="align-middle" style="text-align: center;">';
-                                          echo '<button name="approve" type="submit" class="btn btn-success form-inline my-2 my-lg-0 mr-2 ml-2">';
-                                          echo 'Approve';
-                                          echo '</button>';
-                                          echo '<button name="reject" type="submit" class="btn btn-danger form-inline my-2 my-lg-0" mr-2 ml-2>';
-                                          echo 'Reject';
-                                          echo '</button>';
-                                          echo '</td>';
+                                if ($result->num_rows == 0) {
+                                  echo '<div class="no-requests">';
+                                  echo '<h1 class="display-4" style="text-align: center;">No Account Creation Requests at this time.</h1>';
+                                  echo '</div>';
+                                }else{
+                                  echo '<div class="requests-title">';
+                                  echo '<h1>Account Creation Requests</h1>';
+                                  echo '</div>';
+                                  echo '<table class="table table-bordered">';
+                                  echo '<thead>';
+                                  echo '<tr>';
+                                  echo '<th class="align-middle" scope="col">#</th>';
+                                  echo '<th class="align-middle" scope="col">Account Type</th>';
+                                  echo '<th class="align-middle" scope="col">First Name</th>';
+                                  echo '<th class="align-middle" scope="col">Last Name</th>';
+                                  echo '<th class="align-middle" scope="col">Email</th>';
+                                  echo '<th class="align-middle" scope="col">Address</th>';
+                                  echo '<th class="align-middle" scope="col"></th>';
+                                  echo '</tr>';
+                                  echo '</thead>';
+                                  echo '<tbody>';
+                                  
+                                  $count = 1;
+                                  while ($row = $result->fetch_assoc()) {
+                                    echo '<tr>';
+                                    echo '<form action="" method="post">';
+                                    echo '<th class="align-middle" scope="row">'.$count.'</th>';
+                                    echo '<td class="align-middle">'.$row['acc_type'].'</td>';
+                                    echo '<td class="align-middle">'.$row['fname'].'</td>';
+                                    echo '<td class="align-middle">'.$row['lname'].'</td>';
+                                    echo '<td class="align-middle">'.$row['email'].'</td>';
+                                    echo '<td class="align-middle">'.$row['address'].'</td>';
+                                    echo '<td class="align-middle">';
+                                    echo '<button name="approve" class="btn btn-success form-inline my-2 my-lg-0 mr-2 ml-2">';
+                                    echo 'Approve';
+                                    echo '</button>';
+                                    echo '<button name="reject" class="btn btn-danger form-inline my-2 my-lg-0" mr-2 ml-2>';
+                                    echo 'Reject';
+                                    echo '</button>';
+                                    echo '</td>';
 
-                                          // Hidden Input Forms.
-                                          echo '<input type="hidden" name="acc_id" value='.$row['ID'].'>';
-                                          echo '<input type="hidden" name="acc_type" value='.$row['acc_type'].'>';
-                                          echo '<input type="hidden" name="user" value='.$row['username'].'>';
-                                          echo '<input type="hidden" name="pass" value='.$row['password'].'>';
-                                          echo '<input type="hidden" name="fname" value='.$row['fname'].'>';
-                                          echo '<input type="hidden" name="lname" value='.$row['lname'].'>';
-                                          echo '<input type="hidden" name="email" value='.$row['email'].'>';
-                                          echo '<input type="hidden" name="address" value='.$row['address'].'>';
-                                          echo '</form>';
-                                          echo '</tr>';
-                                          
-                                          $count += 1;
-                                        }
-                                      }
-
-                                    ?>
-                                  </tbody>
-                              </table>
+                                    // Hidden Input Forms.
+                                    echo '<input type="hidden" name="acc_id" value='.$row['ID'].'>';
+                                    echo '<input type="hidden" name="acc_type" value='.$row['acc_type'].'>';
+                                    echo '<input type="hidden" name="user" value='.$row['username'].'>';
+                                    echo '<input type="hidden" name="pass" value='.$row['password'].'>';
+                                    echo '<input type="hidden" name="fname" value='.$row['fname'].'>';
+                                    echo '<input type="hidden" name="lname" value='.$row['lname'].'>';
+                                    echo '<input type="hidden" name="email" value='.$row['email'].'>';
+                                    echo '<input type="hidden" name="address" value='.$row['address'].'>';
+                                    echo '</form>';
+                                    echo '</tr>';
+                                  
+                                    // Increment number of requests.
+                                    $count++;
+                                  }
+                                  
+                                  echo '</tbody>';
+                                  echo '</table>';
+                                }
+                              ?>
                           </div>
                       </div>
                   </div>
