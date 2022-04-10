@@ -20,6 +20,7 @@
 
   // Handle Request Rejection.
   if (isset($_POST["reject"])) {
+    echo "Hello";
     removeRequest($db, "Account Request Rejected");
   }
 
@@ -47,7 +48,7 @@
           <!-- Sidebar Toggle-->
           <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
           <!-- Navbar Search-->
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" action="" method="post">
             <button name="logout" class="btn btn-primary form-inline my-2 my-lg-0">
               Logout
             </button>
@@ -139,6 +140,13 @@
                                           echo '<td class="align-middle">'.$row['email'].'</td>';
                                           echo '<td class="align-middle">'.$row['address'].'</td>';
                                           echo '<td class="align-middle" style="text-align: center;">';
+                                          echo '<button name="approve" type="submit" class="btn btn-success form-inline my-2 my-lg-0 mr-2 ml-2">';
+                                          echo 'Approve';
+                                          echo '</button>';
+                                          echo '<button name="reject" type="submit" class="btn btn-danger form-inline my-2 my-lg-0" mr-2 ml-2>';
+                                          echo 'Reject';
+                                          echo '</button>';
+                                          echo '</td>';
 
                                           // Hidden Input Forms.
                                           echo '<input type="hidden" name="acc_id" value='.$row['ID'].'>';
@@ -149,15 +157,6 @@
                                           echo '<input type="hidden" name="lname" value='.$row['lname'].'>';
                                           echo '<input type="hidden" name="email" value='.$row['email'].'>';
                                           echo '<input type="hidden" name="address" value='.$row['address'].'>';
-
-
-                                          echo '<button name="approve" type="submit" class="btn btn-success form-inline my-2 my-lg-0 mr-2 ml-2">';
-                                          echo 'Approve';
-                                          echo '</button>';
-                                          echo '<button name="reject" type="submit" class="btn btn-danger form-inline my-2 my-lg-0" mr-2 ml-2>';
-                                          echo 'Reject';
-                                          echo '</button>';
-                                          echo '</td>';
                                           echo '</form>';
                                           echo '</tr>';
                                           

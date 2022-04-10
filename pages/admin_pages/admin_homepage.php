@@ -53,7 +53,7 @@
                               Dashboard
                           </a>
                           <div class="sb-sidenav-menu-heading">Admin Functions</div>
-                          <a class="nav-link" href="charts.html">
+                          <a class="nav-link" href="account_requests.php">
                               <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                               Account Requests
                           </a>
