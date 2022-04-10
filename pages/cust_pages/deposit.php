@@ -77,7 +77,19 @@
         </div>
       </div>
     </nav>
-
+    <section class="vh-200">
+                <!-- Status Message -->
+                <?php 
+                    if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+                        echo "<div class='alert alert-danger alert-dismissible show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+                        $_SESSION['message'] = '';
+                    }
+                ?>
+                <div class="container py-5 h-100">
+                    <div class="row justify-content-center align-items-center h-100">
+                        <div class="col-12 col-lg-9 col-xl-7">
+                            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                                <div class="card-body p-4 p-md-5">
     <h1>Deposit</h1>
     <form action="" method="post">
       <div class="form-group">
@@ -91,7 +103,11 @@
         </button>
       </div>
     </form>
-
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>
