@@ -93,6 +93,7 @@
                                   <button type="submit" class="btn btn-primary btn-lg" name="cust_signin">
                                   Login
                                   </button>
+                                  <a href="../../index.php" class="btn btn-dark btn-lg" role="button" aria-pressed="true">Return Home</a>
                                   <a class="nav-link card-title" href="customer_register.php#"
                                     >Don't have an account? Register Here!</a
                                   >

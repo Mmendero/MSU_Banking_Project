@@ -53,11 +53,11 @@
         }
 
         // Insert into Account Database.
-        $query = "INSERT INTO ACCOUNT VALUES ('".$acc_num."','".$cust_id."','".$acc_type."', '')";
+        $query = "INSERT INTO ACCOUNT VALUES ('".$acc_num."','".$cust_id."','".$acc_type."', '', '')";
 		if ($db->query($query) === TRUE) {
             $message = "Account Request Approved";
         } else {
-            $message = "Something Went Wrong :(" . $db->error;
+            $message = "Something Went Wrong :( " . $db->error;
             $_SESSION['request_error'] = TRUE;
         }
         
@@ -88,11 +88,14 @@
 		$lname = $_POST['lname'];
 		$address = $_POST['address'];
 
+        //queries db for username entered
+        $query = "SELECT * FROM CUSTOMER WHERE username = '".$user."'";
+        $result = $db->query($query)->fetch_assoc();
+
+        // TODO: VALIDATE CORRECT SSN INSTEAD OF GENERIC.
         // Validate SSN/Password.
         $ssn = preg_replace('~\D~', '', $ssn); // replace all non-digits
-
-        // Regular Expression Logic.
-        if(!preg_match('~^(?!000|666|9\d\d)\d{3}(?!00)\d{2}(?!0000)\d{4}$~', $ssn) || !password_verify($pass, $user['password'])) {
+        if(!preg_match('~^(?!000|666|9\d\d)\d{3}(?!00)\d{2}(?!0000)\d{4}$~', $ssn) || !password_verify($pass, $result['password'])) {
             $_SESSION['message'] = 'Invalid Credentials. Please try again.';
             return;
         }
@@ -104,6 +107,7 @@
 		// checks if insert was successful
 		if ($db->query($query)) {
 			$_SESSION['message'] = 'Account Request Submitted!';
+            $_SESSION['newAcc'] = true;
 			return;
 		}
 		// checks if some other error has occurred

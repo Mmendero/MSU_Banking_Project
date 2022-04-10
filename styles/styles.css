@@ -12,17 +12,17 @@ nav div {
   height: 20%;
   padding-top: 2%;
   padding-left: 14%;
-  background-color: whitesmoke;
+  background-color: #cccccc;
 }
 
 .transaction-section-mid {
   height: 80%;
-  background-color: whitesmoke;
+  background-color: #cccccc;
 }
 
 .transaction-section-bot {
   height: 20%;
-  background-color: whitesmoke;
+  background-color: #cccccc;
 }
 
 .transaction_table {
@@ -83,17 +83,17 @@ nav div {
     height: 5%;
     padding-top: 2%;
     padding-left: 2%;
-    background-color: whitesmoke;
+    background-color: #cccccc;
   }
 
   .transaction-section-mid {
     height: 80%;
-    background-color: whitesmoke;
+    background-color: #cccccc;
   }
 
   .transaction-section-bot {
     height: 20%;
-    background-color: whitesmoke;
+    background-color: #cccccc;
   }
 
   .print-trans {
@@ -103,7 +103,7 @@ nav div {
   .transaction_table {
     width: 100%;
     margin: auto;
-    background-color: whitesmoke;
+    background-color: #cccccc;
   }
 
   .balance-amount {
@@ -120,7 +120,7 @@ nav div {
 /*-----------------Accounts Page Styles-----------------*/
 .accounts-section-top {
   height: 20%;
-  background-color: whitesmoke;
+  background-color: #cccccc;
 }
 
 .accounts-section-mid {
@@ -128,13 +128,13 @@ nav div {
   flex-direction: row;
   justify-content: space-evenly;
 
-  height: 80%;
-  background-color: whitesmoke;
+  height: 70%;
+  background-color: #cccccc;
 }
 
 .accounts-section-bot {
-  height: 20%;
-  background-color: whitesmoke;
+  height: 10%;
+  background-color: #cccccc;
 }
 
 .open-account {
@@ -147,7 +147,7 @@ nav div {
 }
 
 .account_table {
-  background-color: whitesmoke;
+  background-color: #cccccc;
   padding: 30px;
   width: 60%;
 }
@@ -199,3 +199,22 @@ nav div {
 .card-registration .select-arrow {
   top: 13px;
 } */
+
+/*-----------------Withdraw/Deposit Styles-----------------*/
+.body-content {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #cccccc;
+}
+
+.deposit-card {
+  flex: 1;
+  width: 30%;
+}
+
+.withdraw-card {
+  flex: 2;
+  width: 30%;
+}
