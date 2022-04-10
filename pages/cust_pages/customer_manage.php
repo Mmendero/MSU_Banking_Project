@@ -73,20 +73,17 @@ $db->close();
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
           <li class="nav-item">
-            <a class="nav-link" href="withdraw.php#">Withdraw</a>
+            <a class="nav-link" href="withdraw_deposit.php">Withdraw/Deposit</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="deposit.php#">Deposit</a>
+            <a class="nav-link" href="transfer_money.php">Transfer Money</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="transfer.php#">Transfer Money</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="customer_manage.php">Manage Account</a>
+            <a class="nav-link active" href="customer_manage.php">Manage Account</a>
           </li>
         </ul>
 

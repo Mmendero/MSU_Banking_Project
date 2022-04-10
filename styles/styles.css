@@ -199,3 +199,22 @@ nav div {
 .card-registration .select-arrow {
   top: 13px;
 } */
+
+/*-----------------Withdraw/Deposit Styles-----------------*/
+.body-content {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #cccccc;
+}
+
+.deposit-card {
+  flex: 1;
+  width: 30%;
+}
+
+.withdraw-card {
+  flex: 2;
+  width: 30%;
+}

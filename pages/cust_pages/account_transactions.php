@@ -58,16 +58,13 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
             <li class="nav-item">
-              <a class="nav-link" href="withdraw.php#">Withdraw</a>
+              <a class="nav-link" href="withdraw_deposit.php">Withdraw/Deposit</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="deposit.php#">Deposit</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="transfer.php#">Transfer Money</a>
+              <a class="nav-link" href="transfer_money.php">Transfer Money</a>
             </li>
 
             <li class="nav-item">
@@ -84,23 +81,23 @@
       </div>
     </nav>
 
+    <?php
+      $query = "SELECT * FROM ACCOUNT WHERE acc_number = '".$_SESSION['POST']['acc_num']."'";
+      $result = $db->query($query)->fetch_assoc();
+    ?>
+
     <!-- Total Account Balance -->
     <div class="transaction-section-top">
       <div class="balance">
           <h7>Available Balance</h7>
-          <h1 class="balance-amount">$100.00</h1>
+          <h1 class="balance-amount">$ <?php echo number_format($result['balance'], 2);?></h1>
       </div>
 
       <div class="accounts-dropdown">
         <form name="transFilter" method="post">
           <select class="form-select" aria-label="Default select example">
             <?php
-              $query = "SELECT * FROM ACCOUNT WHERE acc_number = '".$_SESSION['POST']['acc_num']."'";
-              $result = $db->query($query)->fetch_assoc();
-
-              
               echo "<option selected>".$result['type']." (x".substr(strval($result['acc_number']), -4).")</option>";
-
               $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
               $result = $db->query($query);
 
