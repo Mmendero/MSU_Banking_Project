@@ -97,7 +97,8 @@
         <form name="transFilter" method="post">
           <select class="form-select" aria-label="Default select example">
             <?php
-              echo "<option selected>".$result['type']." (x".substr(strval($acc['acc_number']), -4).")</option>";
+              $acc_name = $acc['type']." (x".substr(strval($acc['acc_number']), -4).")";
+              echo "<option selected>".$acc_name."</option>";
               $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
               $result = $db->query($query);
 
@@ -121,6 +122,7 @@
       <div class="transaction_table">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body p-4 text-center">
+            <h3>Statement for <?php  echo $acc_name; ?> </h3>
             <div class="util-bar">
 
               <div class="filter-dropdown">

@@ -61,8 +61,8 @@
             return;
         }
 
-        $new_balance = $balance - $amount;
-        $query = "UPDATE account SET balance ='".$new_balance."' WHERE acc_num = '".$acc_num."'";
+        $new_balance = $balance + $amount;
+        $query = "UPDATE account SET balance ='".$new_balance."' WHERE acc_number = '".$acc_num."'";
         mysqli_query($db, $query);
 
         // Select Customer Info
@@ -75,7 +75,7 @@
         $date = date("Y-m-d h:i:sa");
 
         $query = "INSERT INTO transaction VALUES 
-        (NULL, '".$acc_num."', 'Deposit', '".$desc."', '".$recip_name."', '".$acc_num."', '".$amount."', '".$balance."', '".$date."')";
+        (NULL, '".$acc_num."', 'Deposit', '".$desc."', '".$recip_name."', '".$acc_num."', '".$amount."', '".$new_balance."', '".$date."')";
         mysqli_query($db, $query);
         header('Location: ../cust_pages/customer_homepage.php');
     }
