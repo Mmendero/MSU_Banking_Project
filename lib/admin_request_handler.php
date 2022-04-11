@@ -17,7 +17,6 @@
         $cust_id = 0;
         $acc_num = 0;
 
-
         // Determine if this User already exists.
         $query = "SELECT * FROM CUSTOMER WHERE username='".$user."'";
         $results = $db->query($query);
@@ -26,7 +25,7 @@
         // record in Customer table.
         if ($results->num_rows > 0) {
             $row = $results->fetch_assoc();
-            $cust_id = $row['user_ID'];
+            $cust_id = $row['ID'];
         }
         else{
             // Validate that CustomerID is unique.

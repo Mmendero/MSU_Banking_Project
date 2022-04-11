@@ -47,7 +47,7 @@
     <title>Banking App</title>
   </head>
 
-  <body>
+  <body style="background-color: #cccccc;">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
@@ -83,21 +83,21 @@
 
     <?php
       $query = "SELECT * FROM ACCOUNT WHERE acc_number = '".$_SESSION['POST']['acc_num']."'";
-      $result = $db->query($query)->fetch_assoc();
+      $acc = $db->query($query)->fetch_assoc();
     ?>
 
     <!-- Total Account Balance -->
     <div class="transaction-section-top">
       <div class="balance">
           <h7>Available Balance</h7>
-          <h1 class="balance-amount">$ <?php echo number_format($result['balance'], 2);?></h1>
+          <h1 class="balance-amount">$ <?php echo number_format($acc['balance'], 2);?></h1>
       </div>
 
       <div class="accounts-dropdown">
         <form name="transFilter" method="post">
           <select class="form-select" aria-label="Default select example">
             <?php
-              echo "<option selected>".$result['type']." (x".substr(strval($result['acc_number']), -4).")</option>";
+              echo "<option selected>".$result['type']." (x".substr(strval($acc['acc_number']), -4).")</option>";
               $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
               $result = $db->query($query);
 
@@ -159,19 +159,18 @@
               </thead>
 
               <?php
-                $query = "SELECT * FROM TRANSACTION WHERE acc_number = '".$_SESSION['POST']['acc_num']."'";
+                $query = "SELECT * FROM TRANSACTION WHERE acc_number = '".$_SESSION['POST']['acc_num']."' ORDER BY date DESC";
                 $result = $db->query($query);
                 $account_total = 0;
-
+                
                 // Build Table of Transactions.
                 echo '<tbody>';
                 if ($result->num_rows > 0) {
                   while ($row = $result->fetch_assoc()){
                     echo '<tr>';
+                    echo '<td class="col-md-2">'.date("m-d-Y",strtotime($row['date'])).'</td>';
                     echo '<td class="col-md-2">'.$row['type'].'</td>';
-                    echo '<td class="col-md-2">$'.$row['date'].'</td>';
-                    echo '<td class="col-md-4">$'.$row['type'].'</td>';
-                    echo '<td class="col-md-2">$'.$row['name'].'</td>';
+                    echo '<td class="col-md-4">'.$row['name'].'</td>';
                     echo '<td class="col-md-2">$'.number_format($row['amount'], 2).'</td>';
                     echo '<td class="col-md-2">$'.number_format($row['balance'], 2).'</td>';
                     echo '</tr>';
@@ -188,9 +187,7 @@
           </div>
         </div>
       </div>
-      </div>
 
-      <div class="transaction-section-bottom">
     </div>
             
   </body>
