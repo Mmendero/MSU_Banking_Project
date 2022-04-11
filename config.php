@@ -4,9 +4,9 @@
 
     // Creates new database object
     // --Update with your own local DB creds--
-    $db = new mysqli('localhost', 'G6_admin', 'CSIT415OBS', 'group6_banking');
+    $db = new mysqli('localhost', 'menderm1_G6_Admin', 'CSIT415OBS', 'menderm1_MSU_Banking_App');
     
-    //checks connection to database
+    // Checks connection to database
     if (mysqli_connect_errno()) {
         echo 'Error: could not connect to database. Please try again later.';
         exit();

@@ -82,7 +82,7 @@
     </nav>
 
     <?php
-      $query = "SELECT * FROM ACCOUNT WHERE acc_number = '".$_SESSION['POST']['acc_num']."'";
+      $query = "SELECT * FROM `account` WHERE `acc_number` = \"".$_SESSION['POST']['acc_num']."\"";
       $acc = $db->query($query)->fetch_assoc();
     ?>
 
@@ -97,9 +97,8 @@
         <form name="transFilter" method="post">
           <select class="form-select" aria-label="Default select example">
             <?php
-              $acc_name = $acc['type']." (x".substr(strval($acc['acc_number']), -4).")";
-              echo "<option selected>".$acc_name."</option>";
-              $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
+              echo "<option selected>".$acc['type']." (x".substr(strval($acc['acc_number']), -4).")</option>";
+              $query = "SELECT * FROM `account` WHERE `cust_id` = \"".$_SESSION['user_id']."\"";
               $result = $db->query($query);
 
               while ($row = $result->fetch_assoc()){
@@ -161,7 +160,7 @@
               </thead>
 
               <?php
-                $query = "SELECT * FROM TRANSACTION WHERE acc_number = '".$_SESSION['POST']['acc_num']."' ORDER BY date DESC";
+                $query = "SELECT * FROM `transaction` WHERE `acc_number` = \"".$_SESSION['POST']['acc_num']."\" ORDER BY `date` DESC";
                 $result = $db->query($query);
                 $account_total = 0;
                 

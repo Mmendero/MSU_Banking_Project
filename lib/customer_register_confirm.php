@@ -16,23 +16,13 @@
 		$state = trim($_POST['state']);
 		$zip = trim($_POST['zip']);
 
-		echo $_POST['hi'];
-		echo $acc_type;
-		echo $user;
-		echo $ssn;
-		echo $pass;
-		echo $conpass;
-		echo $email;
-		echo $fname;
-		echo $lname;
-
 		
 		//checks if all inputs have been passed
 		if (!$user || !$pass || !$conpass || !$fname || !$lname || !$email || !$stadd || !$city || !$state || !$zip) {
 			$_SESSION['registration_failed'] = 'invalid_input';
 			$_SESSION['message'] = 'Registration info was not properly input. Please try again.';
 			header('Location: customer_register.php');
-			exit();
+			return;
 		}
 		
 		//checks if password is at least 6 characters
@@ -40,7 +30,7 @@
 			$_SESSION['registration_failed'] = 'invalid_password';
 			$_SESSION['message'] = 'Password must be at least 6 characters. Please try again.';
 			header('Location: ../cust_pages/customer_register.php');
-			exit();
+			return;
 		}
 		
 		//checks if password and confirm password inputs match
@@ -48,11 +38,11 @@
 			$_SESSION['registration_failed'] = 'pwdnotmatch';
 			$_SESSION['message'] = 'Passwords do not match. Please try again.';
 			header('Location: ../cust_pages/customer_register.php');
-			exit();
+			return;
 		}
 		
 		//gets id and username from current customers
-		$query = 'SELECT ID, username, email FROM CUSTOMER';
+		$query = 'SELECT `ID`, `username`, `email` FROM `customer`';
 		$results = $db->query($query);
 		
 		//gets the number of results
@@ -74,7 +64,7 @@
 				$_SESSION['registration_failed'] = 'usertaken';
 				$_SESSION['message'] = 'Username already taken. Please try again.';
 				header('Location: ../cust_pages/customer_register.php');
-				exit();
+				return;
 			}
 			
 			if ($email == $row['email']) {
@@ -82,12 +72,12 @@
 				$_SESSION['registration_failed'] = 'emailtaken';
 				$_SESSION['message'] = 'Email already in use. Please try again.';
 				header('Location: ../cust_pages/customer_register.php');
-				exit();
+				return;
 			}
 		}
 		
 		//creates insert query for db with user info
-		$query = "INSERT INTO ACC_REQUEST VALUES 
+		$query = "INSERT INTO `acc_request` VALUES 
 		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
 		
 		//checks if insert was successful

@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `group6_banking`
+-- Database: `menderm1_MSU_Banking_App`
 --
 
 -- --------------------------------------------------------
@@ -44,7 +44,6 @@ INSERT INTO `account` (`acc_number`, `cust_id`, `type`, `balance`, `pending`) VA
 (21244713, 1886976572, 'Savings', '23298.59', '0.00'),
 (80185985, 1886976572, 'Checkings', '0.00', '0.00');
 
--- --------------------------------------------------------
 
 --
 -- Table structure for table `acc_request`
@@ -220,5 +219,5 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 -- User Priveledges --
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER, CREATE TEMPORARY TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON *.* TO `G6_admin`@`localhost` IDENTIFIED BY PASSWORD '*C285157A2629417E8D3ABE8323336295368ECB63';
-GRANT ALL PRIVILEGES ON `group6_banking`.* TO `G6_admin`@`localhost`;
+-- GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER, CREATE TEMPORARY TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON *.* TO `G6_admin`@`localhost` IDENTIFIED BY PASSWORD '*C285157A2629417E8D3ABE8323336295368ECB63';
+-- GRANT ALL PRIVILEGES ON `group6_banking`.* TO `G6_admin`@`localhost`;

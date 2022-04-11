@@ -117,7 +117,7 @@
         }
         
         // Get user info.
-        $query = "SELECT * FROM CUSTOMER WHERE ID = '".$_SESSION['user_id']."'";
+        $query = "SELECT * FROM `customer` WHERE `ID` = \"".$_SESSION['user_id']."\"";
         $user = $db->query($query)->fetch_assoc();
 
         echo '<div class="homepage-greeting">';
@@ -141,7 +141,7 @@
                 </tr>
               </thead>
               <?php
-                $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
+                $query = "SELECT * FROM `account` WHERE `cust_id` = \"".$_SESSION['user_id']."\"";
                 $result = $db->query($query);
 
                 $account_total = 0;
