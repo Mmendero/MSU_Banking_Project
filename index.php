@@ -8,7 +8,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>BLEM Banking Home</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap Icons-->
@@ -91,10 +91,10 @@
             <hr class="divider" />
           </div>
           <div class="col-lg-8 align-self-baseline">
-            <p class="text-white-75 mb-5">
+            <!-- <p class="text-white-75 mb-5">
               BLEM Banking can help you build better websites using the
               Bootstrap framework!
-            </p>
+            </p> -->
             <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
           </div>
         </div>
@@ -105,12 +105,10 @@
       <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-lg-8 text-center">
-            <h2 class="text-white mt-0">We've got what you need!</h2>
+            <h2 class="text-white mt-0">We've got what you're looking for!</h2>
             <hr class="divider divider-light" />
             <p class="text-white-75 mb-4">
-              Start Bootstrap has everything you need to get your new website up
-              and running in no time! Choose one of our open source, free to
-              download, and easy to use themes! No strings attached!
+              BLEM Banking has all of the features and perks that you need to feel secure and comfortable leaving your money with us! Submit a quick registration request and get started now!
             </p>
             <a
               class="btn btn-light btn-xl"
@@ -124,35 +122,35 @@
     <!-- Services-->
     <section class="page-section" id="services">
       <div class="container px-4 px-lg-5">
-        <h2 class="text-center mt-0">At Your Service</h2>
+        <h2 class="text-center mt-0">Why BLEM Banking?</h2>
         <hr class="divider" />
         <div class="row gx-4 gx-lg-5">
           <div class="col-lg-3 col-md-6 text-center">
             <div class="mt-5">
-              <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
-              <h3 class="h4 mb-2">Sturdy Themes</h3>
+              <div class="mb-2"><i class="bi-arrow-repeat fs-1 text-primary"></i></div>
+              <h3 class="h4 mb-2">Sync Across Devices</h3>
               <p class="text-muted mb-0">
-                Our themes are updated regularly to keep them bug free!
+                
               </p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="mt-5">
               <div class="mb-2">
-                <i class="bi-laptop fs-1 text-primary"></i>
+                <i class="bi-file-lock2 fs-1 text-primary"></i>
               </div>
-              <h3 class="h4 mb-2">Up to Date</h3>
+              <h3 class="h4 mb-2">Top Notch Security</h3>
               <p class="text-muted mb-0">
-                All dependencies are kept current to keep things fresh.
+                
               </p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 text-center">
             <div class="mt-5">
-              <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
-              <h3 class="h4 mb-2">Ready to Publish</h3>
+              <div class="mb-2"><i class="bi-alarm fs-1 text-primary"></i></div>
+              <h3 class="h4 mb-2">Quick Service</h3>
               <p class="text-muted mb-0">
-                You can use this design as is, or you can make changes!
+                
               </p>
             </div>
           </div>
@@ -161,7 +159,7 @@
               <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
               <h3 class="h4 mb-2">Made with Love</h3>
               <p class="text-muted mb-0">
-                Is it really open source if it's not made with love?
+                
               </p>
             </div>
           </div>
@@ -176,7 +174,7 @@
             <h2 class="mt-0">Let's Get In Touch!</h2>
             <hr class="divider" />
             <p class="text-muted mb-5">
-              Ready to start your next project with us? Send us a messages and
+              Woudl you like to learn more or have a question in general? Send us a messages and
               we will get back to you as soon as possible!
             </p>
           </div>
