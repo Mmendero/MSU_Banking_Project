@@ -16,14 +16,14 @@ nav div {
 }
 
 .transaction-section-mid {
-  height: 80%;
+  height: 100%;
   background-color: #cccccc;
 }
 
-.transaction-section-bot {
+/* .transaction-section-bot {
   height: 20%;
   background-color: #cccccc;
-}
+} */
 
 .transaction_table {
   width: 65%;
@@ -54,7 +54,7 @@ nav div {
 }
 
 .balance-amount {
-  color: #1cc8e2;
+  color: black;
 }
 
 .no-transactions {
@@ -108,6 +108,7 @@ nav div {
 
   .balance-amount {
     color: black;
+    font-size: larger;
   }
 
   .no-transactions {

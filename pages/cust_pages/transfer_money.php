@@ -111,16 +111,42 @@
           <div class="col-12 col-lg-9 col-xl-7">
             <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
               <div class="card-body p-4 p-md-5">
-              <h1>Deposit</h1>
+              <h1>Transfer Money</h1>
               <form action="" method="post">
                 <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="number" class="form-control" placeholder="$" name="amount" required />
+                  <div class="form-group p-2">
+                      <label for="amount">From Account</label>
+                      <select class="form-select" name='acc_num' aria-label="Default select example">
+                        <?php
+                          $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
+                          $result = $db->query($query);
+
+                          while ($row = $result->fetch_assoc()){
+                            echo "<option value=".$row['acc_number'].">".$row['type']." (x".substr(strval($row['acc_number']), -4).")</option>";
+                          }
+                        ?>
+                      </select>
+                    </div>
+
+                    <div class="form-group p-2">
+                      <label for="amount">Recipient Account Number</label>
+                      <input type="number" class="form-control" placeholder="" name="desc" required />
+                    </div>
+
+                    <div class="form-group p-2">
+                      <label for="amount">Brief Description</label>
+                      <input type="text" class="form-control" placeholder="" name="desc" required />
+                    </div>
+
+                    <div class="form-group p-2">
+                      <label for="amount">Amount</label>
+                      <input type="number" class="form-control" placeholder="$" name="amount" step="0.01" required />
+                  </div>
                 </div>
 
                 <div class="button-container">
-                <button type="submit" class="btn btn-primary" name="deposit_submit">
-                Deposit
+                <button type="submit" class="btn btn-primary" name="">
+                Transfer
                 </button>
                 </div>
               </form>
