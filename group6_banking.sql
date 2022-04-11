@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2022 at 09:54 PM
+-- Generation Time: Apr 11, 2022 at 05:04 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -31,8 +31,8 @@ CREATE TABLE `account` (
   `acc_number` int(255) NOT NULL,
   `cust_id` int(255) NOT NULL,
   `type` varchar(255) NOT NULL,
-  `balance` int(100) NOT NULL DEFAULT 0,
-  `pending` float NOT NULL DEFAULT 0
+  `balance` decimal(18,2) NOT NULL DEFAULT 0.00,
+  `pending` decimal(18,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -40,8 +40,10 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`acc_number`, `cust_id`, `type`, `balance`, `pending`) VALUES
-(76934858, 369971630, 'Savings', 0, 0);
--- --------------------------------------------------------
+(14349309, 1886976572, 'Checkings', '878000.00', '0.00'),
+(21244713, 1886976572, 'Savings', '23298.59', '0.00'),
+(80185985, 1886976572, 'Checkings', '0.00', '0.00');
+
 
 --
 -- Table structure for table `acc_request`
@@ -63,8 +65,9 @@ CREATE TABLE `acc_request` (
 --
 
 INSERT INTO `acc_request` (`ID`, `acc_type`, `username`, `password`, `email`, `fname`, `lname`, `address`) VALUES
-(957259, 'Savings', 'mmendero32131', '$2y$10$D981ss52HZbzAl3n8Vm39.Mj8cIlKhWi1a4u60dlw3CFKbkk0WwsC', 'dasdasd@mdaso.com', 'Matt', 'Mendero', 'd d, d 32131'),
-(957260, 'Savings', 'testacc', '$2y$10$agZlMINsEiIMELVN2Y4k8.jIP5Z4mvLJ3Ac2ZO5RquCXc/EZAblrC', '12231@dsada.com', '45', 'e5', '31312 fcygc, e13213 13132');
+(957270, 'Savings', 'csmith', '$2y$10$zOEtlteynruQJotEyKeUreCW4v4vYm.I1gq.zFuxejTl1Aob.Jc5O', 'csmith@montclair.edu', 'Chris', 'Smith', '123 test, IA 72633'),
+(957271, 'Savings', 'wrock', '$2y$10$oPjcCgFvSFOG3evRJqQSMOKl03l.ihtsKlLrDRLFgYyq7p.MfJeZ2', 'test@ddsmai.com', 'Will', 'Rock', 'dsdadassd Test Town, AL 13231'),
+(957272, 'Savings', 'test', '$2y$10$H568DSUJ6n/U8KkHtNYlueT2u2hbwLuQ69biLS5QEZdPiq7DbcBLK', 'q@dsa.com', 'q', 'q', 'q q, AL 12313');
 
 -- --------------------------------------------------------
 
@@ -106,7 +109,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`ID`, `username`, `password`, `email`, `fname`, `lname`, `address`) VALUES
-(369971630, 'mmendero', '$2y$10$e.bwBkIN8gDqZfKshqS.ceRlNc5uzJV8O/fOdbjCxyXA8QzOGxPwa', 'matthewmendero@gmail.com', 'Matthew', 'Mendero', '115');
+(1886976572, 'mmendero', '$2y$10$0zswSoqNgzPcaIPLxR3/MePsaLS3nFg9qkj/ZIx6Xu8cJKASET8wS', 'matthewmendero@gmail.com', 'Matthew', 'Mendero', '136');
 
 -- --------------------------------------------------------
 
@@ -121,10 +124,22 @@ CREATE TABLE `transaction` (
   `name` varchar(100) NOT NULL,
   `recipient_name` varchar(100) NOT NULL,
   `recipient_acc` int(50) NOT NULL,
-  `amount` float NOT NULL,
-  `balance` float NOT NULL,
+  `amount` decimal(18,2) NOT NULL,
+  `balance` decimal(18,2) NOT NULL,
   `date` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`ID`, `acc_number`, `type`, `name`, `recipient_name`, `recipient_acc`, `amount`, `balance`, `date`) VALUES
+(73, 14349309, 'Deposit', 'Birthday', 'Matthew', 14349309, '1000000.00', '1000000.00', '2022-04-11 10:57:16am'),
+(74, 14349309, 'Withdraw', 'Tuition', 'Matthew', 14349309, '100000.00', '900000.00', '2022-04-11 10:57:28am'),
+(75, 14349309, 'Withdraw', 'Food', 'Matthew', 14349309, '20000.00', '880000.00', '2022-04-11 10:57:46am'),
+(76, 14349309, 'Withdraw', 'Taxes', 'Matthew', 14349309, '2000.00', '878000.00', '2022-04-11 10:57:54am'),
+(77, 21244713, 'Deposit', 'Paycheck', 'Matthew', 21244713, '23322.00', '23322.00', '2022-04-11 11:02:55am'),
+(78, 21244713, 'Withdraw', 'Food', 'Matthew', 21244713, '23.41', '23298.59', '2022-04-11 11:03:09am');
 
 --
 -- Indexes for dumped tables
@@ -172,13 +187,13 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `acc_number` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76934859;
+  MODIFY `acc_number` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98635841;
 
 --
 -- AUTO_INCREMENT for table `acc_request`
 --
 ALTER TABLE `acc_request`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957261;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957275;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -190,19 +205,18 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1533931266;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1886976573;
 
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
 
 -- User Priveledges --
 -- GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER, CREATE TEMPORARY TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON *.* TO `G6_admin`@`localhost` IDENTIFIED BY PASSWORD '*C285157A2629417E8D3ABE8323336295368ECB63';

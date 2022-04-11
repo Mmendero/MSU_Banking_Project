@@ -73,10 +73,10 @@
 
         date_default_timezone_set('America/New_York');
         $date = date("Y-m-d h:i:sa");
-
-        $query = "INSERT INTO `transaction` VALUES 
-        (NULL, '".$acc_num."', 'Deposit', '".$desc."', '".$recip_name."', '".$acc_num."', '".$amount."', '".$balance."', '".$date."')";
-        $db->query($query);
+        $query = "INSERT INTO transaction VALUES 
+        (NULL, '".$acc_num."', 'Deposit', '".$desc."', '".$recip_name."', '".$acc_num."', '".$amount."', '".$new_balance."', '".$date."')";
+        mysqli_query($db, $query);
+      
         header('Location: ../cust_pages/customer_homepage.php');
     }
 ?>
