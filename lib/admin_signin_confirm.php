@@ -15,7 +15,7 @@
         }
         
         //queries db for username entered
-        $query = "SELECT * FROM admin WHERE username = '".$user."'";
+        $query = "SELECT * FROM `admin` WHERE `username` = \"".$user."\"";
         $result = $db->query($query);
 
         //checks if results were returned

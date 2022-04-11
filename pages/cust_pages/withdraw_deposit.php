@@ -118,7 +118,7 @@
                       <label for="amount">Account</label>
                       <select class="form-select" name='acc_num' aria-label="Default select example">
                         <?php
-                          $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
+                          $query = "SELECT * FROM `account` WHERE `cust_id` = \"".$_SESSION['user_id']."\"";
                           $result = $db->query($query);
 
                           while ($row = $result->fetch_assoc()){
@@ -164,7 +164,7 @@
                     <label for="amount">Account</label>
                     <select class="form-select" name='acc_num' aria-label="Default select example">
                       <?php
-                        $query = "SELECT * FROM ACCOUNT WHERE cust_id = '".$_SESSION['user_id']."'";
+                        $query = "SELECT * FROM `account` WHERE `cust_id` = \"".$_SESSION['user_id']."\"";
                         $result = $db->query($query);
 
                         while ($row = $result->fetch_assoc()){

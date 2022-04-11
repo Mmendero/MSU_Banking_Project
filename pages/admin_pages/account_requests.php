@@ -123,7 +123,7 @@
                                 }
                                 
                                 // Query Database For all Account Creation Requests.
-                                $query = "SELECT * FROM acc_request";
+                                $query = "SELECT * FROM `acc_request`";
                                 $result = $db->query($query);
 
                                 if ($result->num_rows == 0) {

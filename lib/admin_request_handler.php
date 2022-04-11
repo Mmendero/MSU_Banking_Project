@@ -18,7 +18,7 @@
         $acc_num = 0;
 
         // Determine if this User already exists.
-        $query = "SELECT * FROM CUSTOMER WHERE username='".$user."'";
+        $query = "SELECT * FROM `customer` WHERE `username`=\"".$user."\"";
         $results = $db->query($query);
 
         // If this is a new user, create a new
@@ -30,13 +30,13 @@
         else{
             // Validate that CustomerID is unique.
             $cust_id = mt_rand();
-            $query = "SELECT * FROM CUSTOMER WHERE ID='".$cust_id."'";
+            $query = "SELECT * FROM `customer` WHERE `ID`=\"".$cust_id."\"";
             while ($db->query($query)->num_rows > 0){
                 $cust_id = mt_rand();
             }
 
             // Insert into Customer Database.
-            $query = "INSERT INTO CUSTOMER VALUES ('".$cust_id."','".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
+            $query = "INSERT INTO `customer` VALUES ('".$cust_id."','".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
             if ($db->query($query) === FALSE) {
                 $message = "Something Went Wrong :(" . $db->error;
                 $_SESSION['request_error'] = TRUE;
@@ -46,13 +46,13 @@
 
         // Validate that Account number is unique.
         $acc_num = mt_rand(10000000,99999999);
-        $query = "SELECT * FROM ACCOUNT WHERE acc_number='".$acc_num."'";
+        $query = "SELECT * FROM `account` WHERE `acc_number`='".$acc_num."'";
         while ($db->query($query)->num_rows > 0){
             $acc_num = mt_rand(10000000,99999999);
         }
 
         // Insert into Account Database.
-        $query = "INSERT INTO ACCOUNT VALUES ('".$acc_num."','".$cust_id."','".$acc_type."', '', '')";
+        $query = "INSERT INTO `account` VALUES ('".$acc_num."','".$cust_id."','".$acc_type."', 0, 0)";
 		if ($db->query($query) === TRUE) {
             $message = "Account Request Approved";
         } else {
@@ -68,7 +68,7 @@
         //takes input passed from form and assigns to variables
         $acc_id = $_POST['acc_id'];
 
-        $query = "DELETE FROM ACC_REQUEST WHERE ID='". $acc_id."'";
+        $query = "DELETE FROM `acc_request` WHERE `ID`='". $acc_id."'";
         if ($db->query($query) === TRUE) {
             $_SESSION['message'] = $message;
         } else {
@@ -88,7 +88,7 @@
 		$address = $_POST['address'];
 
         //queries db for username entered
-        $query = "SELECT * FROM CUSTOMER WHERE username = '".$user."'";
+        $query = "SELECT * FROM `customer` WHERE username = '".$user."'";
         $result = $db->query($query)->fetch_assoc();
 
         // TODO: VALIDATE CORRECT SSN INSTEAD OF GENERIC.
@@ -100,7 +100,7 @@
         }
 
         // creates insert query for db with user info
-		$query = "INSERT INTO ACC_REQUEST VALUES 
+		$query = "INSERT INTO `acc_request` VALUES 
 		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
 		
 		// checks if insert was successful

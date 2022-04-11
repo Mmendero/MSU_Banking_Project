@@ -7,7 +7,7 @@
         $acc_num = $_POST['acc_num'];
         $desc = $_POST['desc'];
 
-        $query = "SELECT * FROM account WHERE acc_number = '".$acc_num."'";
+        $query = "SELECT * FROM `account` WHERE `acc_number` = \"".$acc_num."\"";
         $result = $db->query($query);
         $row = $result->fetch_assoc();
         $balance = $row['balance'];
@@ -27,11 +27,11 @@
 
         // Update Account Balance.
         $new_balance = $balance - $amount;
-        $query = "UPDATE account SET balance = '".$new_balance."' WHERE acc_number = '".$acc_num."'";
-        mysqli_query($db, $query);
+        $query = "UPDATE `account` SET `balance` = \"".$new_balance."\" WHERE `acc_number` = \"".$acc_num."\"";
+        $db->query($query);
 
         // Select Customer Info
-        $query = "SELECT * FROM CUSTOMER WHERE ID = '".$_SESSION['user_id']."'";
+        $query = "SELECT * FROM `customer` WHERE `ID` = \"".$_SESSION['user_id']."\"";
         $result = $db->query($query);
         $row = $result->fetch_assoc();
         $recip_name = $row['fname'];
@@ -39,9 +39,9 @@
         date_default_timezone_set('America/New_York');
         $date = date("Y-m-d h:i:sa");
 
-        $query = "INSERT INTO transaction VALUES 
+        $query = "INSERT INTO `transaction` VALUES 
         (NULL, '".$acc_num."', 'Withdraw', '".$desc."', '".$recip_name."', '".$acc_num."', '".$amount."', '".$new_balance."', '".$date."')";
-        mysqli_query($db, $query);
+        $db->query($query);
         header('Location: ../cust_pages/customer_homepage.php');
         
     }
@@ -51,7 +51,7 @@
         $acc_num = $_POST['acc_num'];
         $desc = $_POST['desc'];
 
-        $query = "SELECT * FROM account WHERE acc_number = '".$acc_num."'";
+        $query = "SELECT * FROM `account` WHERE `acc_number` = \"".$acc_num."\"";
         $result = $db->query($query);
         $row = $result->fetch_assoc();
         $balance = $row['balance'];
@@ -61,12 +61,12 @@
             return;
         }
 
-        $new_balance = $balance - $amount;
-        $query = "UPDATE account SET balance ='".$new_balance."' WHERE acc_num = '".$acc_num."'";
-        mysqli_query($db, $query);
+        $new_balance = $balance + $amount;
+        $query = "UPDATE `account` SET `balance`=\"".$new_balance."\" WHERE `acc_number`=\"".$acc_num."\"";
+        $db->query($query);
 
         // Select Customer Info
-        $query = "SELECT * FROM CUSTOMER WHERE ID = '".$_SESSION['user_id']."'";
+        $query = "SELECT * FROM `customer` WHERE `ID` = \"".$_SESSION['user_id']."\"";
         $result = $db->query($query);
         $row = $result->fetch_assoc();
         $recip_name = $row['fname'];
@@ -74,9 +74,9 @@
         date_default_timezone_set('America/New_York');
         $date = date("Y-m-d h:i:sa");
 
-        $query = "INSERT INTO transaction VALUES 
+        $query = "INSERT INTO `transaction` VALUES 
         (NULL, '".$acc_num."', 'Deposit', '".$desc."', '".$recip_name."', '".$acc_num."', '".$amount."', '".$balance."', '".$date."')";
-        mysqli_query($db, $query);
+        $db->query($query);
         header('Location: ../cust_pages/customer_homepage.php');
     }
 ?>

@@ -13,7 +13,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
 }
 
 //creates query to get user info from CUSTOMER view
-$query = "SELECT * FROM CUSTOMER WHERE username = '" . $_SESSION['user'] . "'";
+$query = "SELECT * FROM `customer` WHERE `username` = \"" . $_SESSION['user'] . "\"";
 
 //gets info from db
 $results = $db->query($query);
