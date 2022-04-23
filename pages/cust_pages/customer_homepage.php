@@ -121,7 +121,7 @@
         $user = $db->query($query)->fetch_assoc();
 
         echo '<div class="homepage-greeting">';
-        echo '<h1>Good '.$time.', '.$user['fname'].'!</h1>';
+        echo '<h1>Good '.$time.', '.openssl_decrypt($user['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'!</h1>';
         echo '<h6>Today\'s date is '.$date.'</h7>';
         echo '</div>';
       ?>
@@ -146,19 +146,22 @@
 
                 $account_total = 0;
                 while ($row = $result->fetch_assoc()){
+                  $bal = (float)(openssl_decrypt($row['balance'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
+                  $pend = (float)(openssl_decrypt($row['pending'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
+
                   echo '<tbody>';
                   echo '<form action="" method="post">';
                   echo '<tr>';
                   echo '<td class="col-md-6"><button type="submit" name="view_transactions" class="btn btn-link">'.$row['type'].' (x'.substr(strval($row['acc_number']), -4).')</button></td>';
-                  echo '<td class="align-middle">$'.number_format($row['balance'], 2).'</td>';
-                  echo '<td class="align-middle">$'.number_format($row['pending'], 2).'</td>';
+                  echo '<td class="align-middle">$'.number_format($bal, 2).'</td>';
+                  echo '<td class="align-middle">$'.number_format($pend, 2).'</td>';
                   echo '</tr>';
 
                   // Hidden Form Data.
                   echo '<input type="hidden" name="acc_num" value='.$row['acc_number'].'>';
                   echo '</form>';
                   
-                  $account_total += $row['balance'];
+                  $account_total += $bal;
                 }
                 
                 echo '</tbody>';
@@ -216,6 +219,7 @@
               </div>
 
             </form>
+
           </div>
         </div>         
       </div>

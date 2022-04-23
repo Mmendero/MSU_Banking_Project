@@ -154,10 +154,10 @@
                                     echo '<form action="" method="post">';
                                     echo '<th class="align-middle" scope="row">'.$count.'</th>';
                                     echo '<td class="align-middle">'.$row['acc_type'].'</td>';
-                                    echo '<td class="align-middle">'.$row['fname'].'</td>';
-                                    echo '<td class="align-middle">'.$row['lname'].'</td>';
-                                    echo '<td class="align-middle">'.$row['email'].'</td>';
-                                    echo '<td class="align-middle">'.$row['address'].'</td>';
+                                    echo '<td class="align-middle">'.openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                    echo '<td class="align-middle">'.openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                    echo '<td class="align-middle">'.openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                    echo '<td class="align-middle">'.openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                     echo '<td class="align-middle">';
                                     echo '<button name="approve" class="btn btn-success form-inline my-2 my-lg-0 mr-2 ml-2">';
                                     echo 'Approve';

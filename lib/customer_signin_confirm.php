@@ -15,7 +15,7 @@
         }
         
         //queries db for username entered
-        $query = "SELECT * FROM `customer` WHERE `username` = \"".$user."\"";
+        $query = "SELECT * FROM `customer` WHERE `username` = \"".openssl_encrypt($user, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv'])."\"";
         $result = $db->query($query);
 
         //checks if results were returned
