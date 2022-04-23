@@ -97,7 +97,7 @@
                                   </thead>
                                   <tbody>
                                     <?php
-                                      $query = "SELECT * FROM CUSTOMER";
+                                      $query = "SELECT * FROM `customer`";
                                       $result = $db->query($query);
 
                                       // Build Table of Transactions.
@@ -105,11 +105,11 @@
                                         while ($row = $result->fetch_assoc()){
                                           echo '<tr>';
                                           echo '<td>'.$row['ID'].'</td>';
-                                          echo '<td>'.$row['username'].'</td>';
-                                          echo '<td>'.$row['email'].'</td>';
-                                          echo '<td>'.$row['fname'].'</td>';
-                                          echo '<td>'.$row['lname'].'</td>';
-                                          echo '<td>'.$row['address'].'</td>';
+                                          echo '<td>'.openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td>'.openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td>'.openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td>'.openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td>'.openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                           echo '</tr>';
                                         }
                                       }

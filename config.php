@@ -11,4 +11,10 @@
         exit();
     }
 
+    // Create Encryption Info.
+    $_SESSION['key'] = "BG6ALdmEinM";
+    $_SESSION['ciphering'] = "AES-128-CTR";
+    $_SESSION['options'] = 0;
+    $_SESSION['encryption_iv'] = '1234567891011121';
+
 ?>

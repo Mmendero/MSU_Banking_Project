@@ -42,7 +42,7 @@
 		}
 		
 		//gets id and username from current customers
-		$query = 'SELECT `ID`, `username`, `email` FROM `customer`';
+		$query = 'SELECT * FROM `customer`';
 		$results = $db->query($query);
 		
 		//gets the number of results
@@ -59,7 +59,7 @@
 			$row = $results->fetch_assoc();
 			
 			//compares current usernames with new username    
-			if ($user == $row['username']) {
+			if (openssl_encrypt($user, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) == $row['username']) {
 				//exits program is there is a match
 				$_SESSION['registration_failed'] = 'usertaken';
 				$_SESSION['message'] = 'Username already taken. Please try again.';
@@ -67,7 +67,7 @@
 				return;
 			}
 			
-			if ($email == $row['email']) {
+			if (openssl_encrypt($email, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) == $row['email']) {
 				//exits program is there is a match
 				$_SESSION['registration_failed'] = 'emailtaken';
 				$_SESSION['message'] = 'Email already in use. Please try again.';
@@ -75,6 +75,13 @@
 				return;
 			}
 		}
+
+		// Passed Validation, Encrypt fields before storing.
+		$user = openssl_encrypt($user, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+        $email = openssl_encrypt($email, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+        $fname = openssl_encrypt($fname, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+        $lname = openssl_encrypt($lname, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+        $address = openssl_encrypt($address, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 		
 		//creates insert query for db with user info
 		$query = "INSERT INTO `acc_request` VALUES 

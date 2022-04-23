@@ -1,34 +1,34 @@
 <?php
-include '../../config.php';
+  include '../../config.php';
 
-// Logout Function
-if (isset($_POST["logout"])) {
-  $_SESSION['loggedin'] = false;
-  header('Location: ../cust_pages/customer_signin.php');
-}
-// Validate Login.
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
-  $_SESSION['loggedin'] = false;
-  header('Location: ../cust_pages/customer_signin.php');
-}
+  // Logout Function
+  if (isset($_POST["logout"])) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../cust_pages/customer_signin.php');
+  }
+  // Validate Login.
+  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../cust_pages/customer_signin.php');
+  }
 
-//creates query to get user info from CUSTOMER view
-$query = "SELECT * FROM `customer` WHERE `username` = \"" . $_SESSION['user'] . "\"";
+  //creates query to get user info from CUSTOMER view
+  $query = "SELECT * FROM `customer` WHERE `username` = \"" . $_SESSION['user'] . "\"";
 
-//gets info from db
-$results = $db->query($query);
-$row = $results->fetch_assoc();
+  //gets info from db
+  $results = $db->query($query);
+  $row = $results->fetch_assoc();
 
-//creates variables from queried values
-$user = $row['username'];
-$email = $row['email'];
-$Fname = $row['fname'];
-$Lname = $row['lname'];
-$address = $row['address'];
+  //creates variables from queried values
+  $user = openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+  $email = openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+  $Fname = openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+  $Lname = openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+  $address = openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
-//closes connection and clears results
-$results->free();
-$db->close();
+  //closes connection and clears results
+  $results->free();
+  $db->close();
 ?>
 
 <html lang="en">

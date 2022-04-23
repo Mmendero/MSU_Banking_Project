@@ -41,7 +41,6 @@
                 $message = "Something Went Wrong :(" . $db->error;
                 $_SESSION['request_error'] = TRUE;
             }
-
         }
 
         // Validate that Account number is unique.
@@ -51,8 +50,12 @@
             $acc_num = mt_rand(10000000,99999999);
         }
 
+        // Encrypt Account Values.
+        $balance= openssl_encrypt("0", $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+        $pending = openssl_encrypt("0", $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+
         // Insert into Account Database.
-        $query = "INSERT INTO `account` VALUES ('".$acc_num."','".$cust_id."','".$acc_type."', 0, 0)";
+        $query = "INSERT INTO `account` VALUES ('".$acc_num."','".$cust_id."','".$acc_type."', '".$balance."', '".$pending."')";
 		if ($db->query($query) === TRUE) {
             $message = "Account Request Approved";
         } else {
@@ -99,6 +102,9 @@
             return;
         }
 
+        // Hash Password.
+		$pass = password_hash($pass, PASSWORD_DEFAULT);
+
         // creates insert query for db with user info
 		$query = "INSERT INTO `acc_request` VALUES 
 		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
@@ -116,7 +122,4 @@
 		}
 
     }
-    
-    
-
 ?>
