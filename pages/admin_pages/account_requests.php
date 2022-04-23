@@ -97,9 +97,9 @@
                           $_SESSION['message'] = '';
                         }
                       ?>
-                      <h1 class="mt-4">Overview</h1>
+                      <h1 class="mt-4">Requests Overview</h1>
                       <ol class="breadcrumb mb-4">
-                          <li class="breadcrumb-item active">All Users</li>
+                          <li class="breadcrumb-item active"></li>
                       </ol>
                       <div class="card mb-4">
                           <div class="card-header">
@@ -159,12 +159,14 @@
                                     echo '<td class="align-middle">'.openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                     echo '<td class="align-middle">'.openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                     echo '<td class="align-middle">';
+                                    echo '<center>';
                                     echo '<button name="approve" class="btn btn-success form-inline my-2 my-lg-0 mr-2 ml-2">';
                                     echo 'Approve';
                                     echo '</button>';
                                     echo '<button name="reject" class="btn btn-danger form-inline my-2 my-lg-0" mr-2 ml-2>';
                                     echo 'Reject';
                                     echo '</button>';
+                                    echo '<center>';
                                     echo '</td>';
 
                                     // Hidden Input Forms.
