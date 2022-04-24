@@ -121,7 +121,7 @@
       <div class="transaction_table">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body p-4 text-center">
-            <h3>Statement for <?php  echo $acc_name; ?> </h3>
+            <h3>Account Statement for <?php  echo "(x".substr(strval($acc['acc_number']), -4).")"; ?> </h3>
             <div class="util-bar">
 
               <div class="filter-dropdown">
