@@ -45,6 +45,32 @@
     />
 
     <title>Banking App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('#transFilter').change(function() 
+        {
+          $.ajax({
+              type: 'post',
+              url: "account_transactions.php",
+              data: $("form.transFilter").serialize(),
+              success: function() {
+              }
+          });
+        });
+
+        $('#accountOption').change(function() 
+        {
+          $.ajax({
+              type: 'post',
+              url: "account_transactions.php",
+              data: $("form.accountOption").serialize(),
+              success: function() {
+              }
+          });
+        });
+      });
+    </script>
   </head>
 
   <body style="background-color: #cccccc;">
@@ -82,7 +108,22 @@
     </nav>
 
     <?php
-      $query = "SELECT * FROM `account` WHERE `acc_number` = \"".$_SESSION['POST']['acc_num']."\"";
+      // Define Current account Number
+      if (isset($_POST["accountOption"])){
+        $acc_num = $_POST["accountOption"];
+        $filter = $_POST["filter"];
+      }else{
+        $acc_num = $_SESSION['POST']['acc_num'];
+      }
+
+      if (isset($_POST["transFilter"])){
+        $acc_num = $_POST["acc_num"];
+        $filter = $_POST["transFilter"];
+      }else{
+        $filter = "all";
+      }
+
+      $query = "SELECT * FROM `account` WHERE `acc_number` = \"".$acc_num."\"";
       $acc = $db->query($query)->fetch_assoc();
     ?>
 
@@ -94,20 +135,22 @@
       </div>
 
       <div class="accounts-dropdown">
-        <form name="transFilter" method="post">
-          <select class="form-select" aria-label="Default select example">
+        <form action="" method="post">
+          <select class="form-select" name="accountOption" onchange="this.form.submit()">
             <?php
-              echo "<option selected>".$acc['type']." (x".substr(strval($acc['acc_number']), -4).")</option>";
+              $acc_name = $acc['type']." (x".substr(strval($acc['acc_number']), -4).")";
+              echo "<option selected value=".$acc['acc_number'].">".$acc_name."</option>";
+
               $query = "SELECT * FROM `account` WHERE `cust_id` = \"".$_SESSION['user_id']."\"";
               $result = $db->query($query);
 
               while ($row = $result->fetch_assoc()){
-                if($row['acc_number'] != $_SESSION['POST']['acc_num']){
-                  echo "<option>".$row['type']." (x".substr(strval($row['acc_number']), -4).")</option>";
+                if($row['acc_number'] != $acc_num){
+                  echo "<option value=".$row['acc_number'].">".$row['type']." (x".substr(strval($row['acc_number']), -4).")</option>";
                 }
               }
             ?>
-            
+            <input type="hidden" name="filter" value="<?php echo $filter; ?>">
           </select>
           <noscript><input type="submit" value="Submit"/></noscript>
         </form>
@@ -125,13 +168,29 @@
             <div class="util-bar">
 
               <div class="filter-dropdown">
-                <form name="transFilter" method="post">
-                  <select class="form-select" onchange="document.transFilter.submit()">
-                    <option selected value="30days">Last 30 Days</option>
-                    <option value="60days">Last 60 Days</option>
-                    <option value="pending">Pending Only</option>
-                    <option value="all">All</option>
+                <form action="" method="post">
+                  <select class="form-select" name="transFilter" onchange="this.form.submit()">
+                    <?php
+                      // Dropdown Options hashamp.
+                      $options = [
+                        "all" => "All", 
+                        "30days" => "Last 30 Days", 
+                        "60days" => "Last 60 Days", 
+                        "pending" => "Pending",
+                      ];
+
+                      // Prev Selected Dropdown is current selected.
+                      echo "<option selected value='".$filter."'>".$options[$filter]."</option>";
+
+                      // Display all options that are not current option.
+                      foreach($options as $option => $message) {
+                        if ($option != $filter){
+                          echo "<option value='".$option."'>".$message."</option>";
+                        }
+                      }
+                    ?>
                   </select>
+                  <input type="hidden" name="acc_num" value="<?php echo $acc_num; ?>">
                   <noscript><input type="submit" value="Submit"/></noscript>
                 </form>
               </div>
@@ -160,33 +219,58 @@
               </thead>
 
               <?php
-                $query = "SELECT * FROM `transaction` WHERE `acc_number` = \"".$_SESSION['POST']['acc_num']."\" ORDER BY `date` ASC";
+                // If Box is checked, set limit
+
+                $query = "SELECT * FROM `transaction` WHERE `acc_number` = \"".$acc_num."\" ORDER BY `date` ASC";
                 $result = $db->query($query);
                 $account_total = 0;
+
+                $year_limit = strtotime("-1 year", strtotime("now"));
+                $date_limit = $year_limit;
+                if($filter == "30days"){
+                  $date_limit = strtotime("-30 days", strtotime("now"));
+                }
+                elseif($filter == "60days"){
+                  $date_limit = strtotime("-60 days", strtotime("now"));
+                }
                 
                 // Build Table of Transactions.
                 echo '<tbody>';
                 if ($result->num_rows > 0) {
                   while ($row = $result->fetch_assoc()){
                     // Decrypt Transaction Data.
+                    $trans_id = $row['ID'];
                     $balance = (float)(openssl_decrypt($row['balance'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
                     $amount = (float)(openssl_decrypt($row['amount'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
                     $desc = openssl_decrypt($row['name'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
                     $date = openssl_decrypt($row['date'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
-                    // Font Color Condition.
-                    $font_color = "text-success";
-                    if ($row['type'] == "Withdraw"){
-                      $font_color = "text-danger";
-                    }
+                    // If transaction's date exceeds filter, 
+                    // prevent items from showing.
+                    if (strtotime($date) < $date_limit){
 
-                    echo '<tr>';
-                    echo '<td class="col-md-2">'.date("m-d-Y",strtotime($date)).'</td>';
-                    echo '<td class="col-md-2">'.$row['type'].'</td>';
-                    echo '<td class="col-md-4">'.$desc.'</td>';
-                    echo '<td class="col-md-2 '.$font_color.'">$'.number_format($amount, 2).'</td>';
-                    echo '<td class="col-md-2 text-info font-weight-bold">$'.number_format($balance, 2).'</td>';
-                    echo '</tr>';
+                      // If transaction exceeds a year, remove record.
+                      if (strtotime($date) < $year_limit){
+                        $query = "DELETE FROM `transaction` WHERE `ID`=".$trans_id;
+                        $result = $db->query($query);
+                      }
+                    }
+                    else{
+                      // Font Color Condition.
+                      $font_color = "text-success";
+                      if ($row['type'] == "Withdraw"){
+                        $font_color = "text-danger";
+                      }
+
+                      // Print Rows.
+                      echo '<tr>';
+                      echo '<td class="col-md-2">'.date("m-d-Y",strtotime($date)).'</td>';
+                      echo '<td class="col-md-2">'.$row['type'].'</td>';
+                      echo '<td class="col-md-4">'.$desc.'</td>';
+                      echo '<td class="col-md-2 '.$font_color.'">$'.number_format($amount, 2).'</td>';
+                      echo '<td class="col-md-2 text-info font-weight-bold">$'.number_format($balance, 2).'</td>';
+                      echo '</tr>';
+                    }
                   }
                 }else{
                   echo '<tr>';
