@@ -13,15 +13,9 @@
     header('Location: ../admin_pages/admin_signin.php');
   }
 
-  // Handle Request Approval.
-  if (isset($_POST["approve"])) {
-    handleRequestApproval($db);
-  }
-
   // Handle Request Rejection.
-  if (isset($_POST["reject"])) {
-    echo "Hello";
-    removeRequest($db, "Account Request Rejected");
+  if (isset($_POST["remove_suggestion"])) {
+    removeSuggestion($db, "Suggestion Removed");
   }
 
 ?>
@@ -103,14 +97,14 @@
                           }
                         ?>
                       </div>
-                      <h1 class="mt-4">Requests Overview</h1>
+                      
+                      <h1 class="mt-4">User Suggestions</h1>
                       <ol class="breadcrumb mb-4">
                           <li class="breadcrumb-item active"></li>
                       </ol>
                       <div class="card mb-4">
                           <div class="card-header">
-                              <i class="fas fa-table me-1"></i>
-                              All Users
+                          All User Suggestions
                           </div>
                           <div class="card-body">
                               <!-- USERS TABLE -->
@@ -128,27 +122,25 @@
                                   $_SESSION['message'] = '';
                                 }
                                 
-                                // Query Database For all Account Creation Requests.
-                                $query = "SELECT * FROM `acc_request`";
+                                // Query Database For all Suggestions.
+                                $query = "SELECT * FROM `suggestion`";
                                 $result = $db->query($query);
 
                                 if ($result->num_rows == 0) {
                                   echo '<div class="no-requests">';
-                                  echo '<h1 class="display-4" style="text-align: center;">No Account Creation Requests at this time.</h1>';
+                                  echo '<h3 class="display-4" style="text-align: center;">No user suggestions at this time.</h3>';
                                   echo '</div>';
                                 }else{
                                   echo '<div class="requests-title">';
-                                  echo '<h1>Account Creation Requests</h1>';
                                   echo '</div>';
                                   echo '<table class="table table-bordered">';
                                   echo '<thead>';
                                   echo '<tr>';
                                   echo '<th class="align-middle" scope="col">#</th>';
-                                  echo '<th class="align-middle" scope="col">Account Type</th>';
-                                  echo '<th class="align-middle" scope="col">First Name</th>';
-                                  echo '<th class="align-middle" scope="col">Last Name</th>';
+                                  echo '<th class="align-middle" scope="col">Name</th>';
                                   echo '<th class="align-middle" scope="col">Email</th>';
-                                  echo '<th class="align-middle" scope="col">Address</th>';
+                                  echo '<th class="align-middle" scope="col">Phone</th>';
+                                  echo '<th class="align-middle" scope="col">Message</th>';
                                   echo '<th class="align-middle" scope="col"></th>';
                                   echo '</tr>';
                                   echo '</thead>';
@@ -159,31 +151,23 @@
                                     echo '<tr>';
                                     echo '<form action="" method="post">';
                                     echo '<th class="align-middle" scope="row">'.$count.'</th>';
-                                    echo '<td class="align-middle">'.$row['acc_type'].'</td>';
-                                    echo '<td class="align-middle">'.openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
-                                    echo '<td class="align-middle">'.openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                    echo '<td class="align-middle">'.openssl_decrypt($row['name'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                     echo '<td class="align-middle">'.openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
-                                    echo '<td class="align-middle">'.openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
-                                    echo '<td class="align-middle">';
+                                    echo '<td class="align-middle">'.openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                    echo '<td class="col-md-4 col-md-4-5">'.openssl_decrypt($row['message'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                    echo '<td class="col-1">';
                                     echo '<center>';
-                                    echo '<button name="approve" class="btn btn-success form-inline my-2 my-lg-0 mr-2 ml-2">';
-                                    echo 'Approve';
-                                    echo '</button>';
-                                    echo '<button name="reject" class="btn btn-danger form-inline my-2 my-lg-0" mr-2 ml-2>';
-                                    echo 'Reject';
+                                    echo '<button name="remove_suggestion" class="btn btn-danger form-inline">';
+                                    echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">';
+                                    echo '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>';
+                                    echo '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>';
+                                    echo '</svg>';
                                     echo '</button>';
                                     echo '<center>';
                                     echo '</td>';
 
                                     // Hidden Input Forms.
-                                    echo '<input type="hidden" name="acc_id" value='.$row['ID'].'>';
-                                    echo '<input type="hidden" name="acc_type" value='.$row['acc_type'].'>';
-                                    echo '<input type="hidden" name="user" value='.$row['username'].'>';
-                                    echo '<input type="hidden" name="pass" value='.$row['password'].'>';
-                                    echo '<input type="hidden" name="fname" value='.$row['fname'].'>';
-                                    echo '<input type="hidden" name="lname" value='.$row['lname'].'>';
-                                    echo '<input type="hidden" name="email" value='.$row['email'].'>';
-                                    echo '<input type="hidden" name="address" value='.$row['address'].'>';
+                                    echo '<input type="hidden" name="suggestion_id" value='.$row['ID'].'>';
                                     echo '</form>';
                                     echo '</tr>';
                                   

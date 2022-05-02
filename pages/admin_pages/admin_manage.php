@@ -73,6 +73,10 @@
                               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                               Manage Users
                           </a>
+                          <a class="nav-link" href="suggestions.php">
+                              <div class="sb-nav-link-icon"><i class="fas fa-question"></i></div>
+                              Suggestions
+                          </a>
                       </div>
                   </div>
                   <div class="sb-sidenav-footer">
@@ -84,19 +88,21 @@
           <div id="layoutSidenav_content">
               <main>
                   <div class="container-fluid px-4">
-                      <?php
-                        if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
-                          if(isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE){
-                            $message_status = "info";
+                      <div class="p-2">
+                        <?php
+                          if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
+                            if(isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE){
+                              $message_status = "info";
+                            }
+                            else{
+                              $message_status = "danger";
+                              $_SESSION['request_error'] = FALSE;
+                            }
+                            echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+                            $_SESSION['message'] = '';
                           }
-                          else{
-                            $message_status = "danger";
-                            $_SESSION['request_error'] = FALSE;
-                          }
-                          echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
-                          $_SESSION['message'] = '';
-                        }
-                      ?>
+                        ?>
+                      </div>
                       <h1 class="mt-4">Overview</h1>
                       <ol class="breadcrumb mb-4">
                           <li class="breadcrumb-item active">All Users</li>

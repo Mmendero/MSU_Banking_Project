@@ -122,4 +122,18 @@
 		}
 
     }
+
+    function removeSuggestion($db, $message) {
+        //takes input passed from form and assigns to variables
+        $suggestion_id = $_POST['suggestion_id'];
+
+        $query = "DELETE FROM `suggestion` WHERE `ID`='". $suggestion_id."'";
+        if ($db->query($query) === TRUE) {
+            $_SESSION['message'] = $message;
+            $_SESSION['request_error'] = FALSE;
+        } else {
+            $_SESSION['message'] = "Something Went Wrong :(" . $db->error;
+            $_SESSION['request_error'] = TRUE;
+        }
+    }
 ?>
