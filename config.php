@@ -17,5 +17,4 @@
     $_SESSION['ciphering'] = "AES-128-CTR";
     $_SESSION['options'] = 0;
     $_SESSION['encryption_iv'] = '1234567891011121';
-
 ?>
