@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2022 at 11:36 PM
+-- Generation Time: May 05, 2022 at 12:17 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -105,6 +105,20 @@ INSERT INTO `customer` (`ID`, `username`, `password`, `email`, `fname`, `lname`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `suggestion`
+--
+
+CREATE TABLE `suggestion` (
+  `ID` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `message` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `transaction`
 --
 
@@ -125,7 +139,6 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`ID`, `acc_number`, `type`, `name`, `recipient_name`, `recipient_acc`, `amount`, `balance`, `date`) VALUES
-(96, 36281224, 'Withdraw', '8ww+Fg==', '2gw5Bn/bIw==', 36281224, 'pFx/RCSJ', 'pw==', 'pV1/QDqOYDHVYuYU5EKhz8wTjD6X'),
 (97, 36281224, 'Deposit', '9h4pE2Ta', '2gw5Bn/bIw==', 36281224, 'pl9+', 'pl9+', 'pV1/QDqOYDHVYuYU5EKhz8wSij6X'),
 (98, 36281224, 'Deposit', '8x4sFg==', '2gw5Bn/bIw==', 36281224, 'pl9+QA==', 'pl54Rw==', 'pV1/QDqOYDHVYuYU5EKhz8wSgT6X');
 
@@ -158,6 +171,12 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `cUsername` (`username`),
   ADD UNIQUE KEY `cEmail` (`email`);
+
+--
+-- Indexes for table `suggestion`
+--
+ALTER TABLE `suggestion`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `transaction`
@@ -194,6 +213,12 @@ ALTER TABLE `customer`
   MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1886976573;
 
 --
+-- AUTO_INCREMENT for table `suggestion`
+--
+ALTER TABLE `suggestion`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
@@ -203,7 +228,6 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
 
 -- User Priveledges --
 GRANT ALL PRIVILEGES ON *.* TO `menderm1_G6_Admin`@`localhost` IDENTIFIED BY PASSWORD '*C285157A2629417E8D3ABE8323336295368ECB63' WITH GRANT OPTION;
