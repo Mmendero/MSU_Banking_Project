@@ -134,16 +134,21 @@
           <h1 class="balance-amount">$ <?php echo number_format((float)(openssl_decrypt($acc['balance'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv'])), 2);?></h1>
       </div>
 
+      <!-- Switch Account -->
       <div class="accounts-dropdown">
         <form action="" method="post">
           <select class="form-select" name="accountOption" onchange="this.form.submit()">
             <?php
+              // Set current viewing account as
+              // selected account.
               $acc_name = $acc['type']." (x".substr(strval($acc['acc_number']), -4).")";
               echo "<option selected value=".$acc['acc_number'].">".$acc_name."</option>";
 
+              // Grab all other accounts for user.
               $query = "SELECT * FROM `account` WHERE `cust_id` = \"".$_SESSION['user_id']."\"";
               $result = $db->query($query);
 
+              // Append other acccounts to select tag.
               while ($row = $result->fetch_assoc()){
                 if($row['acc_number'] != $acc_num){
                   echo "<option value=".$row['acc_number'].">".$row['type']." (x".substr(strval($row['acc_number']), -4).")</option>";
@@ -160,13 +165,13 @@
 
     <!-- Account Listing -->
     <div class="transaction-section-mid">
-      
       <div class="transaction_table">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body p-4 text-center">
             <h3>Account Statement for <?php  echo "(x".substr(strval($acc['acc_number']), -4).")"; ?> </h3>
             <div class="util-bar">
 
+              <!-- Filter Dropdown Button -->
               <div class="filter-dropdown">
                 <form action="" method="post">
                   <select class="form-select" name="transFilter" onchange="this.form.submit()">
@@ -195,6 +200,7 @@
                 </form>
               </div>
               
+              <!-- Print Transaction Button -->
               <div class="print-trans">
                 <div class="d-grid gap-2 d-md-block">
                   <button type="button" style="background-color:gray" class="btn btn-secondary btn-block" onClick="window.print()">
@@ -207,6 +213,7 @@
               </div>
             </div>
 
+            <!-- Transaction Table -->
             <table class="table table-hover table-bordered">
               <thead>
                 <tr>
@@ -219,8 +226,8 @@
               </thead>
 
               <?php
-                // If Box is checked, set limit
-
+                // Set the date limit depending on
+                // chosen filter.
                 $query = "SELECT * FROM `transaction` WHERE `acc_number` = \"".$acc_num."\" ORDER BY `date` ASC";
                 $result = $db->query($query);
                 $account_total = 0;
@@ -246,7 +253,7 @@
                     $date = openssl_decrypt($row['date'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
                     // If transaction's date exceeds filter, 
-                    // prevent items from showing.
+                    // prevent transactions from showing.
                     if (strtotime($date) < $date_limit){
 
                       // If transaction exceeds a year, remove record.

@@ -70,10 +70,10 @@
                   <div class="col-6 col-lg-12 col-xl-5">
                       <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                           <div class="card-body p-4 p-md-5">
+                            <!-- Login Card -->
                               <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Staff Login</h3>
                               <form action="" method="post">
-
-                                  <!-- Row #1 -->
+                                  <!-- Username Input -->
                                   <div class="row">
                                     <div class="form-group">
                                         <input type="text" name="user" id="user" class="form-control form-control-lg" required/>
@@ -81,7 +81,7 @@
                                     </div>
                                   </div>
 
-                                  <!-- Row #2 -->
+                                  <!-- Password Input -->
                                   <div class="row">
                                     <div class="form-group">
                                         <input type="password" name="password" id="pass" class="form-control form-control-lg" required/>
@@ -95,8 +95,6 @@
                                   </button>
                                   <a href="../../index.php" class="btn btn-dark btn-lg" role="button" aria-pressed="true">Return Home</a>
                                   </center>
-                                
-
                               </form>
                           </div>
                       </div>
@@ -106,6 +104,7 @@
       </section>     
     </div>
 
+    <!-- Username Input -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -2,12 +2,16 @@
     //includes file with db connection
     include "config.php";
 
+    // submitSuggestion inserts submitted form data to
+    // suggestion table within database.
     function submitSuggestion($db) {
+        // Retrieve Suggestion form data.
         $name = openssl_encrypt($_POST['name'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $email = openssl_encrypt($_POST['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $phone = openssl_encrypt(strval($_POST['phone']), $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $message = openssl_encrypt($_POST['message'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
+        // Build insert query.
         $query = "INSERT INTO `suggestion` VALUES (NULL, '".$name."', '".$email."', '".$phone."', '".$message."')";
         
         //checks if insert was successful

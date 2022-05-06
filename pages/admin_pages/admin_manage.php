@@ -55,6 +55,7 @@
           </form>
       </nav>
       <div id="layoutSidenav">
+        <!-- Admin Sidenav Bar -->
           <div id="layoutSidenav_nav">
               <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                   <div class="sb-sidenav-menu">
@@ -85,11 +86,13 @@
                   </div>
               </nav>
           </div>
+          <!-- Page Content -->
           <div id="layoutSidenav_content">
               <main>
                   <div class="container-fluid px-4">
                       <div class="p-2">
                         <?php
+                          // Display Status Message if there is one.
                           if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
                             if(isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE){
                               $message_status = "info";
@@ -114,7 +117,7 @@
                           </div>
                           <div class="card-body">
 
-                            <!-- TODO: ADD STYLES -->
+                            <!-- TODO: ADD Functionality -->
 
                           </div>
                       </div>
@@ -134,6 +137,7 @@
               </footer>
           </div>
       </div>
+      <!-- Necessary Bootstrap JS -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

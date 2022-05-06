@@ -20,7 +20,6 @@
 
   // Handle Request Rejection.
   if (isset($_POST["reject"])) {
-    echo "Hello";
     removeRequest($db, "Account Request Rejected");
   }
 
@@ -57,6 +56,7 @@
       <div id="layoutSidenav">
           <div id="layoutSidenav_nav">
               <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <!-- Admin Sidenav Bar -->
                   <div class="sb-sidenav-menu">
                       <div class="nav">
                           <div class="sb-sidenav-menu-heading">Core</div>
@@ -85,6 +85,7 @@
                   </div>
               </nav>
           </div>
+          <!-- Page Content -->
           <div id="layoutSidenav_content">
               <main>
                   <div class="container-fluid px-4">
@@ -116,6 +117,7 @@
                               <!-- USERS TABLE -->
 
                               <?php
+                                // Display status message if there is one.
                                 if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
                                   if(isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE){
                                     $message_status = "info";
@@ -132,6 +134,7 @@
                                 $query = "SELECT * FROM `acc_request`";
                                 $result = $db->query($query);
 
+                                // Setup Table/Table Headers.
                                 if ($result->num_rows == 0) {
                                   echo '<div class="no-requests">';
                                   echo '<h1 class="display-4" style="text-align: center;">No Account Creation Requests at this time.</h1>';
@@ -155,6 +158,7 @@
                                   echo '<tbody>';
                                   
                                   $count = 1;
+                                  // For each record returned, add a row to the table.
                                   while ($row = $result->fetch_assoc()) {
                                     echo '<tr>';
                                     echo '<form action="" method="post">';
@@ -213,6 +217,7 @@
               </footer>
           </div>
       </div>
+      <!-- Necessary Bootstrap JS -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

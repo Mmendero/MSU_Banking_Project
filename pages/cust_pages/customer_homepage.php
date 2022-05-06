@@ -90,7 +90,7 @@
     </nav>
     
     <?php
-      // Message.
+      // Display Status message if there is one.
       if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
         if(isset($_SESSION['newAcc']) && $_SESSION['newAcc'] == true){
           $message_status = "success";
@@ -145,6 +145,7 @@
                 $result = $db->query($query);
 
                 $account_total = 0;
+                // Table listing all User Accounts.
                 while ($row = $result->fetch_assoc()){
                   $bal = (float)(openssl_decrypt($row['balance'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
                   $pend = (float)(openssl_decrypt($row['pending'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
@@ -177,13 +178,12 @@
         </div>
       </div>
 
+      <!-- Open New Bank Account -->
       <div class="open-account">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body p-4 text-center">
-
-
+                
             <h4 style="padding: 10px;">Open New Account</h4>
-
             <form class="my-2 my-lg-0" action="" method="POST">
 
               <div class="form-group p-2">

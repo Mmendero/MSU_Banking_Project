@@ -91,7 +91,7 @@
     </nav>
     
     <?php
-      // Message.
+      // Display Status Message.
       if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
         if(isset($_SESSION['newAcc']) && $_SESSION['newAcc'] == true){
           $message_status = "success";
@@ -105,7 +105,7 @@
     ?>
 
     <div class="body-content">
-
+      <!-- Deposit Form -->
       <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-12 col-lg-9 col-xl-7">
@@ -151,6 +151,7 @@
         </div>
       </div> 
       
+      <!-- Withdraw Form -->
       <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-12 col-lg-9 col-xl-7">
