@@ -13,7 +13,7 @@
   }
 
   //creates query to get user info from CUSTOMER view
-  $query = "SELECT * FROM `customer` WHERE `username` = \"" . $_SESSION['user'] . "\"";
+  $query = "SELECT * FROM `customer` WHERE `ID` = \"" . $_SESSION['user_id'] . "\"";
 
   //gets info from db
   $results = $db->query($query);
@@ -113,6 +113,14 @@
 
                           <!-- Row #2 -->
                           <div class="row">
+                              <div class="col-md-12 mb-2">
+                                  <div class="form-group">
+                                      <a class="nav-link" href="customer_manage_edit.php">Edit</a>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <div class="row">
                               <div class="col-md-6 mb-1">
                                   <div class="form-group">
                                       <h5>Username</h5>
@@ -158,6 +166,11 @@
                                   <div class="form-group">
                                       <h5>Address</h5>
                                       <?php echo $address; ?>
+                                      
+                          <div class="row">
+                              <div class="col-md-12 mb-2">
+                                  <div class="form-group">
+                                      <a class="nav-link" href="customer_address_edit.php">Address Edit</a>
                                   </div>
                               </div>
                           </div>
