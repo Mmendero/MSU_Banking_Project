@@ -20,7 +20,6 @@ if (isset($_POST["register_submit"])) {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link rel="stylesheet" href="../../styles/styles.css" />
 
-
         <!-- Font Awesome -->
         <link
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -37,7 +36,7 @@ if (isset($_POST["register_submit"])) {
         rel="stylesheet"
         />
 
-        <title>Online Banking System</title>
+        <title>BLEM Banking Register</title>
     </head>
     
     <body>
@@ -47,9 +46,10 @@ if (isset($_POST["register_submit"])) {
                 <?php 
                     if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
                         echo "<div class='alert alert-danger alert-dismissible show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
-                        $_SESSION['message'] = '';
+                        $_SESSION['message'] = "";
                     }
                 ?>
+
                 <!-- Register Form -->
                 <div class="container py-5 h-100">
                     <div class="row justify-content-center align-items-center h-100">
@@ -218,13 +218,17 @@ if (isset($_POST["register_submit"])) {
                                         </div>
 
                                         <center>
-                                        <button type="submit" class="btn btn-primary btn-lg" name="register_submit">
-                                        Register
-                                        </button>
+                                        <div class="p-2">
+                                            <button type="submit" class="btn btn-primary btn-lg" name="register_submit">
+                                            Register!
+                                            </button>
+                                            <a class="nav-link card-title" href="customer_signin.php"
+                                                >Already have an Account? Login here!</a
+                                            >
+                                        </div>
+                                        
                                         </center>
                                         
-                                        
-
                                     </form>
                                 </div>
                             </div>
@@ -233,5 +237,7 @@ if (isset($_POST["register_submit"])) {
                 </div>
             </section>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
 
 </html>

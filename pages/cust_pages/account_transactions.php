@@ -26,8 +26,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../styles/styles.css" />
-
+    
     <!-- Font Awesome -->
     <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -44,7 +43,11 @@
     rel="stylesheet"
     />
 
-    <title>Banking App</title>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../styles/styles.css" />
+    <link rel="stylesheet"  media="print" href="../../styles/print_styles.css" />
+
+    <title>Transactions</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
       $(document).ready(function(){

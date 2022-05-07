@@ -1,0 +1,16 @@
+@media print {
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    nav {
+        display: none;
+    }
+
+    td {
+        color: black !important;
+    }
+}

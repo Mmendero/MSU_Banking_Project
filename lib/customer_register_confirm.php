@@ -15,13 +15,11 @@
 		$city = trim($_POST['city']);
 		$state = trim($_POST['state']);
 		$zip = trim($_POST['zip']);
-
 		
 		//checks if all inputs have been passed
 		if (!$user || !$pass || !$conpass || !$fname || !$lname || !$email || !$stadd || !$city || !$state || !$zip) {
 			$_SESSION['registration_failed'] = 'invalid_input';
 			$_SESSION['message'] = 'Registration info was not properly input. Please try again.';
-			header('Location: customer_register.php');
 			return;
 		}
 		
@@ -29,7 +27,6 @@
 		else if (strlen($pass) < 6) {
 			$_SESSION['registration_failed'] = 'invalid_password';
 			$_SESSION['message'] = 'Password must be at least 6 characters. Please try again.';
-			header('Location: ../cust_pages/customer_register.php');
 			return;
 		}
 		
@@ -37,7 +34,6 @@
 		else if ($pass != $conpass) {
 			$_SESSION['registration_failed'] = 'pwdnotmatch';
 			$_SESSION['message'] = 'Passwords do not match. Please try again.';
-			header('Location: ../cust_pages/customer_register.php');
 			return;
 		}
 		
@@ -63,7 +59,6 @@
 				//exits program is there is a match
 				$_SESSION['registration_failed'] = 'usertaken';
 				$_SESSION['message'] = 'Username already taken. Please try again.';
-				header('Location: ../cust_pages/customer_register.php');
 				return;
 			}
 			
@@ -71,7 +66,6 @@
 				//exits program is there is a match
 				$_SESSION['registration_failed'] = 'emailtaken';
 				$_SESSION['message'] = 'Email already in use. Please try again.';
-				header('Location: ../cust_pages/customer_register.php');
 				return;
 			}
 		}
@@ -99,8 +93,7 @@
 		else {
 			$_SESSION['registration_failed'] = 'randerr';
 			$_SESSION['message'] = 'An error has occurred. Please try again.';
-			header('Location: ../cust_pages/customer_register.php');
-			exit();
+			return;
 		}
 		
 		//closes db connection

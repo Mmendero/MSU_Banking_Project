@@ -63,61 +63,6 @@ nav div {
   font-weight: bold;
 }
 
-@media print {
-  /* print.css */
-  header,
-  nav,
-  footer,
-  aside,
-  nav,
-  form,
-  iframe,
-  i,
-  .menu,
-  .hero,
-  .adslot {
-    display: none;
-  }
-
-  .transaction-section-top {
-    height: 5%;
-    padding-top: 2%;
-    padding-left: 2%;
-    background-color: #cccccc;
-  }
-
-  .transaction-section-mid {
-    height: 80%;
-    background-color: #cccccc;
-  }
-
-  .transaction-section-bot {
-    height: 20%;
-    background-color: #cccccc;
-  }
-
-  .print-trans {
-    display: none;
-  }
-
-  .transaction_table {
-    width: 100%;
-    margin: auto;
-    background-color: #cccccc;
-  }
-
-  .balance-amount {
-    color: black;
-    font-size: larger;
-  }
-
-  .no-transactions {
-    text-align: center;
-    font-size: large;
-    font-weight: bold;
-  }
-}
-
 /*-----------------Accounts Page Styles-----------------*/
 .accounts-section-top {
   height: 20%;
