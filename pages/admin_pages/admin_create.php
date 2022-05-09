@@ -1,5 +1,5 @@
 <?php
-include "../../lib/customer_register_confirm.php";
+include "../../lib/admin_insert_validation.php";
 
 // Register form is submitted, call registration
 // function in customer_register_confirm.
@@ -212,11 +212,8 @@ if (isset($_POST["register_submit"])) {
                                             <button type="submit" class="btn btn-primary btn-lg" name="register_submit">
                                                 Register!
                                             </button>
-                                            <a class="nav-link card-title" href="customer_signin.php">Already have an Account? Login here!</a>
                                         </div>
-
                                     </center>
-
                                 </form>
                             </div>
                         </div>

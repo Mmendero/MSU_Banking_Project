@@ -135,7 +135,7 @@ if (isset($_POST["register_submit"])) {
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="zip" class="form-label">Zip</label>
-                                                    <input type="text" name="zip" class="form-control form-control-lg" id="zip" pattern="[0-9]{5}" required />
+                                                    <input type="text" name="zip" class="form-control form-control-lg" id="zip" pattern="[0-9]{5}" placeholder="01234" required />
                                                 </div>
                                             </div>
                                         </div>
