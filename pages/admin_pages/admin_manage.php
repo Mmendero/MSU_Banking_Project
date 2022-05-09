@@ -1,9 +1,9 @@
 <?php
-  include "../../lib/admin_request_handler.php";
-
+  include '../../config.php';
+  
   // Logout Function
   if (isset($_POST["logout"])) {
-    $_SESSION['loggedin'] = false;
+    $_SESSION['loggedin'] == false;
     header('Location: ../admin_pages/admin_signin.php');
   }
 
@@ -12,18 +12,6 @@
     $_SESSION['loggedin'] = false;
     header('Location: ../admin_pages/admin_signin.php');
   }
-
-  // Handle Request Approval.
-  if (isset($_POST["approve"])) {
-    handleRequestApproval($db);
-  }
-
-  // Handle Request Rejection.
-  if (isset($_POST["reject"])) {
-    echo "Hello";
-    removeRequest($db, "Account Request Rejected");
-  }
-
 ?>
 
 <html lang="en">
@@ -39,7 +27,7 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="../../styles/admin_styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <title>Admin User Manage</title>
+    <title>Admin User Dashboard</title>
   </head>
     <body class="sb-nav-fixed">
       <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -55,9 +43,9 @@
           </form>
       </nav>
       <div id="layoutSidenav">
-        <!-- Admin Sidenav Bar -->
           <div id="layoutSidenav_nav">
               <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <!-- Admin Sidennav Bar-->
                   <div class="sb-sidenav-menu">
                       <div class="nav">
                           <div class="sb-sidenav-menu-heading">Core</div>
@@ -90,22 +78,6 @@
           <div id="layoutSidenav_content">
               <main>
                   <div class="container-fluid px-4">
-                      <div class="p-2">
-                        <?php
-                          // Display Status Message if there is one.
-                          if(isset($_SESSION['message']) && $_SESSION['message'] != "") {
-                            if(isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE){
-                              $message_status = "info";
-                            }
-                            else{
-                              $message_status = "danger";
-                              $_SESSION['request_error'] = FALSE;
-                            }
-                            echo "<div class='alert alert-".$message_status." alert-dismissible fade show' role='alert' style='text-align:center'>".$_SESSION['message']."<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
-                            $_SESSION['message'] = '';
-                          }
-                        ?>
-                      </div>
                       <h1 class="mt-4">Overview</h1>
                       <ol class="breadcrumb mb-4">
                           <li class="breadcrumb-item active">All Users</li>
@@ -116,9 +88,43 @@
                               All Users
                           </div>
                           <div class="card-body">
+                              <!-- USERS TABLE -->
+                              <table id="datatablesSimple">
+                                  <thead>
+                                      <tr>
+                                          <th>ID</th>
+                                          <th>Username</th>
+                                          <th>Email</th>
+                                          <th>First Name</th>
+                                          <th>Last Name</th>
+                                          <th>Address</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <?php
+                                      $query = "SELECT * FROM `customer`";
+                                      $result = $db->query($query);
 
-                            <!-- TODO: ADD Functionality -->
+                                      // Build Table of Existing Users.
+                                      if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()){
+                                          echo '<tr>';
+                                          echo '<td>'.$row['ID'].'</td>';
+                                          echo '<td>'.openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td>'.openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td>'.openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td>'.openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td>'.openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          echo '<td> <a href="admin_edit.php" type="submit" role="button" class="btn btn-primary">Edit</td>';
+                                          echo '<td> <a href="#" type="submit" role="button" class="btn btn-dark">Delete</td>';
+                                          // TODO: need to fix delete button
+                                          echo '<tr>';
+                                        }
+                                      }
 
+                                    ?>
+                                  </tbody>
+                              </table>
                           </div>
                       </div>
                   </div>
