@@ -12,6 +12,34 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
     $_SESSION['loggedin'] = false;
     header('Location: ../admin_pages/admin_signin.php');
 }
+
+  //creates query to get user info from CUSTOMER view
+//   $query = "SELECT * FROM `customer` WHERE `ID` = ID";
+$query = "SELECT * FROM `customer`";
+$result = $db->query($query);
+  //gets info from db
+  $results = $db->query($query);
+  $row = $results->fetch_assoc();
+
+// $ID = $_GET["ID"];
+// $user = "";
+// $email = "";
+// $Fname = "";
+// $Lname = "";
+// $address = "";
+// $res = mysqli_query($link, "select * from customer where ID=$ID");
+// while ($row = mysqli_fetch_array($res)) {
+    //creates variables from queried values
+    $user = openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+    $ssn = openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+    $email = openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+    $password = openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+    $Fname = openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+    $Lname = openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+    $address = openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+    $Pnumber = openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+// }
+
 ?>
 
 <html lang="en">
@@ -99,14 +127,14 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                                                             <div class="col-md-6 mb-1">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="user">Username</label>
-                                                                    <input type="text" name="user" id="user" class="form-control form-control-lg" required />
+                                                                    <input type="text" name="user" id="user" class="form-control form-control-lg" value="<?php echo $user; ?>" required />
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6 mb-1">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="ssn">Social Security Number</label>
-                                                                    <input type="text" name="ssn" id="ssn" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" required />
+                                                                    <input type="text" name="ssn" id="ssn" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" value="<?php echo $ssn; ?>"required />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -114,17 +142,10 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
 
                                                     <!-- Row #3 -->
                                                     <div class="row">
-
                                                         <div class="col-md-6 mb-3">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="pass">Password</label>
-                                                                <input type="password" name="pass" id="pass" class="form-control form-control-lg" required />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-3">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="con_pass">Confirm Password</label>
-                                                                <input type="password" name="con_pass" id="con_pass" class="form-control form-control-lg" required />
+                                                                <input type="password" name="pass" id="pass" class="form-control form-control-lg" value="<?php echo $password; ?>" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -134,13 +155,13 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                                                         <div class="col-md-6 mb-2">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="fname">First Name</label>
-                                                                <input type="text" name="fname" id="fname" class="form-control form-control-lg" required />
+                                                                <input type="text" name="fname" id="fname" class="form-control form-control-lg" value="<?php echo $Fname; ?>" required />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 mb-2">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="lname">Last Name</label>
-                                                                <input type="text" name="lname" id="lname" class="form-control form-control-lg" required />
+                                                                <input type="text" name="lname" id="lname" class="form-control form-control-lg" value="<?php echo $Lname; ?>" required />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -150,7 +171,7 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                                                         <div class="col-md-6 mb-1 pb-2">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="email">Email</label>
-                                                                <input type="email" name="email" id="email" class="form-control form-control-lg" required />
+                                                                <input type="email" name="email" id="email" class="form-control form-control-lg" value="<?php echo $email; ?>" required />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 mb-1 pb-2">
@@ -166,76 +187,8 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                                                         <div class="col-md-12 mb-2 pb-2">
                                                             <div class="col-12">
                                                                 <label for="stadd" class="form-label">Address</label>
-                                                                <input type="text" name="stadd" id="stadd" class="form-control form-control-lg" required />
+                                                                <input type="text" name="stadd" id="stadd" class="form-control form-control-lg" value="<?php echo $address; ?>" required />
                                                             </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Row #7 -->
-                                                    <div class="row">
-                                                        <div class="col-md-7 mb-2 pb-2">
-                                                            <label for="city" class="form-label">City</label>
-                                                            <input type="text" name="city" class="form-control form-control-lg" id="city" required />
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <label for="state" class="form-label">State</label>
-                                                            <select name="state" type="text" class="form-select form-select-lg" id="state" required>
-                                                                <option value="AL">AL</option>
-                                                                <option value="AK">AK</option>
-                                                                <option value="AZ">AZ</option>
-                                                                <option value="AR">AR</option>
-                                                                <option value="CA">CA</option>
-                                                                <option value="CO">CO</option>
-                                                                <option value="CT">CT</option>
-                                                                <option value="DE">DE</option>
-                                                                <option value="DC">DC</option>
-                                                                <option value="FL">FL</option>
-                                                                <option value="GA">GA</option>
-                                                                <option value="HI">HI</option>
-                                                                <option value="ID">ID</option>
-                                                                <option value="IL">IL</option>
-                                                                <option value="IN">IN</option>
-                                                                <option value="IA">IA</option>
-                                                                <option value="KS">KS</option>
-                                                                <option value="KY">KY</option>
-                                                                <option value="LA">LA</option>
-                                                                <option value="ME">ME</option>
-                                                                <option value="MD">MD</option>
-                                                                <option value="MA">MA</option>
-                                                                <option value="MI">MI</option>
-                                                                <option value="MN">MN</option>
-                                                                <option value="MS">MS</option>
-                                                                <option value="MO">MO</option>
-                                                                <option value="MT">MT</option>
-                                                                <option value="NE">NE</option>
-                                                                <option value="NV">NV</option>
-                                                                <option value="NH">NH</option>
-                                                                <option value="NJ">NJ</option>
-                                                                <option value="NM">NM</option>
-                                                                <option value="NY">NY</option>
-                                                                <option value="NC">NC</option>
-                                                                <option value="ND">ND</option>
-                                                                <option value="OH">OH</option>
-                                                                <option value="OK">OK</option>
-                                                                <option value="OR">OR</option>
-                                                                <option value="PA">PA</option>
-                                                                <option value="RI">RI</option>
-                                                                <option value="SC">SC</option>
-                                                                <option value="SD">SD</option>
-                                                                <option value="TN">TN</option>
-                                                                <option value="TX">TX</option>
-                                                                <option value="UT">UT</option>
-                                                                <option value="VT">VT</option>
-                                                                <option value="VA">VA</option>
-                                                                <option value="WA">WA</option>
-                                                                <option value="WV">WV</option>
-                                                                <option value="WI">WI</option>
-                                                                <option value="WY">WY</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label for="zip" class="form-label">Zip</label>
-                                                            <input type="text" name="zip" class="form-control form-control-lg" id="zip" pattern="[0-9]{5}" required />
                                                         </div>
                                                     </div>
 
