@@ -3,7 +3,8 @@
   
   // Register Form is Submitted
   if (isset($_POST["cust_signin"])) {
-    handleSignIn($db);
+    $signIn = new SignIn(); 
+    $signIn->handleSignIn($db);
   }
 
 ?>

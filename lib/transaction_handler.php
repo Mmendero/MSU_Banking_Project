@@ -16,20 +16,7 @@
         $balance = (float)(openssl_decrypt($row['balance'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
 
         // Validate Amount.
-        if($amount > $balance && $amount < 5){
-            $_SESSION['message'] = 'Cannot withdraw from account with balance lower than $5.00';
-            return;
-        }
-        if($amount < 5){
-            $_SESSION['message'] = 'All deposits and withdrawls must be made with more than $5.00';
-            return;
-        }
-        if($amount > $balance){
-            $_SESSION['message'] = 'Withdraw amount exceeds account balance';
-            return;
-        }
-        if($amount > 1000000){
-            $_SESSION['message'] = 'Cannot exceed more than $1,000,000 per Deposit/Withdrawl.';
+        if(!validWithdrawAmount($amount, $balance)){
             return;
         }
 
@@ -75,12 +62,7 @@
         $balance = (float)(openssl_decrypt($row['balance'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
 
         // Validate Amount.
-        if($amount < 5){
-            $_SESSION['message'] = 'All deposits and withdrawls must be made with more than $5';
-            return;
-        }
-        if($amount > 1000000){
-            $_SESSION['message'] = 'Cannot exceed more than $1,000,000 per Deposit/Withdrawl.';
+        if(!validDepositAmount($amount)){
             return;
         }
 
@@ -109,5 +91,39 @@
         (NULL, '".$acc_num."', 'Deposit', '".$desc."', '".$recip_name."', '".$acc_num."', '".$acc_amount."', '".$new_balance."', '".$date."')";
         $db->query($query);
         header('Location: ../cust_pages/customer_homepage.php');
+    }
+
+    function validWithdrawAmount($amount, $balance) {
+        if($amount > $balance && $amount < 5){
+            $_SESSION['message'] = 'Cannot withdraw from account with balance lower than $5.00';
+            return false;
+        }
+        if($amount < 5){
+            $_SESSION['message'] = 'All deposits and withdrawls must be made with more than $5.00';
+            return false;
+        }
+        if($amount > $balance){
+            $_SESSION['message'] = 'Withdraw amount exceeds account balance';
+            return false;
+        }
+        if($amount > 1000000){
+            $_SESSION['message'] = 'Cannot exceed more than $1,000,000 per Deposit/Withdrawl.';
+            return false;
+        }
+
+        return true;
+    }
+
+    function validDepositAmount($amount) {
+        if($amount < 5){
+            $_SESSION['message'] = 'All deposits and withdrawls must be made with more than $5';
+            return false;
+        }
+        if($amount > 1000000){
+            $_SESSION['message'] = 'Cannot exceed more than $1,000,000 per Deposit/Withdrawl.';
+            return false;
+        }
+
+        return true;
     }
 ?>
