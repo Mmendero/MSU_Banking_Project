@@ -196,7 +196,7 @@
 
               <div class="form-group p-2">
                 <label for="cpass">Enter SSN</label>
-                <input type="password" class="form-control" placeholder="SSN" name="ssn" required />
+                <input type="password" class="form-control" name="ssn" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" placeholder="123-45-6789" required />
               </div>
 
               <div class="form-group p-2">

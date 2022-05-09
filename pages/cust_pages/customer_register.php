@@ -76,7 +76,7 @@ if (isset($_POST["register_submit"])) {
                                         <div class="col-md-6 mb-1">
                                             <div class="form-group">
                                                 <label class="form-label" for="ssn">Social Security Number</label>
-                                                <input type="text" name="ssn" id="ssn" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" required />
+                                                <input type="password" name="ssn" id="ssn" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" placeholder="123-45-6789" required />
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@ if (isset($_POST["register_submit"])) {
                                         <div class="col-md-6 mb-1 pb-2">
                                             <div class="form-group">
                                                 <label class="form-label" for="phone">Phone Number</label>
-                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +203,7 @@ if (isset($_POST["register_submit"])) {
                                         </div>
                                         <div class="col-md-3">
                                             <label for="zip" class="form-label">Zip</label>
-                                            <input type="text" name="zip" class="form-control form-control-lg" id="zip" pattern="[0-9]{5}" required />
+                                            <input type="text" name="zip" class="form-control form-control-lg" id="zip" pattern="[0-9]{5}" placeholder="01234" required />
                                         </div>
                                     </div>
 

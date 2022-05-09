@@ -134,7 +134,7 @@ $result = $db->query($query);
                                                             <div class="col-md-6 mb-1">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="ssn">Social Security Number</label>
-                                                                    <input type="text" name="ssn" id="ssn" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" value="<?php echo $ssn; ?>"required />
+                                                                    <input type="text" name="ssn" id="ssn" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" placeholder="123-45-6789" value="<?php echo $ssn; ?>"required />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -177,7 +177,7 @@ $result = $db->query($query);
                                                         <div class="col-md-6 mb-1 pb-2">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="phone">Phone Number</label>
-                                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+                                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
                                                             </div>
                                                         </div>
                                                     </div>

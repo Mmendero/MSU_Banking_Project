@@ -91,7 +91,7 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
               <!-- USERS TABLE -->
               <table id="datatablesSimple">              
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="admin_insert.php" class="btn btn-primary" role="button">Create</a>
+                <a href="admin_create.php" class="btn btn-primary" role="button">Create</a>
               </div>
                 <thead>
                   <tr>
@@ -114,6 +114,7 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo '<tr>';
+                      echo '<form action="admin_edit.php" method="post">';
                       echo '<td>' . $row['ID'] . '</td>';
                       echo '<td>' . openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
@@ -122,9 +123,12 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                       echo '<td>' . openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
-                      echo '<td> <a href="admin_edit.php" type="submit" role="button" class="btn btn-primary">Edit</td>';
                       echo "<input type='hidden' name='ID' value='" . $row['ID'] . "'>";
-                      echo '<td> <a href="#" type="submit" role="button" class="btn btn-dark">Delete</td>';
+                      echo '<td><input class="btn btn-primary" type="submit" value="Edit"></td>';
+                      echo '</form>';
+                      // echo '<td> <a href="admin_edit.php" type="submit" role="button" class="btn btn-primary">Edit</td>';
+                      // echo "<input type='hidden' name='ID' value='" . $row['ID'] . "'>";
+                      // echo '<td> <a href="#" type="submit" role="button" class="btn btn-dark">Delete</td>';
                       // TODO: need to fix delete button
                       echo '<tr>';
                     }
