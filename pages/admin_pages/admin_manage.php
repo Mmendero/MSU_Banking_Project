@@ -1,17 +1,22 @@
 <?php
-include '../../config.php';
+  include '../../config.php';
 
-// Logout Function
-if (isset($_POST["logout"])) {
-  $_SESSION['loggedin'] == false;
-  header('Location: ../admin_pages/admin_signin.php');
-}
+  // Logout Function
+  if (isset($_POST["logout"])) {
+    $_SESSION['loggedin'] == false;
+    header('Location: ../admin_pages/admin_signin.php');
+  }
 
-// Validate Admin Login.
-if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
-  $_SESSION['loggedin'] = false;
-  header('Location: ../admin_pages/admin_signin.php');
-}
+  // Validate Admin Login.
+  if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../admin_pages/admin_signin.php');
+  }
+
+  // Handle Request Approval.
+  if (isset($_POST["edit"])) {
+    header('Location: ../admin_pages/admin_edit.php');
+  }
 ?>
 
 <html lang="en">
@@ -57,7 +62,7 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
               <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
               Account Requests
             </a>
-            <a class="nav-link" href="admin_manage.php">
+            <a class="nav-link active" href="admin_manage.php">
               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
               Manage Users
             </a>
@@ -86,13 +91,10 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
               <i class="fas fa-table me-1"></i>
               All Users
             </div>
-
+            
             <div class="card-body">
               <!-- USERS TABLE -->
               <table id="datatablesSimple">              
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="admin_create.php" class="btn btn-primary" role="button">Create</a>
-              </div>
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -103,6 +105,7 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Address</th>
+                    <th>Update</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -114,7 +117,6 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo '<tr>';
-                      echo '<form action="admin_edit.php" method="post">';
                       echo '<td>' . $row['ID'] . '</td>';
                       echo '<td>' . openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
@@ -123,9 +125,13 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                       echo '<td>' . openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
+                      echo '<td>';
+                      echo '<form action="" method="POST">';
                       echo "<input type='hidden' name='ID' value='" . $row['ID'] . "'>";
-                      echo '<td><input class="btn btn-primary" type="submit" value="Edit"></td>';
+                      echo '<a href="admin_edit.php" type="submit" role="button" class="btn btn-primary data">Edit';
+                      // echo '<button type="submit" name="edit" class="btn btn-primary">Edit</button>';
                       echo '</form>';
+                      echo '</td>';
                       // echo '<td> <a href="admin_edit.php" type="submit" role="button" class="btn btn-primary">Edit</td>';
                       // echo "<input type='hidden' name='ID' value='" . $row['ID'] . "'>";
                       // echo '<td> <a href="#" type="submit" role="button" class="btn btn-dark">Delete</td>';
@@ -137,6 +143,10 @@ if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSI
                   ?>
                 </tbody>
               </table>
+
+              <center>
+                <a href="admin_create.php" class="btn btn-primary" role="button">Create New user</a>
+              </center>
             </div>
           </div>
         </div>

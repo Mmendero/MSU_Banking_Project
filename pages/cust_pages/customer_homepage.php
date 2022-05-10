@@ -108,7 +108,7 @@
       <?php
         // Homepage Greeting.
         date_default_timezone_set('America/New_York');
-        $date = date('F, d Y',strtotime(date("Y-m-d")));
+        $date = date('F d, Y',strtotime(date("Y-m-d")));
         if(date("a") == 'pm'){
           $time = 'evening';
         }
@@ -210,6 +210,8 @@
                 echo '<input type="hidden" name="email" value='.$user['email'].'>';
                 echo '<input type="hidden" name="fname" value='.$user['fname'].'>';
                 echo '<input type="hidden" name="lname" value='.$user['lname'].'>';
+                echo '<input type="hidden" name="ssn" value='.$user['ssn'].'>';
+                echo '<input type="hidden" name="phone" value='.$user['phone'].'>';
                 echo '<input type="hidden" name="address" value='.$user['address'].'>';
               ?>
 

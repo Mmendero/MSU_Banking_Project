@@ -7,6 +7,8 @@
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
         $email = $_POST['email'];
+		$ssn = $_POST['ssn'];
+		$phone = $_POST['phone'];
         
         $query = "SELECT * FROM `customer` WHERE `ID` = \"".$_SESSION['user_id']."\"";
 		$result = $db->query($query);
@@ -20,10 +22,10 @@
 			header('Location: ../cust_pages/customer_manage.php');
 			return;
         }
+
 		//gets id and username from current customers
 		$query = 'SELECT * FROM `customer`';
 		$results = $db->query($query);
-		
 		
 		//gets the number of results
 		$num_results = $results->num_rows;
@@ -46,12 +48,14 @@
         $new_fname = openssl_encrypt((string)$fname, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $new_lname = openssl_encrypt((string)$lname, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $new_email = openssl_encrypt((string)$email, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+		$new_ssn = openssl_encrypt((string)$ssn, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+		$new_phone = openssl_encrypt((string)$phone, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+
+
 
 		//creates update query for db with user info
-		$query = "UPDATE `customer` SET `username` =\"".$new_user."\", `password` =\"".$pass."\", `email` =\"".$new_email."\", `fname` =\"".$new_fname."\", `lname` =\"".$new_lname."\" WHERE `ID` = \"".$_SESSION['user_id']."\"";
+		$query = "UPDATE `customer` SET `username` =\"".$new_user."\", `password` =\"".$pass."\", `email` =\"".$new_email."\", `fname` =\"".$new_fname."\", `lname` =\"".$new_lname."\", `ssn` =\"".$new_ssn."\", `phone` =\"".$new_phone."\" WHERE `ID` = \"".$_SESSION['user_id']."\"";
 		$db->query($query);
-		
-		
 		
         header('Location: ../cust_pages/customer_manage.php');
     }

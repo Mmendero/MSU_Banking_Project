@@ -65,7 +65,7 @@
                               Dashboard
                           </a>
                           <div class="sb-sidenav-menu-heading">Admin Functions</div>
-                          <a class="nav-link" href="account_requests.php">
+                          <a class="nav-link active" href="account_requests.php">
                               <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                               Account Requests
                           </a>
@@ -151,6 +151,7 @@
                                   echo '<th class="align-middle" scope="col">First Name</th>';
                                   echo '<th class="align-middle" scope="col">Last Name</th>';
                                   echo '<th class="align-middle" scope="col">Email</th>';
+                                  echo '<th class="align-middle" scope="col">Phone</th>';
                                   echo '<th class="align-middle" scope="col">Address</th>';
                                   echo '<th class="align-middle" scope="col"></th>';
                                   echo '</tr>';
@@ -167,6 +168,7 @@
                                     echo '<td class="align-middle">'.openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                     echo '<td class="align-middle">'.openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                     echo '<td class="align-middle">'.openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                    echo '<td class="align-middle">'.openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                     echo '<td class="align-middle">'.openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                     echo '<td class="align-middle">';
                                     echo '<center>';
@@ -187,6 +189,8 @@
                                     echo '<input type="hidden" name="fname" value='.$row['fname'].'>';
                                     echo '<input type="hidden" name="lname" value='.$row['lname'].'>';
                                     echo '<input type="hidden" name="email" value='.$row['email'].'>';
+                                    echo '<input type="hidden" name="ssn" value='.$row['ssn'].'>';
+                                    echo '<input type="hidden" name="phone" value='.$row['phone'].'>';
                                     echo '<input type="hidden" name="address" value='.$row['address'].'>';
                                     echo '</form>';
                                     echo '</tr>';

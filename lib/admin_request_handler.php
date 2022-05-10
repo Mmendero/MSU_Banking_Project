@@ -10,6 +10,8 @@
 		$email = $_POST['email'];
 		$fname = $_POST['fname'];
 		$lname = $_POST['lname'];
+        $ssn = $_POST['ssn'];
+        $phone = $_POST['phone'];
 		$address = $_POST['address'];
 
         // Initialize message and unique ID's variables.
@@ -36,7 +38,7 @@
             }
 
             // Insert into Customer Database.
-            $query = "INSERT INTO `customer` VALUES ('".$cust_id."','".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
+            $query = "INSERT INTO `customer` VALUES ('".$cust_id."','".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$ssn."', '".$phone."', '".$address."')";
             if ($db->query($query) === FALSE) {
                 $message = "Something Went Wrong :(" . $db->error;
                 $_SESSION['request_error'] = TRUE;
@@ -84,6 +86,7 @@
         $acc_type = $_POST['acc_type'];
         $user = $_POST['username'];
         $ssn = $_POST['ssn'];
+        $phone = $_POST['phone'];
 		$pass = $_POST['pass'];
 		$email = $_POST['email'];
 		$fname = $_POST['fname'];
@@ -94,10 +97,8 @@
         $query = "SELECT * FROM `customer` WHERE username = '".$user."'";
         $result = $db->query($query)->fetch_assoc();
 
-        // TODO: VALIDATE CORRECT SSN INSTEAD OF GENERIC.
         // Validate SSN/Password.
-        $ssn = preg_replace('~\D~', '', $ssn); // replace all non-digits
-        if(!preg_match('~^(?!000|666|9\d\d)\d{3}(?!00)\d{2}(?!0000)\d{4}$~', $ssn) || !password_verify($pass, $result['password'])) {
+        if(openssl_encrypt($ssn, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) == $result['ssn'] || !password_verify($pass, $result['password'])) {
             $_SESSION['message'] = 'Invalid Credentials. Please try again.';
             return;
         }
@@ -107,7 +108,7 @@
 
         // creates insert query for db with user info
 		$query = "INSERT INTO `acc_request` VALUES 
-		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
+		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$ssn."', '".$phone."', '".$address."')";
 		
 		// checks if insert was successful
 		if ($db->query($query)) {

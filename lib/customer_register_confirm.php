@@ -6,6 +6,7 @@
 		$acc_type = trim($_POST['acc_type']);
 		$user = strtolower(trim($_POST['user']));
 		$ssn = trim($_POST['ssn']);
+		$phone = trim($_POST['phone']);
 		$pass = trim($_POST['pass']);
 		$conpass = trim($_POST['con_pass']);
 		$email = trim($_POST['email']);
@@ -75,11 +76,13 @@
         $email = openssl_encrypt($email, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $fname = openssl_encrypt($fname, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $lname = openssl_encrypt($lname, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+		$ssn = openssl_encrypt($ssn, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+		$phone = openssl_encrypt($phone, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $address = openssl_encrypt($address, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 		
 		//creates insert query for db with user info
 		$query = "INSERT INTO `acc_request` VALUES 
-		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$address."')";
+		(NULL, '".$acc_type."', '".$user."', '".$pass."', '".$email."', '".$fname."', '".$lname."', '".$ssn."', '".$phone."', '".$address."')";
 		
 		//checks if insert was successful
 		if ($db->query($query)) {

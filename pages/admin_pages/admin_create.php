@@ -1,39 +1,88 @@
 <?php
-include "../../lib/admin_insert_validation.php";
+    include "../../lib/admin_insert_validation.php";
 
-// Register form is submitted, call registration
-// function in customer_register_confirm.
-if (isset($_POST["register_submit"])) {
-    handleRegistration($db);
-}
+    // Logout Function
+    if (isset($_POST["logout"])) {
+        $_SESSION['loggedin'] == false;
+        header('Location: ../admin_pages/admin_signin.php');
+    }
+
+    // Validate Admin Login.
+    if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
+    $_SESSION['loggedin'] = false;
+    header('Location: ../admin_pages/admin_signin.php');
+    }
+
+    // Register form is submitted, call registration
+    // function in customer_register_confirm.
+    if (isset($_POST["register_submit"])) {
+        handleRegistration($db);
+    }
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../styles/styles.css" />
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css" rel="stylesheet" />
-
-    <title>BLEM Banking Register</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+  <link href="../../styles/admin_styles.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+  <title>Admin User Dashboard</title>
 </head>
 
-<body>
-    <div class="register-page">
-        <section class="vh-200">
+<body class="sb-nav-fixed">
+  <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="index.html">BLEM Admin Panel</a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" action="" method="post">
+      <button name="logout" class="btn btn-primary form-inline my-2 my-lg-0">
+        Logout
+      </button>
+    </form>
+  </nav>
+  <div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+      <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <!-- Admin Sidennav Bar-->
+        <div class="sb-sidenav-menu">
+          <div class="nav">
+            <div class="sb-sidenav-menu-heading">Core</div>
+            <a class="nav-link" href="admin_homepage.php">
+              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+              Dashboard
+            </a>
+            <div class="sb-sidenav-menu-heading">Admin Functions</div>
+            <a class="nav-link" href="account_requests.php">
+              <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+              Account Requests
+            </a>
+            <a class="nav-link active" href="admin_manage.php">
+              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+              Manage Users
+            </a>
+            <a class="nav-link" href="suggestions.php">
+              <div class="sb-nav-link-icon"><i class="fas fa-question"></i></div>
+              Suggestions
+            </a>
+          </div>
+        </div>
+        <div class="sb-sidenav-footer">
+          <div class="small">Logged in as:</div>
+          BLEM Admin
+        </div>
+      </nav>
+    </div>
+    <!-- Page Content -->
+    <div id="layoutSidenav_content">
+      <main>
+      <section class="vh-200" style="background-color: whitesmoke;">
             <!-- Status Message -->
             <?php
             if (isset($_SESSION['message']) && $_SESSION['message'] != "") {
@@ -221,8 +270,26 @@ if (isset($_POST["register_submit"])) {
                 </div>
             </div>
         </section>
+      </main>
+      <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; BLEM Banking 2022</div>
+            <div>
+              <a href="#">Privacy Policy</a>
+              &middot;
+              <a href="#">Terms &amp; Conditions</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </div>
+  <!-- Necessary Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+  <script src="../../js/admin_dashboard.js"></script>
 </body>
 
 </html>

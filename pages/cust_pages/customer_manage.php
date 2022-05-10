@@ -24,6 +24,7 @@
   $email = openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
   $Fname = openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
   $Lname = openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+  $phone = openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
   $address = openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
   //closes connection and clears results
@@ -111,14 +112,7 @@
                       <div class="card-body p-4 p-md-5">
                           <h2 class="mb-4 pb-2 pb-md-0 mb-md-5">Profile and Settings</h2>
 
-                          <!-- Row #2 -->
-                          <div class="row">
-                              <div class="col-md-12 mb-2">
-                                  <div class="form-group">
-                                      <a class="nav-link" href="customer_manage_edit.php">Edit</a>
-                                  </div>
-                              </div>
-                          </div>
+                          
                           
                           <div class="row">
                               <div class="col-md-6 mb-1">
@@ -160,20 +154,33 @@
                               </div>
                           </div>
 
+                          <div class="row">
+                              <div class="col-md-12 mb-2">
+                                  <div class="form-group">
+                                      <h5>Phone</h5>
+                                      <?php echo $phone; ?>
+                                  </div>
+                              </div>
+                          </div>
+
                           <!-- Row #2 -->
                           <div class="row">
                               <div class="col-md-12 mb-2">
                                   <div class="form-group">
                                       <h5>Address</h5>
                                       <?php echo $address; ?>
-                                      
+                              
+                          <!-- Row #2 -->
+                          <center>
                           <div class="row">
                               <div class="col-md-12 mb-2">
                                   <div class="form-group">
-                                      <a class="nav-link" href="customer_address_edit.php">Address Edit</a>
+                                      <a class="btn btn-primary btn-lg" href="customer_manage_edit.php">Edit</a>
+                                      <a class="btn btn-primary btn-lg" href="customer_address_edit.php">Address Edit</a>
                                   </div>
                               </div>
                           </div>
+                          </center>
                         </div>
                     </div>
                 </div>

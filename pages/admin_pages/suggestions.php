@@ -67,7 +67,7 @@
                               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                               Manage Users
                           </a>
-                          <a class="nav-link" href="suggestions.php">
+                          <a class="nav-link active" href="suggestions.php">
                               <div class="sb-nav-link-icon"><i class="fas fa-question"></i></div>
                               Suggestions
                           </a>
