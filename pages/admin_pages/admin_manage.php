@@ -13,9 +13,12 @@
     header('Location: ../admin_pages/admin_signin.php');
   }
 
-  // Handle Request Approval.
-  if (isset($_POST["edit"])) {
-    header('Location: ../admin_pages/admin_edit.php');
+  // Handle Edit Request.
+  if (isset($_POST["edit_user"])) {
+  }
+
+  // Handle Deletion Request.
+  if (isset($_POST["delete_user"])) {
   }
 ?>
 
@@ -106,6 +109,7 @@
                     <th>Phone Number</th>
                     <th>Address</th>
                     <th>Update</th>
+                    <th>Remove</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -117,6 +121,8 @@
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo '<tr>';
+
+                      // User Info
                       echo '<td>' . $row['ID'] . '</td>';
                       echo '<td>' . openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
@@ -125,17 +131,28 @@
                       echo '<td>' . openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
+                      
+                      // Edit Button/Form
                       echo '<td>';
-                      echo '<form action="" method="POST">';
-                      echo "<input type='hidden' name='ID' value='" . $row['ID'] . "'>";
-                      echo '<a href="admin_edit.php" type="submit" role="button" class="btn btn-primary data">Edit';
-                      // echo '<button type="submit" name="edit" class="btn btn-primary">Edit</button>';
+                      echo '<form action="admin_edit.php" method="POST">';
+                      echo "<input type='hidden' name='user_id' value='" . $row['ID'] . "'>";
+                      echo '<button type="submit" name="edit_user" class="btn btn-primary">Edit</button>';
                       echo '</form>';
                       echo '</td>';
-                      // echo '<td> <a href="admin_edit.php" type="submit" role="button" class="btn btn-primary">Edit</td>';
-                      // echo "<input type='hidden' name='ID' value='" . $row['ID'] . "'>";
-                      // echo '<td> <a href="#" type="submit" role="button" class="btn btn-dark">Delete</td>';
-                      // TODO: need to fix delete button
+
+                      // Delete Button/Form
+                      echo '<td>';
+                      echo '<form action="" method="POST">';
+                      echo "<input type='hidden' name='user_id' value='" . $row['ID'] . "'>";
+                      echo '<button name="delete_user" class="btn btn-danger">';
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">';
+                      echo '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>';
+                      echo '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>';
+                      echo '</svg>';
+                      echo '</button>';
+                      echo '</form>';
+                      echo '</td>';
+
                       echo '<tr>';
                     }
                   }

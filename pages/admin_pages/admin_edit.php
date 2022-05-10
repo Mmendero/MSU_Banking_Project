@@ -1,35 +1,30 @@
 <?php
-include '../../config.php';
+    include '../../config.php';
 
-// Logout Function
-if (isset($_POST["logout"])) {
-    $_SESSION['loggedin'] == false;
-    header('Location: ../admin_pages/admin_signin.php');
-}
+    // Logout Function
+    if (isset($_POST["logout"])) {
+        $_SESSION['loggedin'] == false;
+        header('Location: ../admin_pages/admin_signin.php');
+    }
 
-// Validate Admin Login.
-if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
-    $_SESSION['loggedin'] = false;
-    header('Location: ../admin_pages/admin_signin.php');
-}
+    // Validate Admin Login.
+    if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
+        $_SESSION['loggedin'] = false;
+        header('Location: ../admin_pages/admin_signin.php');
+    }
 
-  //creates query to get user info from CUSTOMER view
-//   $query = "SELECT * FROM `customer` WHERE `ID` = ID";
-$query = "SELECT * FROM `customer`";
-$result = $db->query($query);
-  //gets info from db
-  $results = $db->query($query);
-  $row = $results->fetch_assoc();
+    // Retrieve Selected User.
+    $ID = $_POST['user_id'];
 
-// $ID = $_GET["ID"];
-// $user = "";
-// $email = "";
-// $Fname = "";
-// $Lname = "";
-// $address = "";
-// $res = mysqli_query($link, "select * from customer where ID=$ID");
-// while ($row = mysqli_fetch_array($res)) {
-    //creates variables from queried values
+    // Build query to grab User Info from `customers`.
+    $query = "SELECT * FROM `customer` WHERE `ID` = ".$ID;
+    $result = $db->query($query);
+
+    // Get User Info from DB
+    $results = $db->query($query);
+    $row = $results->fetch_assoc();
+
+    // Store Retrieved User Info.
     $user = openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
     $ssn = openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
     $email = openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
@@ -38,7 +33,6 @@ $result = $db->query($query);
     $Lname = openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
     $address = openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
     $Pnumber = openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
-// }
 
 ?>
 
@@ -85,7 +79,7 @@ $result = $db->query($query);
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Account Requests
                         </a>
-                        <a class="nav-link" href="admin_manage.php">
+                        <a class="nav-link active" href="admin_manage.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Manage Users
                         </a>
