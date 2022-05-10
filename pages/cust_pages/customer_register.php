@@ -124,7 +124,7 @@ if (isset($_POST["register_submit"])) {
                                         <div class="col-md-6 mb-1 pb-2">
                                             <div class="form-group">
                                                 <label class="form-label" for="phone">Phone Number</label>
-                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
+                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex. 123-456-7890" required />
                                             </div>
                                         </div>
                                     </div>
