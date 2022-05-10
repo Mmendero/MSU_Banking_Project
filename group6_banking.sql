@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2022 at 12:17 AM
+-- Generation Time: May 10, 2022 at 05:26 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -40,8 +40,9 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`acc_number`, `cust_id`, `type`, `balance`, `pending`) VALUES
-(36281224, 942625167, 'Savings', 'pl54Rw==', 'pw=='),
-(72050437, 942625167, 'Checkings', 'pw==', 'pw==');
+(23051063, 587424080, 'Savings', 'pw==', 'pw=='),
+(35258490, 1768939813, 'Savings', 'pw==', 'pw=='),
+(65342558, 587424080, 'Checkings', 'pw==', 'pw==');
 
 -- --------------------------------------------------------
 
@@ -57,6 +58,8 @@ CREATE TABLE `acc_request` (
   `email` varchar(50) NOT NULL,
   `fname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
+  `ssn` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
   `address` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -92,6 +95,8 @@ CREATE TABLE `customer` (
   `email` varchar(50) DEFAULT NULL,
   `fname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
+  `ssn` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
   `address` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -99,8 +104,9 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`ID`, `username`, `password`, `email`, `fname`, `lname`, `address`) VALUES
-(942625167, '+gAoHHPbJnM=', '$2y$10$HraxoWxyBcdRqbciB7SNbeXPREkgO5Ddb48XmZIpcbUB6cMDi0ray', '+gw5Bn/bI3GCP6JBoxfTnZtC0CLUMvKw', '2gw5Bn/bIw==', '2ggjFnLMOw==', 'plx4UkXfLTy0JbRBtAyzvZdR3yefPfnxpSfvxcMWz+Ho');
+INSERT INTO `customer` (`ID`, `username`, `password`, `email`, `fname`, `lname`, `ssn`, `phone`, `address`) VALUES
+(587424080, '+gAoHHPbJnM=', '$2y$10$DN7v7iTEF.oYy1dJd5VfquOPJE68dq8fYyJgDraJYtPvwAdNm.5sy', '+gw5Bn/bI3GCP6JBoxfTnZtC0CLUMvKw', '2gw5Bn/bIw==', '2ggjFnLMOw==', 'rlV6XyGLeSjUY/c=', 'pl9+XySKYTHRZv4d', 'plx4UkXfLTy0JbRBtAyzvZdR3yefPfnxpSfvxcMWz+Ho'),
+(1768939813, '/wghHnjJO26LNQ==', '$2y$10$2/4DCztMlmtReqDBIFnOTexLBSzU5YhvB96cTja1yTgxStX2NEEaq', '/xoiAHvaFHuKMK9I/xv8lw==', '3wghHng=', 'wAI/HnM=', 'pl9+XyOLeSrQaf8=', 'pl9+XyaMZzHWY/UQ', 'pl9+UmTKJnmCJeZpvhbnmZpC0DzWcdOXpVmS1ccS');
 
 -- --------------------------------------------------------
 
@@ -115,6 +121,13 @@ CREATE TABLE `suggestion` (
   `phone` varchar(255) NOT NULL,
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `suggestion`
+--
+
+INSERT INTO `suggestion` (`ID`, `name`, `email`, `phone`, `message`) VALUES
+(5, '0h8kEQ==', '8h8iEXz+M3GGOKoKshf+', 'pl9+RiKIZS7UZQ==', '1AwjUm7RITyKMK1B8Qz7n9ZQ0DqfcfGy6gKFh5ZVi7as');
 
 -- --------------------------------------------------------
 
@@ -133,14 +146,6 @@ CREATE TABLE `transaction` (
   `balance` varchar(255) NOT NULL,
   `date` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transaction`
---
-
-INSERT INTO `transaction` (`ID`, `acc_number`, `type`, `name`, `recipient_name`, `recipient_acc`, `amount`, `balance`, `date`) VALUES
-(97, 36281224, 'Deposit', '9h4pE2Ta', '2gw5Bn/bIw==', 36281224, 'pl9+', 'pl9+', 'pV1/QDqOYDHVYuYU5EKhz8wSij6X'),
-(98, 36281224, 'Deposit', '8x4sFg==', '2gw5Bn/bIw==', 36281224, 'pl9+QA==', 'pl54Rw==', 'pV1/QDqOYDHVYuYU5EKhz8wSgT6X');
 
 --
 -- Indexes for dumped tables
@@ -198,7 +203,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `acc_request`
 --
 ALTER TABLE `acc_request`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957290;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957297;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -216,13 +221,13 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `suggestion`
 --
 ALTER TABLE `suggestion`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
