@@ -14,34 +14,6 @@
 		$result = $db->query($query);
 		$row = $result->fetch_assoc();  
 		$pass = $row['password'];
-		$addr = $row['address'];
-		
-        if (!$user || !$fname || !$lname || !$email) {
-			$_SESSION['registration_failed'] = 'invalid_input';
-			$_SESSION['message'] = 'Registration info was not properly input. Please try again.';
-			header('Location: ../cust_pages/customer_manage.php');
-			return;
-        }
-
-		//gets id and username from current customers
-		$query = 'SELECT * FROM `customer`';
-		$results = $db->query($query);
-		
-		//gets the number of results
-		$num_results = $results->num_rows;
-	  
-		//loops through all current customers
-		for ($i = 0; $i < $num_results; $i++) {
-			$row = $results->fetch_assoc();
-			
-			//compares current usernames with new username    
-			if (openssl_encrypt($user, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) == $row['username']) {
-				//exits program is there is a match
-				$_SESSION['registration_failed'] = 'usertaken';
-				$_SESSION['message'] = 'Username already taken. Please try again.';
-				return;
-			}
-		}
 		
         // Encrypt data before storing.
         $new_user = openssl_encrypt((string)$user, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
@@ -53,21 +25,27 @@
 
 
 
-		//creates update query for db with user info
-		$query = "UPDATE `customer` SET `username` =\"".$new_user."\", `password` =\"".$pass."\", `email` =\"".$new_email."\", `fname` =\"".$new_fname."\", `lname` =\"".$new_lname."\", `ssn` =\"".$new_ssn."\", `phone` =\"".$new_phone."\" WHERE `ID` = \"".$_SESSION['user_id']."\"";
-		$db->query($query);
-		
-        header('Location: ../cust_pages/customer_manage.php');
+		// Creates update query for db with user info
+		$query = "UPDATE `customer` SET `username`='".$new_user."', `password`='".$pass."', `email` ='".$new_email."', `fname` ='".$new_fname."', `lname` ='".$new_lname."', `ssn` ='".$new_ssn."', `phone` ='".$new_phone."' WHERE `ID` = '".$_SESSION['user_id']."'";
+		if ($db->query($query)) {
+			$_SESSION['message'] = 'Account Successfully Editted!';
+			header('Location: ../cust_pages/customer_manage.php');
+			return;
+		}
+		else {
+			$_SESSION['message'] = 'An error has occurred. Please try again.';
+			return;
+		}
+        
     }
     
     function handleModifyAddress($db) {
-    
         $stadd = trim($_POST['stadd']);
 		$city = trim($_POST['city']);
 		$state = trim($_POST['state']);
 		$zip = trim($_POST['zip']);
 		
-			//concatenates address
+		//concatenates address
 		$address = $stadd.' '.$city.', '.$state.' '.$zip;
 		
 		$address = openssl_encrypt($address, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);

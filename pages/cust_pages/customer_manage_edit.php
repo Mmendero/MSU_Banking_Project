@@ -160,9 +160,13 @@ $address = openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['k
                                         <div class="col-md-6 mb-1 pb-2">
                                             <div class="form-group">
                                                 <label class="form-label" for="email">Phone</label>
-                                                <input type="text" name="email" id="text" value="<?php echo $phone; ?>" class="form-control form-control-lg" required />
+                                                <input type="text" name="phone" id="text" value="<?php echo $phone; ?>" class="form-control form-control-lg" required />
                                             </div>
                                         </div>
+
+                                        <!-- Hidden Input -->
+                                        <input type="hidden" name="user" value="<?php echo $user; ?>"/>
+                                        <input type="hidden" name="ssn" value="<?php echo $ssn; ?>"/>
 
                                         <center>
                                             <button type="submit" class="btn btn-primary btn-lg" name="update_submit">
