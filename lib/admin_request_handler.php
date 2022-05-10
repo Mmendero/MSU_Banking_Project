@@ -137,4 +137,18 @@
             $_SESSION['request_error'] = TRUE;
         }
     }
+
+    function removeCustomer($db, $message) {
+        //takes input passed from form and assigns to variables
+        $user_id = $_POST['user_id'];
+
+        $query = "DELETE * FROM `customer` WHERE `ID` = '". $user_id."'";
+        if ($db->query($query) === TRUE) {
+            $_SESSION['message'] = $message;
+            $_SESSION['request_error'] = FALSE;
+        } else {
+            $_SESSION['message'] = "Something Went Wrong :(" . $db->error;
+            $_SESSION['request_error'] = TRUE;
+        }
+    }
 ?>

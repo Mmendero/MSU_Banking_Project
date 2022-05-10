@@ -34,6 +34,9 @@
     $address = openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
     $Pnumber = openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
+    if (isset($_POST["update_submit"])) {
+        handleAccountManage($db);
+    }
 ?>
 
 <html lang="en">
@@ -109,6 +112,13 @@
                             Edit User
                         </div>
                         <div class="card-body">
+                           <!-- Status Message -->
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message'] != "") {
+                                echo "<div class='alert alert-danger alert-dismissible show' role='alert' style='text-align:center'>" . $_SESSION['message'] . "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+                                $_SESSION['message'] = '';
+                            }
+                            ?>
                             <div class="container py-5 h-100">
                                 <div class="row justify-content-center align-items-center h-100">
                                     <div class="col-12 col-lg-9 col-xl-11">
@@ -177,19 +187,20 @@
                                                     </div>
 
                                                     <!-- Row #6 -->
-                                                    <div class="row">
-                                                        <div class="col-md-12 mb-2 pb-2">
-                                                            <div class="col-12">
-                                                                <label for="stadd" class="form-label">Address</label>
-                                                                <input type="text" name="stadd" id="stadd" class="form-control form-control-lg" value="<?php echo $address; ?>" required />
+                                                    <fieldset disabled>
+                                                        <div class="row">
+                                                            <div class="col-md-12 mb-2 pb-2">
+                                                                <div class="col-12">
+                                                                    <label for="stadd" class="form-label">Address</label>
+                                                                    <input type="text" name="stadd" id="stadd" class="form-control form-control-lg" value="<?php echo $address; ?>" required />
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </fieldset>
 
                                                     <center>
-                                                        <button type="submit" class="btn btn-primary btn-lg" name="register_submit">
-                                                            Update
-                                                        </button>
+                                                        <button type="submit" class="btn btn-primary btn-lg" name="update_submit">Update</button>
+                                                        <a class="btn btn-primary btn-lg" href="admin_edit_address.php">Address Edit</a>
                                                     </center>
 
                                                 </form>
