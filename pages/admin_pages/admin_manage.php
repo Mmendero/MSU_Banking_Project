@@ -102,7 +102,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Username</th>
-                    <th>SSN</th>
+                    <!-- <th>SSN</th> -->
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -125,7 +125,7 @@
                       // User Info
                       echo '<td>' . $row['ID'] . '</td>';
                       echo '<td>' . openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
-                      echo '<td>' . openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
+                      // echo '<td>' . openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
@@ -142,7 +142,7 @@
 
                       // Delete Button/Form
                       echo '<td>';
-                      echo '<form action="" method="POST">';
+                      echo '<form action="../../lib/admin_delete.php" method="POST">';
                       echo "<input type='hidden' name='user_id' value='" . $row['ID'] . "'>";
                       echo '<button name="delete_user" class="btn btn-danger">';
                       echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">';

@@ -114,7 +114,7 @@
                                     <div class="col-12 col-lg-9 col-xl-11">
                                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                                             <div class="card-body p-4 p-md-5">
-                                                <form action="" method="post">
+                                                <form action="../../lib/admin_update.php" method="post">
                                                     <!-- Row #2 -->
                                                     <fieldset disabled>
                                                         <div class="row">
@@ -128,7 +128,7 @@
                                                             <div class="col-md-6 mb-1">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="ssn">Social Security Number</label>
-                                                                    <input type="text" name="ssn" id="ssn" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" placeholder="123-45-6789" value="<?php echo $ssn; ?>"required />
+                                                                    <input type="password" name="ssn" id="ssn" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" placeholder="123-45-6789" value="<?php echo $ssn; ?>"required />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -171,7 +171,7 @@
                                                         <div class="col-md-6 mb-1 pb-2">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="phone">Phone Number</label>
-                                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
+                                                                <input type="tel" name="phone" id="phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" value="<?php echo $Pnumber; ?>" required />
                                                             </div>
                                                         </div>
                                                     </div>
