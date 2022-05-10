@@ -34,7 +34,6 @@
         $new_balance = openssl_encrypt((string)($balance - $amount), $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $acc_amount = openssl_encrypt((string)$amount, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $desc = openssl_encrypt($desc, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
-        $date = openssl_encrypt($date, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
         // Update Account Balance.
         $query = "UPDATE `account` SET `balance` = \"".$new_balance."\" WHERE `acc_number` = \"".$acc_num."\"";
@@ -80,7 +79,6 @@
         $new_balance = openssl_encrypt((string)($balance + $amount), $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $acc_amount = openssl_encrypt((string)$amount, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $desc = openssl_encrypt($desc, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
-        $date = openssl_encrypt($date, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         
         // Update Account Balance.
         $query = "UPDATE `account` SET `balance`=\"".$new_balance."\" WHERE `acc_number`=\"".$acc_num."\"";

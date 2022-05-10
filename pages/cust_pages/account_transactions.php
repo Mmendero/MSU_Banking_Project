@@ -126,7 +126,7 @@
         $filter = "all";
       }
 
-      $query = "SELECT * FROM `account` WHERE `acc_number` = \"".$acc_num."\"";
+      $query = "SELECT * FROM `account` WHERE `acc_number` = '".$acc_num."'";
       $acc = $db->query($query)->fetch_assoc();
     ?>
 
@@ -231,8 +231,6 @@
               <?php
                 // Set the date limit depending on
                 // chosen filter.
-                $query = "SELECT * FROM `transaction` WHERE `acc_number` = \"".$acc_num."\" ORDER BY `date` ASC";
-                $result = $db->query($query);
                 $account_total = 0;
 
                 $year_limit = strtotime("-1 year", strtotime("now"));
@@ -246,6 +244,8 @@
                 
                 // Build Table of Transactions.
                 echo '<tbody>';
+                $query = "SELECT * FROM `transaction` WHERE `acc_number` = '".$acc_num."' ORDER BY `date` DESC";
+                $result = $db->query($query);
                 if ($result->num_rows > 0) {
                   while ($row = $result->fetch_assoc()){
                     // Decrypt Transaction Data.
@@ -253,34 +253,22 @@
                     $balance = (float)(openssl_decrypt($row['balance'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
                     $amount = (float)(openssl_decrypt($row['amount'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']));
                     $desc = openssl_decrypt($row['name'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
-                    $date = openssl_decrypt($row['date'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
+                    $date = $row['date'];
 
-                    // If transaction's date exceeds filter, 
-                    // prevent transactions from showing.
-                    if (strtotime($date) < $date_limit){
-
-                      // If transaction exceeds a year, remove record.
-                      if (strtotime($date) < $year_limit){
-                        $query = "DELETE FROM `transaction` WHERE `ID`=".$trans_id;
-                        $result = $db->query($query);
-                      }
+                    // Font Color Condition.
+                    $font_color = "text-success";
+                    if ($row['type'] == "Withdraw"){
+                      $font_color = "text-danger";
                     }
-                    else{
-                      // Font Color Condition.
-                      $font_color = "text-success";
-                      if ($row['type'] == "Withdraw"){
-                        $font_color = "text-danger";
-                      }
 
-                      // Print Rows.
-                      echo '<tr>';
-                      echo '<td class="col-md-2">'.date("m-d-Y",strtotime($date)).'</td>';
-                      echo '<td class="col-md-2">'.$row['type'].'</td>';
-                      echo '<td class="col-md-4">'.$desc.'</td>';
-                      echo '<td class="col-md-2 '.$font_color.'">$'.number_format($amount, 2).'</td>';
-                      echo '<td class="col-md-2 text-info font-weight-bold">$'.number_format($balance, 2).'</td>';
-                      echo '</tr>';
-                    }
+                    // Print Rows.
+                    echo '<tr>';
+                    echo '<td class="col-md-2">'.date("m-d-Y",strtotime($date)).'</td>';
+                    echo '<td class="col-md-2">'.$row['type'].'</td>';
+                    echo '<td class="col-md-4">'.$desc.'</td>';
+                    echo '<td class="col-md-2 '.$font_color.'">$'.number_format($amount, 2).'</td>';
+                    echo '<td class="col-md-2 text-info font-weight-bold">$'.number_format($balance, 2).'</td>';
+                    echo '</tr>';
                   }
                 }else{
                   echo '<tr>';

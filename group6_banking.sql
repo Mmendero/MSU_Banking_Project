@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2022 at 05:26 PM
+-- Generation Time: May 10, 2022 at 06:37 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -40,7 +40,7 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`acc_number`, `cust_id`, `type`, `balance`, `pending`) VALUES
-(23051063, 587424080, 'Savings', 'pw==', 'pw=='),
+(23051063, 587424080, 'Savings', 'pl15Rg==', 'pw=='),
 (35258490, 1768939813, 'Savings', 'pw==', 'pw=='),
 (65342558, 587424080, 'Checkings', 'pw==', 'pw==');
 
@@ -105,7 +105,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`ID`, `username`, `password`, `email`, `fname`, `lname`, `ssn`, `phone`, `address`) VALUES
-(587424080, '+gAoHHPbJnM=', '$2y$10$DN7v7iTEF.oYy1dJd5VfquOPJE68dq8fYyJgDraJYtPvwAdNm.5sy', '+gw5Bn/bI3GCP6JBoxfTnZtC0CLUMvKw', '2gw5Bn/bIw==', '2ggjFnLMOw==', 'rlV6XyGLeSjUY/c=', 'pl9+XySKYTHRZv4d', 'plx4UkXfLTy0JbRBtAyzvZdR3yefPfnxpSfvxcMWz+Ho'),
+(587424080, '+gAoHHPbJnM=', '$2y$10$DN7v7iTEF.oYy1dJd5VfquOPJE68dq8fYyJgDraJYtPvwAdNm.5sy', '+gw5Bn/bI3GCP6JBoxfTnZtC0CLUMvKw', '2gw5Bn/bIw==', '2ggjFnLMOw==', 'rlV6XyGLeSjUY/c=', 'pl9+XySKYTHRZv4c', 'pl9+UlDfJnqONKpA/VjUu9YTjn7IZw=='),
 (1768939813, '/wghHnjJO26LNQ==', '$2y$10$2/4DCztMlmtReqDBIFnOTexLBSzU5YhvB96cTja1yTgxStX2NEEaq', '/xoiAHvaFHuKMK9I/xv8lw==', '3wghHng=', 'wAI/HnM=', 'pl9+XyOLeSrQaf8=', 'pl9+XyaMZzHWY/UQ', 'pl9+UmTKJnmCJeZpvhbnmZpC0DzWcdOXpVmS1ccS');
 
 -- --------------------------------------------------------
@@ -144,8 +144,19 @@ CREATE TABLE `transaction` (
   `recipient_acc` int(50) NOT NULL,
   `amount` varchar(255) NOT NULL,
   `balance` varchar(255) NOT NULL,
-  `date` varchar(100) NOT NULL
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`ID`, `acc_number`, `type`, `name`, `recipient_name`, `recipient_acc`, `amount`, `balance`, `date`) VALUES
+(122, 23051063, 'Deposit', '7w==', '2gw5Bn/bIw==', 23051063, 'ol19', 'ol19', '2022-05-10 00:00:00'),
+(123, 23051063, 'Withdraw', '7Q==', '2gw5Bn/bIw==', 23051063, 'ol19', 'pw==', '2022-05-10 12:34:37'),
+(124, 23051063, 'Deposit', '7w==', '2gw5Bn/bIw==', 23051063, 'ol19', 'ol19', '2022-05-10 12:34:56'),
+(125, 23051063, 'Deposit', '5A==', '2gw5Bn/bIw==', 23051063, 'oV19', 'plx9Qg==', '2022-05-10 12:35:02'),
+(126, 23051063, 'Withdraw', '5A==', '2gw5Bn/bIw==', 23051063, 'ols=', 'pl15Rg==', '2022-05-10 12:35:07');
 
 --
 -- Indexes for dumped tables
@@ -227,7 +238,7 @@ ALTER TABLE `suggestion`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
