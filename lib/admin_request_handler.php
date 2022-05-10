@@ -142,7 +142,7 @@
         //takes input passed from form and assigns to variables
         $user_id = $_POST['user_id'];
 
-        $query = "DELETE * FROM `customer` WHERE `ID` = '". $user_id."'";
+        $query = "DELETE FROM `customer` WHERE `ID` = '". $user_id."'";
         if ($db->query($query) === TRUE) {
             $_SESSION['message'] = $message;
             $_SESSION['request_error'] = FALSE;
