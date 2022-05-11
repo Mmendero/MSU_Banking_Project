@@ -38,8 +38,8 @@
     $address = openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
     $Pnumber = openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
-    if (isset($_POST["update_submit"])) {
-        handleAccountManage($db);
+    if (isset($_POST["admin_edit_user"])) {
+        handleAdminAccountManage($db);
     }
 ?>
 
