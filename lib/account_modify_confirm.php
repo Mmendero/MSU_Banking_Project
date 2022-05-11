@@ -3,7 +3,6 @@
     include "../../config.php";
     
     function handleAccountManage($db) {
-        $user = $_POST['user'];
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
         $email = $_POST['email'];
@@ -13,20 +12,16 @@
         $query = "SELECT * FROM `customer` WHERE `ID` = \"".$_SESSION['user_id']."\"";
 		$result = $db->query($query);
 		$row = $result->fetch_assoc();  
-		$pass = $row['password'];
 		
         // Encrypt data before storing.
-        $new_user = openssl_encrypt((string)$user, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $new_fname = openssl_encrypt((string)$fname, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $new_lname = openssl_encrypt((string)$lname, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
         $new_email = openssl_encrypt((string)$email, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 		$new_ssn = openssl_encrypt((string)$ssn, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 		$new_phone = openssl_encrypt((string)$phone, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
-
-
 		// Creates update query for db with user info
-		$query = "UPDATE `customer` SET `username`='".$new_user."', `password`='".$pass."', `email` ='".$new_email."', `fname` ='".$new_fname."', `lname` ='".$new_lname."', `ssn` ='".$new_ssn."', `phone` ='".$new_phone."' WHERE `ID` = '".$_SESSION['user_id']."'";
+		$query = "UPDATE `customer` SET `email` ='".$new_email."', `fname` ='".$new_fname."', `lname` ='".$new_lname."', `ssn` ='".$new_ssn."', `phone` ='".$new_phone."' WHERE `ID` = '".$_SESSION['user_id']."'";
 		if ($db->query($query)) {
 			$_SESSION['message'] = 'Account Successfully Editted!';
 			header('Location: ../cust_pages/customer_manage.php');

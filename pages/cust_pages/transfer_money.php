@@ -130,7 +130,7 @@
 
                     <div class="form-group p-2">
                       <label for="amount">Recipient Account Number</label>
-                      <input type="number" class="form-control" placeholder="" name="desc" required />
+                      <input type="number" class="form-control" placeholder="" name="recipient_acc" required />
                     </div>
 
                     <div class="form-group p-2">
@@ -145,7 +145,7 @@
                 </div>
 
                 <div class="button-container">
-                <button type="submit" class="btn btn-primary" name="">
+                <button type="submit" class="btn btn-primary" name="transfer_money">
                 Transfer
                 </button>
                 </div>

@@ -1,5 +1,5 @@
 <?php
-    include '../../config.php';
+    include "../../lib/admin_update.php";
 
     // Logout Function
     if (isset($_POST["logout"])) {
@@ -11,6 +11,10 @@
     if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
         $_SESSION['loggedin'] = false;
         header('Location: ../admin_pages/admin_signin.php');
+    }
+
+    if (isset($_POST["admin_edit_user"])) {
+        handleAdminAccountManage($db);
     }
 
     // Retrieve Selected User.
@@ -114,7 +118,7 @@
                                     <div class="col-12 col-lg-9 col-xl-11">
                                         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                                             <div class="card-body p-4 p-md-5">
-                                                <form action="../../lib/admin_update.php" method="post">
+                                                <form action="" method="post">
                                                     <!-- Row #2 -->
                                                     <fieldset disabled>
                                                         <div class="row">
@@ -133,16 +137,6 @@
                                                             </div>
                                                         </div>
                                                     </fieldset>
-
-                                                    <!-- Row #3 -->
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-3">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="pass">Password</label>
-                                                                <input type="password" name="pass" id="pass" class="form-control form-control-lg" value="<?php echo $password; ?>" required />
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
                                                     <!-- Row #4 -->
                                                     <div class="row">
@@ -187,7 +181,7 @@
                                                     </div>
 
                                                     <center>
-                                                        <button type="submit" class="btn btn-primary btn-lg" name="register_submit">
+                                                        <button type="submit" class="btn btn-primary btn-lg" name="admin_edit_user">
                                                             Update
                                                         </button>
                                                     </center>
