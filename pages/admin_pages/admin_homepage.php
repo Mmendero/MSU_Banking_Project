@@ -94,7 +94,7 @@
                                       <tr>
                                           <th>ID</th>
                                           <th>Username</th>
-                                          <th>SSN</th>
+                                          <!-- <th>SSN</th> -->
                                           <th>First Name</th>
                                           <th>Last Name</th>
                                           <th>Email</th>
@@ -113,7 +113,7 @@
                                           echo '<tr>';
                                           echo '<td>'.$row['ID'].'</td>';
                                           echo '<td>'.openssl_decrypt($row['username'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
-                                          echo '<td>'.openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
+                                          // echo '<td>'.openssl_decrypt($row['ssn'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                           echo '<td>'.openssl_decrypt($row['fname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                           echo '<td>'.openssl_decrypt($row['lname'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';
                                           echo '<td>'.openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']).'</td>';

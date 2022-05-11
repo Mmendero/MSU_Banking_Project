@@ -1,25 +1,27 @@
 <?php
-  include '../../config.php';
+include "../../lib/admin_request_handler.php";
 
-  // Logout Function
-  if (isset($_POST["logout"])) {
-    $_SESSION['loggedin'] == false;
-    header('Location: ../admin_pages/admin_signin.php');
-  }
+// Logout Function
+if (isset($_POST["logout"])) {
+  $_SESSION['loggedin'] = false;
+  header('Location: ../admin_pages/admin_signin.php');
+}
 
-  // Validate Admin Login.
-  if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
-    $_SESSION['loggedin'] = false;
-    header('Location: ../admin_pages/admin_signin.php');
-  }
+// Validate Admin Login.
+if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == false) || !$_SESSION['admin']) {
+  $_SESSION['loggedin'] = false;
+  header('Location: ../admin_pages/admin_signin.php');
+}
 
-  // Handle Edit Request.
-  if (isset($_POST["edit_user"])) {
-  }
+// Handle Edit Request.
+if (isset($_POST["edit_user"])) {
+}
 
-  // Handle Deletion Request.
-  if (isset($_POST["delete_user"])) {
-  }
+// Handle Deletion Request.
+if (isset($_POST["remove_customer"])) {
+  removeCustomer($db, "Customer Account Deleted");
+}
+
 ?>
 
 <html lang="en">
@@ -94,10 +96,10 @@
               <i class="fas fa-table me-1"></i>
               All Users
             </div>
-            
+
             <div class="card-body">
               <!-- USERS TABLE -->
-              <table id="datatablesSimple">              
+              <table id="datatablesSimple">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -114,6 +116,18 @@
                 </thead>
                 <tbody>
                   <?php
+                  // Display status message if there is one.
+                  if (isset($_SESSION['message']) && $_SESSION['message'] != "") {
+                    if (isset($_SESSION['request_error']) && $_SESSION['request_error'] == FALSE) {
+                      $message_status = "info";
+                    } else {
+                      $message_status = "danger";
+                      $_SESSION['request_error'] = FALSE;
+                    }
+                    echo "<div class='alert alert-" . $message_status . " alert-dismissible fade show' role='alert' style='text-align:center'>" . $_SESSION['message'] . "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
+                    $_SESSION['message'] = '';
+                  }
+
                   $query = "SELECT * FROM `customer`";
                   $result = $db->query($query);
 
@@ -131,7 +145,7 @@
                       echo '<td>' . openssl_decrypt($row['email'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['phone'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
                       echo '<td>' . openssl_decrypt($row['address'], $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']) . '</td>';
-                      
+
                       // Edit Button/Form
                       echo '<td>';
                       echo '<form action="admin_edit.php" method="POST">';
@@ -142,9 +156,9 @@
 
                       // Delete Button/Form
                       echo '<td>';
-                      echo '<form action="../../lib/admin_delete.php" method="POST">';
+                      echo '<form action="" method="POST">';
                       echo "<input type='hidden' name='user_id' value='" . $row['ID'] . "'>";
-                      echo '<button name="delete_user" class="btn btn-danger">';
+                      echo '<button name="remove_customer" class="btn btn-danger">';
                       echo '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">';
                       echo '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>';
                       echo '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>';
