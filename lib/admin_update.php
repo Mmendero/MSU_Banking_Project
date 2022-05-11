@@ -10,7 +10,7 @@
 		$ssn = $_POST['ssn'];
 		$phone = $_POST['phone'];
 		
-		$query = "SELECT * FROM `customer` WHERE `ID` = '".$ID."'";
+		$query = "SELECT * FROM `customer` WHERE `ID` = '".$id."'";
 		$result = $db->query($query);
 		$row = $result->fetch_assoc();  
 
