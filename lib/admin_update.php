@@ -3,7 +3,7 @@
     include "../../config.php";
     
     function handleAdminAccountManage($db) {
-		$ID = $_POST['user_id'];
+		$id = $_POST['id'];
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
         $email = $_POST['email'];
@@ -22,7 +22,7 @@
 		$new_phone = openssl_encrypt((string)$phone, $_SESSION['ciphering'], $_SESSION['key'], $_SESSION['options'], $_SESSION['encryption_iv']);
 
 		// Creates update query for db with user info
-		$query = "UPDATE `customer` SET `email` ='".$new_email."', `fname` ='".$new_fname."', `lname` ='".$new_lname."', `ssn` ='".$new_ssn."', `phone` ='".$new_phone."' WHERE `ID` = '".$ID."'";
+		$query = "UPDATE `customer` SET `email` ='".$new_email."', `fname` ='".$new_fname."', `lname` ='".$new_lname."', `ssn` ='".$new_ssn."', `phone` ='".$new_phone."' WHERE `ID` = '".$id."'";
 		if ($db->query($query)) {
 			$_SESSION['message'] = 'Account Successfully Editted!';
 			header('Location: ../admin_pages/admin_manage.php');

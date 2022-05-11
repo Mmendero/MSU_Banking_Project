@@ -192,6 +192,8 @@
                                                         </div>
                                                     </fieldset>
 
+                                                    <input type="hidden" name="id"value="<?php echo $ID; ?>" />
+
                                                     <center>
                                                         <button type="submit" class="btn btn-primary btn-lg" name="admin_edit_user">
                                                             Update
