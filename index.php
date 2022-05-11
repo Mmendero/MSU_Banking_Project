@@ -231,7 +231,7 @@
                             <div class="row">
                               <div class="form-group p-1">
                                 <label class="form-label" for="pass">Phone</label>
-                                <input type="tel" name="phone" id="pass" class="form-control " required/>
+                                <input type="tel" name="phone" id="pass" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex. 123-456-7890" required/>
                               </div>
                             </div>
 
